@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Files and folders from backend
+firebase_cred.json
+subscriber.json
+.venv
+__pycahce__
