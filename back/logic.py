@@ -1,9 +1,18 @@
+import json
 from datetime import datetime
-from database import data
-from collections import namedtuple
 
-            
-def get_simplified_user(user_obj: dict):
+def rearrange_name(name: str) -> str:
+    if "," in name:
+        last, first = name.split(",")
+        return first.strip() + " " + last.strip()
+    else:
+        return name
+
+def get_simplified_user():
+    file_name = "subscriber.json"
+
+    with open(file_name, "r") as file:
+        user_obj = json.load(file)
 
     now = datetime.now()
     day = now.strftime("%A")
@@ -24,4 +33,4 @@ def get_simplified_user(user_obj: dict):
     if(_should_send_mail()):
         return {"first_name": user_obj["first_name"], "category": _get_category()}
 
-print(get_simplified_user(data))
+#print(get_simplified_user())

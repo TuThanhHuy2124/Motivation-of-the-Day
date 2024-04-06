@@ -27,4 +27,4 @@ dist-ssr
 firebase_cred.json
 subscriber.json
 .venv
-__pycahce__
+__pycache__
