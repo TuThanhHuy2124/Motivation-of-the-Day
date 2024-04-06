@@ -18,9 +18,9 @@ function App() {
           const time_obj = {}
           const [hour] = times.filter(time => time.id === (day + "-" + index) && time.className === "hour")
           const [minute] = times.filter(time => time.id === (day + "-" + index) && time.className === "minute")
-          console.log(hour, minute)
+          
           if(hour === undefined || minute === undefined) {break}
-          else if(hour === "" || minute == "") {continue}
+          else if(hour.value === "" || minute.value == "") {console.log("continue");  index++; continue;}
           else {
             time_obj["time"] = hour.value + ":" + minute.value;
             time_obj["category"] = categories
