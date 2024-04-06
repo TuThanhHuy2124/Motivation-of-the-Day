@@ -1,5 +1,29 @@
 import json
+from collections import namedtuple
 from datetime import datetime
+
+User = namedtuple("User", ["first_name", "last_name", "email", "confirmed", "date", "days", "day_times"])
+
+def to_dict(user: User) -> dict:
+    result = {
+        "first_name": user.first_name,
+        "last_name": user.last_name,
+        "email": user.email,
+        "confirmed": user.confirmed,
+        "date": user.date,
+        "days": user.days,
+        "day_times": user.day_times
+    }
+
+    return result
+
+def get_users():
+    file_name = "data/subscribers.json"
+
+    with open(file_name, "r") as file:
+        user_obj = json.load(file)
+
+    return user_obj
 
 def rearrange_name(name: str) -> str:
     if "," in name:
@@ -8,12 +32,8 @@ def rearrange_name(name: str) -> str:
     else:
         return name
 
-def get_simplified_user():
-    file_name = "subscriber.json"
-
-    with open(file_name, "r") as file:
-        user_obj = json.load(file)
-
+def get_simplified_user(user_obj: dict):
+    #print(user_obj)
     now = datetime.now()
     day = now.strftime("%A")
     time = now.strftime("%H:%M")
@@ -31,6 +51,6 @@ def get_simplified_user():
                 return time_obj["category"]
 
     if(_should_send_mail()):
-        return {"first_name": user_obj["first_name"], "category": _get_category()}
+        return {"first_name": user_obj["first_name"], "category": _get_category(), "email": user_obj["email"]}
 
 #print(get_simplified_user())

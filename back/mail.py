@@ -1,10 +1,10 @@
 import smtplib
 import time
 from email.message import EmailMessage
-from logic import get_simplified_user, rearrange_name
+from logic import get_simplified_user, rearrange_name, get_users
 from api import get_quote_obj
 
-def send_email(receiver_email, simplified_user):
+def send_email(simplified_user):
     [quote_obj] = get_quote_obj(simplified_user["category"])
     print(quote_obj)
     content = f"Hello, {simplified_user["first_name"]}\n"\
@@ -16,7 +16,7 @@ def send_email(receiver_email, simplified_user):
 
     sender = 'motivation.of.the.day.2124@gmail.com' 
     password = 'lewd ijxv aozh hvex'
-    receiver = receiver_email
+    receiver = simplified_user["email"]
 
     msg['Subject'] = f'Quote Of The Day'
     msg['From'] = "Motivation Of The Day"
@@ -40,9 +40,10 @@ def send_email(receiver_email, simplified_user):
     smtp_server.quit()
 
 def run():
-    simplified_user = get_simplified_user()
-    if(simplified_user is not None):
-        send_email("thanhhuy21112004@gmail.com", simplified_user)
+    for user in get_users():
+        simplified_user = get_simplified_user(user)
+        if(simplified_user is not None):
+            send_email(simplified_user)
 
 if __name__ == "__main__":
     while True:

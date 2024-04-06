@@ -25,6 +25,6 @@ dist-ssr
 
 # Files and folders from backend
 firebase_cred.json
-subscriber.json
+subscribers.json
 .venv
 __pycache__
