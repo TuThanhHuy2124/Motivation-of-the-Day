@@ -1,6 +1,6 @@
 import firebase_admin
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 from firebase_admin import credentials, db
 from logic import User, to_dict
 
@@ -32,11 +32,11 @@ the_user_one =  User(first_name="Thanh Huy",
                 days=["Friday", "Saturday"],
                 day_times={
                     "Friday": [{
-                        "time": "23:59",
+                        "time": (datetime.now() + timedelta(minutes=1)).strftime("%H:%M"),
                         "category": ["success"]
                     }],
                     "Saturday": [{
-                        "time": "00:17",
+                        "time": (datetime.now() + timedelta(minutes=2)).strftime("%H:%M"),
                         "category": ["success"]
                     }]
                 })
@@ -51,46 +51,49 @@ the_user_two =  User(first_name="Thanh Huy",
                     "Friday": [
                         {
                             "category": ["success"], 
-                            "time": "23:17"
+                            "time": (datetime.now() + timedelta(minutes=1)).strftime("%H:%M")
                         }, 
                         {
                             "category": ["fitness"], 
-                            "time": "23:18"
+                            "time": (datetime.now() + timedelta(minutes=2)).strftime("%H:%M")
                         }, 
                         {
                             "category": ["happiness"], 
-                            "time": "23:19"
+                            "time": (datetime.now() + timedelta(minutes=3)).strftime("%H:%M")
                         }], 
                     "Monday": [
                         {
                             "category": ["success"], 
-                            "time": "18:00"
+                            "time": (datetime.now() + timedelta(minutes=1)).strftime("%H:%M")
                         }], 
                     "Saturday": [
                         {
                             "category": ["success"], 
-                            "time": "00:11"
+                            "time": (datetime.now() + timedelta(minutes=1)).strftime("%H:%M")
                         }], 
                     "Sunday": [
                         {
                             "category": ["success"], 
-                            "time": "18:00"
+                            "time": (datetime.now() + timedelta(minutes=1)).strftime("%H:%M")
                         }], 
                     "Thursday": [
                         {
                             "category": ["success"],
-                              "time": "18:00"
+                              "time": (datetime.now() + timedelta(minutes=1)).strftime("%H:%M")
                         }], 
                     "Tuesday": [
                         {
                             "category": ["success"], 
-                            "time": "18:00"
+                            "time": (datetime.now() + timedelta(minutes=1)).strftime("%H:%M")
                         }], 
                     "Wednesday": [
                         {
                             "category": ["success"], 
-                            "time": "18:00"
+                            "time": (datetime.now() + timedelta(minutes=1)).strftime("%H:%M")
                         }]})
+
+print(the_user_one)
+print(the_user_two)
 
 #push_user(the_user_one)
 #push_user(the_user_two)
