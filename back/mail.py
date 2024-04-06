@@ -46,6 +46,7 @@ def run():
             send_email(simplified_user)
 
 if __name__ == "__main__":
+    print("mail.py is running")
     while True:
         run()
         time.sleep(60)

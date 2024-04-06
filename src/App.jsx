@@ -1,39 +1,39 @@
-import { useState } from 'react'
 import './App.css'
 import CategoryDropDown from './components/CategoryDropDown'
 import InfoInput from './components/InfoInput'
 import DayTimeInput from './components/DayTimeInput'
 
-
-
 function App() {
     const constructDayTimes = (days, times, categories) => {
-    const day_times = {}
-    for(const day of days) {
-
-      day_times[day] = []
-      var index = 0;
-
-      while(true) {
-
-        const time_obj = {}
-        const [hour] = times.filter(time => time.id === (day + "-" + index) && time.className === "hour")
-        const [minute] = times.filter(time => time.id === (day + "-" + index) && time.className === "minute")
       
-        if(hour === undefined || minute === undefined) {break}
-        else {
-          time_obj["time"] = hour.value + ":" + minute.value;
-          time_obj["category"] = categories
+      const day_times = {}
+      for(const day of days) {
+
+        day_times[day] = []
+        var index = 0;
+
+        // eslint-disable-next-line no-constant-condition
+        while(true) {
+
+          const time_obj = {}
+          const [hour] = times.filter(time => time.id === (day + "-" + index) && time.className === "hour")
+          const [minute] = times.filter(time => time.id === (day + "-" + index) && time.className === "minute")
+          console.log(hour, minute)
+          if(hour === undefined || minute === undefined) {break}
+          else if(hour === "" || minute == "") {continue}
+          else {
+            time_obj["time"] = hour.value + ":" + minute.value;
+            time_obj["category"] = categories
+          }
+
+
+          day_times[day].push(time_obj)
+          
+          index++;
         }
-
-        day_times[day].push(time_obj)
-        
-        index++;
-
       }
-    }
 
-    return day_times
+      return day_times
   }
 
   const addUser = (e) => {
@@ -70,7 +70,16 @@ function App() {
       confirmed: false,
       date: date
     }
+
     console.log(user)
+    
+    fetch("/adduser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user)
+    })
   }
 
   return (

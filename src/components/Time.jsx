@@ -1,3 +1,4 @@
+// eslint-disable-next-line react/prop-types
 function Time ({name, index}) {
 
     return (

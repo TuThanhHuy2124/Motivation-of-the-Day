@@ -1,6 +1,7 @@
 import { useState } from "react"
 import Time from "./Time"
 
+// eslint-disable-next-line react/prop-types
 function TimeDropDown ({name}) {
     const [inputCounter, setInputCounter] = useState(1)
 
