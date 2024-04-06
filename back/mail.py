@@ -1,16 +1,16 @@
 import smtplib
 from email.message import EmailMessage
 
-def send_email(receiver_email, content="file.txt"):
-    with open(content) as f:
-        msg = EmailMessage()
-        msg.set_content(f.read())
+def send_email(receiver_email):
+    
+    msg = EmailMessage()
+    msg.set_content(content)
 
     sender = 'motivation.of.the.day.2124@gmail.com' 
     password = 'lewd ijxv aozh hvex'
     receiver = receiver_email
 
-    msg['Subject'] = f'The contents of {content}'
+    msg['Subject'] = f'The contents of {file_name}'
     msg['From'] = "Motivation Of The Day"
     msg['To'] = receiver
 

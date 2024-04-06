@@ -12,6 +12,4 @@ ref = db.reference("/subscribers")
 with open("subscriber.json", "r") as file:
     data = json.load(file)
 
-ref.push(data)
-print(ref)
-print(ref.get())
+#ref.push(data)
