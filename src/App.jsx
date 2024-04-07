@@ -4,6 +4,16 @@ import InfoInput from './components/InfoInput'
 import DayTimeInput from './components/DayTimeInput'
 
 function App() {
+
+    const is_valid = (first_name, last_name, email, categories, day_times) => {
+      console.log()
+      return (first_name !== "") &&
+             (last_name !== "") &&
+             (email !== "") &&
+             (categories !== undefined) &&
+             (Object.keys(day_times).length !== 0)
+    }
+
     const constructDayTimes = (days, times, categories) => {
       
       const day_times = {}
@@ -20,17 +30,18 @@ function App() {
           const [minute] = times.filter(time => time.id === (day + "-" + index) && time.className === "minute")
           
           if(hour === undefined || minute === undefined) {break}
-          else if(hour.value === "" || minute.value == "") {console.log("continue");  index++; continue;}
+          else if(hour.value === "" || minute.value == "") {index++; continue;}
           else {
             time_obj["time"] = hour.value + ":" + minute.value;
             time_obj["category"] = categories
           }
 
-
           day_times[day].push(time_obj)
           
           index++;
         }
+
+        if(day_times[day].length === 0) {delete day_times[day]}
       }
 
       return day_times
@@ -38,6 +49,7 @@ function App() {
 
   const addUser = (e) => {
     e.preventDefault()
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     const form = e.target.form;
     const elements = form.elements;
     const elements_array = Array(...elements);
@@ -47,11 +59,7 @@ function App() {
     const email = elements["email"].value;
     const categories = elements_array.filter(element => (element.className === "category" && element.checked === true))
                                      .map(elements => elements.id);
-    const days = elements_array.filter(element => (element.className === "day" && element.checked === true))
-                               .map(elements => elements.id);
-                               
-    var times = [];
-    days.forEach((day) => {times.push(...(elements_array.filter(element => element.id.includes(day + "-"))))})
+    const times = elements_array.filter(element => element.className === "hour" || element.className === "minute")
     const day_times = constructDayTimes(days, times, categories)
 
     const date_obj = new Date()
@@ -59,27 +67,25 @@ function App() {
     const month = String(date_obj.getMonth() + 1).padStart(2, "0");
     const year = String(date_obj.getFullYear());
     const date = `${year}-${month}-${day}`
-
-    console.log(first_name, last_name, email, categories, days, day_times)
-    const user = {
-      first_name: first_name,
-      last_name: last_name,
-      email: email,
-      days: days,
-      day_times: day_times,
-      confirmed: false,
-      date: date
-    }
-
-    console.log(user)
     
-    fetch("/adduser", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user)
-    })
+    console.log(first_name, last_name, email, categories, day_times)
+
+    if(is_valid(first_name, last_name, email, categories, day_times)) {
+      fetch("/adduser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          first_name: first_name,
+          last_name: last_name,
+          email: email,
+          day_times: day_times,
+          confirmed: false,
+          date: date
+        })
+      })
+    } else console.log("prevented")
   }
 
   return (

@@ -3,7 +3,6 @@ import json
 from datetime import datetime, timedelta
 from firebase_admin import credentials, db
 
-
 databaseURL = "https://motivation-of-the-day-default-rtdb.firebaseio.com/"
 cred = credentials.Certificate("data/firebase_cred.json")
 firebase_admin.initialize_app(cred, {'databaseURL': databaseURL})

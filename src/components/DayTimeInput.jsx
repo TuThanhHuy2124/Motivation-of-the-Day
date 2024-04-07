@@ -7,9 +7,8 @@ function DayTimeInput () {
         <div className="dayTimesInput">
             {days.map((day, index) => {
                 return (
-                    <div key={index}>
-                        <input name={day} id={day} className="day" type="checkbox"></input>
-                        <label htmlFor={day}>{day}</label><br/>
+                    <div className="day" key={index}>
+                        <p className={day}>{day}</p>
                         <TimeDropDown name={day} />
                     </div>
                 )

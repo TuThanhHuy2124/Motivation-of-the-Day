@@ -10,7 +10,6 @@ def add_user():
         return "User Pushed", 200
     except:
         return "Cannot Push To Server", 500
-        
 
 if __name__ == "__main__":
     app.run(ssl_context="adhoc", debug=True)

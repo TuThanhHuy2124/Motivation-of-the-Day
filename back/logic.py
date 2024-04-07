@@ -27,7 +27,7 @@ def get_simplified_user(user_obj: dict):
         time_list = user_obj["day_times"][day]
         is_time = True in [(time == time_obj["time"]) for time_obj in time_list]
 
-        return (day in user_obj["days"]) and (is_time)
+        return (day in user_obj["day_times"].keys()) and (is_time)
     
     def _get_category():
         time_objs = user_obj["day_times"][day]
