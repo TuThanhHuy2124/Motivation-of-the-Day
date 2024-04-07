@@ -4,7 +4,8 @@ import InfoInput from './components/InfoInput'
 import DayTimeInput from './components/DayTimeInput'
 
 function App() {
-
+    const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    
     const is_valid = (first_name, last_name, email, categories, day_times) => {
       console.log()
       return (first_name !== "") &&
@@ -14,13 +15,13 @@ function App() {
              (Object.keys(day_times).length !== 0)
     }
 
-    const constructDayTimes = (days, times, categories) => {
+    const constructDayTimes = (times, categories) => {
       
       const day_times = {}
-      for(const day of days) {
+      for(const day of DAYS) {
 
         day_times[day] = []
-        var index = 0;
+        var index = 0
 
         // eslint-disable-next-line no-constant-condition
         while(true) {
@@ -32,13 +33,12 @@ function App() {
           if(hour === undefined || minute === undefined) {break}
           else if(hour.value === "" || minute.value == "") {index++; continue;}
           else {
-            time_obj["time"] = hour.value + ":" + minute.value;
+            time_obj["time"] = hour.value + ":" + minute.value
             time_obj["category"] = categories
           }
 
           day_times[day].push(time_obj)
-          
-          index++;
+          index++
         }
 
         if(day_times[day].length === 0) {delete day_times[day]}
@@ -49,7 +49,7 @@ function App() {
 
   const addUser = (e) => {
     e.preventDefault()
-    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    
     const form = e.target.form;
     const elements = form.elements;
     const elements_array = Array(...elements);
@@ -60,7 +60,7 @@ function App() {
     const categories = elements_array.filter(element => (element.className === "category" && element.checked === true))
                                      .map(elements => elements.id);
     const times = elements_array.filter(element => element.className === "hour" || element.className === "minute")
-    const day_times = constructDayTimes(days, times, categories)
+    const day_times = constructDayTimes(times, categories)
 
     const date_obj = new Date()
     const day = String(date_obj.getDate()).padStart(2, "0");
@@ -92,7 +92,7 @@ function App() {
     <form>
       <InfoInput />
       <CategoryDropDown />
-      <DayTimeInput />
+      <DayTimeInput DAYS={DAYS}/>
       <button type='submit' onClick={addUser}>Submit</button>
     </form>
   )

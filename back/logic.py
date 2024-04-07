@@ -1,5 +1,4 @@
 import json
-from collections import namedtuple
 from datetime import datetime
 
 def get_users():
