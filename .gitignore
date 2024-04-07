@@ -24,7 +24,6 @@ dist-ssr
 *.sw?
 
 # Files and folders from backend
-firebase_cred.json
-subscribers.json
+data
 .venv
 __pycache__
