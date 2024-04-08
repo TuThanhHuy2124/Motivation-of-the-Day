@@ -5,13 +5,10 @@ function Import () {
     const handleImport = (e) => {
         e.preventDefault();
         const email = e.target[0].value;
-
-        let url = new URL("/getuser");
-        let params = url.searchParams;
-        params.append("email", email)
-
-        console.log(url.toString())
-        //fetch(`/getuser/email=${esc(email)}`, {method: "GET"});
+        const params = new URLSearchParams({email: email});
+        fetch(`/getuser?${params.toString()}`, {method: "GET"})
+            .then(response => response.json())
+            .then(data => console.log(data))
     }
 
     return (

@@ -1,13 +1,10 @@
 import json
 from datetime import datetime
 
-def get_users():
-    file_name = "data/subscribers.json"
-
+def get_users_from_file(file_name = "data/subscribers.json"):
     with open(file_name, "r") as file:
-        user_obj = json.load(file)
-
-    return user_obj
+        user_objs = json.load(file)
+    return user_objs
 
 def rearrange_name(name: str) -> str:
     if "," in name:
