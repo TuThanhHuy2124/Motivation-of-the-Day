@@ -15,23 +15,24 @@ def rearrange_name(name: str) -> str:
 
 def get_simplified_user(user_obj: dict):
     #print(user_obj)
-    now = datetime.now()
-    day = now.strftime("%A")
-    time = now.strftime("%H:%M")
-    
-    def _should_send_mail():
-        time_list = user_obj["day_times"][day]
-        is_time = True in [(time == time_obj["time"]) for time_obj in time_list]
+    if user_obj["confirmed"]:
+        now = datetime.now()
+        day = now.strftime("%A")
+        time = now.strftime("%H:%M")
+        
+        def _should_send_mail():
+            time_list = user_obj["day_times"][day]
+            is_time = True in [(time == time_obj["time"]) for time_obj in time_list]
 
-        return (day in user_obj["day_times"].keys()) and (is_time)
-    
-    def _get_category():
-        time_objs = user_obj["day_times"][day]
-        for time_obj in time_objs:
-            if(time_obj["time"] == time):
-                return time_obj["category"]
+            return (day in user_obj["day_times"].keys()) and (is_time)
+        
+        def _get_category():
+            time_objs = user_obj["day_times"][day]
+            for time_obj in time_objs:
+                if(time_obj["time"] == time):
+                    return time_obj["category"]
 
-    if(_should_send_mail()):
-        return {"first_name": user_obj["first_name"], "category": _get_category(), "email": user_obj["email"]}
+        if(_should_send_mail()):
+            return {"first_name": user_obj["first_name"], "category": _get_category(), "email": user_obj["email"]}
 
 #print(get_simplified_user())

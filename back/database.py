@@ -18,7 +18,7 @@ def push_user(user: dict) -> None:
     ref.push(user)
     _write_to_file(ref.get())
 
-def fetch_user(email: dict, file_name="data/subscribers.json") -> None:
+def fetch_user(email: dict) -> None:
     data = get_users_from_file()
     print(data)
     for user in data:
