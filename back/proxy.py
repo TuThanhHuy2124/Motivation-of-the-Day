@@ -8,6 +8,7 @@ def add_user():
     try:
         if(request.method == "POST"):
             push_user(request.json)
+            print("Add user successfully")
         return "User Pushed", 200
     except:
         return "Cannot Push To Server", 500
@@ -17,11 +18,10 @@ def get_user():
     try:
         if(request.method == "GET"):
             email = request.args.get("email")
-            print(email)
             user = fetch_user(email)
-            print(user)
             if(user is not None):
                 return user, 200
+                print("Get user successfully")
             else:
                 return "User Does Not Exist", 404
     except:
@@ -31,9 +31,9 @@ def get_user():
 def sign_up_user():
     try:
         if(request.method == "POST"):
-            print("Start sending confirmation email here")
             send_confirmation(request.json["email"], request.json["id"])
             push_user(request.json)
+            print("Sign up user successfully")
         return "Confirmation Email Sent", 200
     except:
         return "Cannot Fetch From To Server", 500
@@ -43,9 +43,15 @@ def verify_user():
     try:
         if(request.method == "PUT"):
             print(request.json["id"])
+            print("Verify user successfully")
         return "User Verified", 200
     except:
         return "Cannot Verify User", 500
+    
+@app.route("/authenticateuser", methods=["GET"])
+def authenticate_user():
+    #Request email with first and last name
+    pass
 
 if __name__ == "__main__":
     app.run(ssl_context="adhoc", debug=True)

@@ -7,7 +7,7 @@ from datetime import datetime
 from logic import get_simplified_user, rearrange_name, get_users_from_file
 from api import get_quote_obj
 
-EmailPackage = namedtuple("EmailPackage", ["receiver", "text_content", "html_content"])
+EmailPackage = namedtuple("EmailPackage", ["receiver", "subject", "text_content", "html_content"])
 
 def email_decorator(func) -> None:
     def inner(*arg, **kwargs):
@@ -17,8 +17,8 @@ def email_decorator(func) -> None:
         password = 'lewd ijxv aozh hvex'
 
         msg = MIMEMultipart('alternative')
-        msg['Subject'] = f'Quote Of The Day'
-        msg['From'] = "Motivation Of The Day"
+        msg['Subject'] = package.subject
+        msg['From'] = "Motivation of the Day"
         msg['To'] = package.receiver
 
         part1 = MIMEText(package.text_content, 'plain')
@@ -29,10 +29,13 @@ def email_decorator(func) -> None:
 
         #creating the SMTP server object
         smtp_server = smtplib.SMTP("smtp.gmail.com", 587)
-        smtp_server.ehlo() #ESMTP protocol
-
-        smtp_server.starttls() #TLS connection
-        smtp_server.ehlo() #calling the ehlo() again as encryption happens on calling startttls()
+        #ESMTP protocol
+        smtp_server.ehlo() 
+        
+        #TLS connection
+        smtp_server.starttls()
+        #calling the ehlo() again as encryption happens on calling startttls()
+        smtp_server.ehlo() 
 
         smtp_server.login(sender, password)
 
@@ -40,7 +43,6 @@ def email_decorator(func) -> None:
         smtp_server.sendmail(sender, package.receiver, msg.as_string())
         # print when succeed
         print('The email has been sent successfully')
-
         #terminating the server
         smtp_server.quit()
 
@@ -49,6 +51,8 @@ def email_decorator(func) -> None:
 @email_decorator
 def send_confirmation(email, id):
     receiver = email
+
+    subject = "Quote of the Day - Email Verification"
 
     text_content = f"Hello, there"
 
@@ -84,9 +88,9 @@ def send_confirmation(email, id):
                         </head>
                         <body>
                             <div class="everything">
-                                <h1>Welcome to <i>Quote Of The Day</i>!</h1>
+                                <h1>Welcome to <i>Quote of the Day</i>!</h1>
                                 <div class="content">
-                                    <h2>Thank you for signing up to receive quotes from <i>Motivation Of The Day</i></h2>
+                                    <h2>Thank you for signing up to receive quotes from <i>Motivation of the Day</i></h2>
                                     <h2>You are only <i>ONE</i> step away from receiving motivational quotes daily</h2>
                                     <h2>Please <i>verify</i> your email address using the link below</h2>
                                     <div class="verify">
@@ -101,17 +105,21 @@ def send_confirmation(email, id):
                     </html>
                    """
     
-    return EmailPackage(receiver, text_content, html_content)
+    return EmailPackage(receiver, subject, text_content, html_content)
 
 @email_decorator
 def send_email(simplified_user):
     quote_obj = get_quote_obj(simplified_user["category"])
     print(quote_obj, quote_obj["category"])
-
+    date = datetime.now().strftime("%m/%d/%Y")
+    time = datetime.now().strftime("%H:%M")
+    
     receiver = simplified_user["email"]
 
+    subject = f"Quote of the Day - {date} - {time}"
+
     text_content = f"Hello, {simplified_user["first_name"]}\n"\
-                   f"Here is your quote about {quote_obj["category"]} for {datetime.now().strftime("%m/%d/%Y")} at {datetime.now().strftime("%H:%M")}:\n"\
+                   f"Here is your quote about {quote_obj["category"]} for {date} at {time}:\n"\
                    f"{quote_obj["quote"]} - {rearrange_name(quote_obj["author"])}"
 
     html_content = f"""
@@ -154,7 +162,7 @@ def send_email(simplified_user):
                     </html>
                    """
     
-    return EmailPackage(receiver, text_content, html_content)
+    return EmailPackage(receiver, subject, text_content, html_content)
 
 def run():
     for user in get_users_from_file():
