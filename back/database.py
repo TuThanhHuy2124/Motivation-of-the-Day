@@ -4,6 +4,9 @@ from datetime import datetime, timedelta
 from firebase_admin import credentials, db
 from logic import get_all_from_file, get_users_from_file, get_email_names_from_file
 
+class InformationMismatched(Exception):
+    def __init__(self, message):
+        self.message = message
 
 databaseURL = "https://motivation-of-the-day-default-rtdb.firebaseio.com/"
 cred = credentials.Certificate("data/firebase_cred.json")
@@ -37,12 +40,21 @@ def confirm_user(email: str, id: str) -> None:
     _write_to_file(fetched)
 
 
-def fetch_user(email: dict) -> None:
-    data = get_users_from_file()
-    print(data)
-    for user in data:
-        if(user["email"] == email):
-            return user
+def fetch_user(email: str, first_name: str, last_name: str) -> dict:
+    data = get_all_from_file()
+    email_name = _to_email_name(email)
+    print(data, email_name)
+    if email_name not in data:
+        raise InformationMismatched("Email cannot be found")
+    else:
+        user = data[email_name]
+        if user_confirmed(email):
+            if user["first_name"] == first_name and user["last_name"] == last_name:
+                return user
+            else:
+                raise InformationMismatched("Wrong first or last name")
+        else:
+            raise InformationMismatched("User has not verified their account yet")
     
 def change_day_times():
     pass

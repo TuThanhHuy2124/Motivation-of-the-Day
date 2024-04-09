@@ -1,5 +1,5 @@
 from flask import Flask, request, abort, Response
-from database import push_user, fetch_user, user_exists, confirm_user, user_confirmed
+from database import push_user, fetch_user, user_exists, confirm_user, user_confirmed, InformationMismatched
 from mail import send_confirmation
 app = Flask(__name__)
 
@@ -22,14 +22,13 @@ def get_user():
     try:
         if(request.method == "GET"):
             email = request.args.get("email")
-            user = fetch_user(email)
-            if(user is not None):
-                return user, 200
-                print("Get user successfully")
-            else:
-                return "User Does Not Exist", 404
-    except:
-        return "Cannot Fetch From To Server", 500
+            first_name = request.args.get("first_name")
+            last_name = request.args.get("last_name")
+            print(email, first_name, last_name)
+            return fetch_user(email, first_name, last_name)
+    except InformationMismatched as e:
+        print(e)
+        abort(404)
 
 @app.route("/signupuser", methods=["POST"])
 def sign_up_user():

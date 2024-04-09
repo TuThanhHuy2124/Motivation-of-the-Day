@@ -1,7 +1,7 @@
 import InfoInput from "../components/InfoInput";
 
 function SignUp () {
-
+    
     const handleSignUp = (e) => {
         e.preventDefault();
         const [first_name, last_name, email] = [e.target[0].value, e.target[1].value, e.target[2].value];
