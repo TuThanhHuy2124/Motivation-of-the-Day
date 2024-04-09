@@ -1,5 +1,3 @@
-import EmailInput from "./EmailInput"
-
 function InfoInput () {
     return (
         <>

@@ -1,4 +1,3 @@
-import EmailInput from "../components/EmailInput";
 import InfoInput from "../components/InfoInput";
 
 function SignUp () {
@@ -33,7 +32,7 @@ function SignUp () {
 
     return (
         <form onSubmit={handleSignUp}>
-            <InfoInput/>
+            <InfoInput/><br/>
             <button type="submit">Sign Up</button>
         </form>
     )

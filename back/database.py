@@ -21,8 +21,18 @@ def push_user(user: dict) -> None:
     subs_ref = db.reference("subscribers")
     sub_ref = subs_ref.child(_get_email_name(user["email"]))
     sub_ref.set(user)
-    print(subs_ref.get())
-    _write_to_file(subs_ref.get())
+    fetched = subs_ref.get()
+    print(fetched)
+    _write_to_file(fetched)
+
+def confirm_user(email: str, id: str) -> None:
+    subs_ref = db.reference("subscribers")
+    sub_ref = subs_ref.child(_get_email_name(email))
+    sub_ref.update({"confirmed": True})
+    fetched = subs_ref.get()
+    print(fetched)
+    _write_to_file(fetched)
+
 
 def fetch_user(email: dict) -> None:
     data = get_users_from_file()

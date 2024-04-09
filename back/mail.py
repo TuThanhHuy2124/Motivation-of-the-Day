@@ -99,7 +99,7 @@ def send_confirmation(email, id):
                                         <a href="https://www.google.com" target="_blank">
                                             <button><h3>Verify Email</h3></button>
                                         </a>
-                                        <p>Should redirect to this instead when deploy: <u>localhost:5173/confirmation/{id}</u></p>
+                                        <p>Should redirect to this instead when deploy: <u>localhost:5173/confirmation?id={id}&email=tuthanhhuy2004%40gmail.com</u></p>
                                     </div>
                                     <h2>Please <i>ignore</i> this email if you did not sign up for this</h2>
                                 </div>

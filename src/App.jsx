@@ -14,7 +14,7 @@ function App () {
                         <Route path="/import" element={<Import />}></Route>
                         <Route path="/submission" element={<Submission />}></Route>
                         <Route path="/signup" element={<SignUp />}></Route>
-                        <Route path="/confirmation/:id" element={<Confirmation />}></Route>
+                        <Route path="/confirmation" element={<Confirmation />}></Route>
                 </Route>
             </Routes>
         </BrowserRouter>

@@ -1,5 +1,5 @@
 from flask import Flask, request, abort, Response
-from database import push_user, fetch_user, user_exists
+from database import push_user, fetch_user, user_exists, confirm_user
 from mail import send_confirmation
 app = Flask(__name__)
 
@@ -51,7 +51,8 @@ def sign_up_user():
 def verify_user():
     try:
         if(request.method == "PUT"):
-            print(request.json["id"])
+            print(request.json["id"], request.json["email"])
+            confirm_user(request.json["email"], request.json["id"])
             print("Verify user successfully")
         return "User Verified", 200
     except:
