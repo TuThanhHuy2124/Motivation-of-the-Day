@@ -81,7 +81,7 @@ function Submission() {
           email: email,
           day_times: day_times,
           confirmed: false,
-          date: date
+          confirmed_date: date
         })
       })
     } else console.log("prevented")

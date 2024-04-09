@@ -1,7 +1,11 @@
-from flask import Flask, request
-from database import push_user, fetch_user
+from flask import Flask, request, abort, Response
+from database import push_user, fetch_user, user_exists
 from mail import send_confirmation
 app = Flask(__name__)
+
+class UserAlreadyExists(Exception):
+    def __init__(self, message):
+        self.message = message
 
 @app.route("/adduser", methods=["POST"])
 def add_user():
@@ -31,12 +35,17 @@ def get_user():
 def sign_up_user():
     try:
         if(request.method == "POST"):
-            send_confirmation(request.json["email"], request.json["id"])
-            push_user(request.json)
+            print(request.json)
+            if(not user_exists(request.json["email"])):
+                send_confirmation(request.json["email"], request.json["id"])
+                push_user(request.json)
+            else:
+                raise UserAlreadyExists("User already exists in database")
             print("Sign up user successfully")
         return "Confirmation Email Sent", 200
-    except:
-        return "Cannot Fetch From To Server", 500
+    except Exception as e:
+        print(e)
+        abort(404)
 
 @app.route("/verifyuser", methods=["PUT"])
 def verify_user():

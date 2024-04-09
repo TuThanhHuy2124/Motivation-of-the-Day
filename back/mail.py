@@ -14,7 +14,7 @@ def email_decorator(func) -> None:
         package = func(*arg, **kwargs)
 
         sender = 'motivation.of.the.day.2124@gmail.com' 
-        password = 'lewd ijxv aozh hvex'
+        password = 'hfzt dzej iqnf ibbw'
 
         msg = MIMEMultipart('alternative')
         msg['Subject'] = package.subject
@@ -26,9 +26,10 @@ def email_decorator(func) -> None:
 
         msg.attach(part1)
         msg.attach(part2)
-
+        print("connecting")
         #creating the SMTP server object
-        smtp_server = smtplib.SMTP("smtp.gmail.com", 587)
+        smtp_server = smtplib.SMTP('smtp.gmail.com',587)
+        print("connected")
         #ESMTP protocol
         smtp_server.ehlo() 
         
@@ -50,6 +51,7 @@ def email_decorator(func) -> None:
 
 @email_decorator
 def send_confirmation(email, id):
+    print("send confirmation", email, id)
     receiver = email
 
     subject = "Quote of the Day - Email Verification"
@@ -94,9 +96,10 @@ def send_confirmation(email, id):
                                     <h2>You are only <i>ONE</i> step away from receiving motivational quotes daily</h2>
                                     <h2>Please <i>verify</i> your email address using the link below</h2>
                                     <div class="verify">
-                                        <a href="localhost:5173/confirm/{id}" target="_blank">
+                                        <a href="https://www.google.com" target="_blank">
                                             <button><h3>Verify Email</h3></button>
                                         </a>
+                                        <p>Should redirect to this instead when deploy: <u>localhost:5173/confirmation/{id}</u></p>
                                     </div>
                                     <h2>Please <i>ignore</i> this email if you did not sign up for this</h2>
                                 </div>
@@ -165,6 +168,7 @@ def send_email(simplified_user):
     return EmailPackage(receiver, subject, text_content, html_content)
 
 def run():
+    print(get_users_from_file())
     for user in get_users_from_file():
         simplified_user = get_simplified_user(user)
         if(simplified_user is not None):

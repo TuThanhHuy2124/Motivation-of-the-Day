@@ -1,10 +1,15 @@
 import json
 from datetime import datetime
 
+def get_email_names_from_file(file_name = "data/subscribers.json"):
+    with open(file_name, "r") as file:
+        user_objs = json.load(file)
+    return [email_name for email_name, value in user_objs.items()]
+
 def get_users_from_file(file_name = "data/subscribers.json"):
     with open(file_name, "r") as file:
         user_objs = json.load(file)
-    return user_objs
+    return [user_obj for key, user_obj in user_objs.items()]
 
 def rearrange_name(name: str) -> str:
     if "," in name:

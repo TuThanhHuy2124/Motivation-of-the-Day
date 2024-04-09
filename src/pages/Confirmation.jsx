@@ -21,7 +21,7 @@ function Confirmation() {
 
     return (
         <>
-            <h1>Thank you for verify your email address</h1>
+            <h1>Thank you for verifying your email address</h1>
             <h2>You may now proceed to submit the form</h2>
         </>
     )
