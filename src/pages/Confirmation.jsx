@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function Confirmation() {
-    const queryParams = new URLSearchParams(window.location.search);
+    const [submissionDisplay, setSubmissionDisplay] = useState(false)
+    const queryParams = new URLSearchParams(window.location.search)
     const id = queryParams.get("id")
     const email = queryParams.get("email")
 
@@ -19,6 +21,14 @@ function Confirmation() {
                     id: id
                 })
             })
+            .then(response => {
+                if(response.ok) {
+                    setSubmissionDisplay(true)
+                }
+                else {
+                    console.log(response)
+                }
+            })
         }
         verifyUser()
     }, [])
@@ -27,6 +37,7 @@ function Confirmation() {
         <>
             <h1>Thank you for verifying your email address</h1>
             <h2>You may now proceed to submit the form</h2>
+            {submissionDisplay && <Link to={"/submission" + window.location.search}><button>Submission</button></Link>}
         </>
     )
 }

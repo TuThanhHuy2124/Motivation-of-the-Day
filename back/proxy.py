@@ -60,7 +60,7 @@ def verify_user():
     
 @app.route("/authenticateuser", methods=["GET"])
 def authenticate_user():
-    #Request email with first and last name
+    """When Import send an authentication request, if user exists and all the information matches, return user's email address, first name, and last name so they can use /getuser"""
     pass
 
 if __name__ == "__main__":

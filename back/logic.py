@@ -15,11 +15,13 @@ def get_all_from_file(user_objs=None):
 
 @json_loader
 def get_email_names_from_file(user_objs=None):
-    return [email_name for email_name, value in user_objs.items()]
+    print(user_objs)
+    return [email_name for email_name, value in user_objs]
 
 @json_loader
 def get_users_from_file(user_objs=None):
-    return [user_obj for key, user_obj in user_objs.items()]
+    print(user_objs)
+    return [user_obj for key, user_obj in user_objs]
 
 def rearrange_name(name: str) -> str:
     if "," in name:
