@@ -8,6 +8,9 @@ class UserAlreadyExists(Exception):
     def __init__(self, message):
         self.message = message
 
+    def __str__(self):
+        return self.message
+
 @app.route("/adduser", methods=["POST"])
 def add_user():
     try:
@@ -39,12 +42,12 @@ def sign_up_user():
                 send_confirmation(request.json["email"], request.json["id"])
                 push_user(request.json)
             else:
+                print("raised")
                 raise UserAlreadyExists("User already exists in database")
-            print("Sign up user successfully")
         return "Confirmation Email Sent", 200
-    except Exception as e:
+    except UserAlreadyExists as e:
         print(e)
-        abort(404)
+        return str(e), 404
 
 @app.route("/verifyuser", methods=["PUT"])
 def verify_user():

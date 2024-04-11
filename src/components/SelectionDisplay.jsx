@@ -1,4 +1,5 @@
 import { useState } from "react"
+import "./SelectionDisplay.css"
 
 const OPTIONS= ['age', 
                 'alone', 
