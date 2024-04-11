@@ -1,0 +1,10 @@
+.main-display {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.unselected, .selected {
+    overflow-y: auto;
+    max-height: 70vh;
+}

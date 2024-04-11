@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import "./Submission.css"
 import SelectionDisplay from '../components/SelectionDisplay'
 import DayTimeInput from '../components/DayTimeInput'
 
@@ -106,8 +107,10 @@ function Submission() {
       <p>Email: {email}</p>
     </div>
     <form>
-      <SelectionDisplay selected={categories} setSelected={setCategories}/>
-      <DayTimeInput DAYS={DAYS} selected={categories}/>
+      <div className='main-display'>
+        <SelectionDisplay selected={categories} setSelected={setCategories}/>
+        <DayTimeInput DAYS={DAYS} selected={categories}/>
+      </div>
       <button type='submit' onClick={addUser}>Submit</button>
     </form>
     </>
