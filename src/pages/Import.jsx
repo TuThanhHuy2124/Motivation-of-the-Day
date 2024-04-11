@@ -1,9 +1,8 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import InfoInput from "../components/InfoInput";
 
 function Import () {
-    const [authenticated, setAuthenticated] = useState(false);
+    const [authenticationInfo, setAuthenticationInfo] = useState(null);
 
     const handleImport = (e) => {
         e.preventDefault();
@@ -19,8 +18,7 @@ function Import () {
                 if(response.ok) {
                     return response.json().then(data => {
                         console.log(data);
-                        const nextParams = new URLSearchParams(data)
-                        window.location.href = `localhost:5137/submission?${nextParams.toString()}`
+                        setAuthenticationInfo(data);
                     })
                 }
                 else {
@@ -29,6 +27,13 @@ function Import () {
             })
             
     }
+
+    useEffect(() => {
+        if(authenticationInfo !== null) {
+            const nextParams = new URLSearchParams(authenticationInfo)
+            window.location.href = `http://localhost:5173/submission?${nextParams.toString()}`
+        }
+    }, [authenticationInfo])
 
     return (
         <form onSubmit={handleImport}>

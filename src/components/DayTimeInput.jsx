@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import TimeDropDown from "./TimeDropDown"
 
-function DayTimeInput ({DAYS}) {
+function DayTimeInput ({DAYS, selected}) {
 
     return (
         <div className="dayTimesInput">
@@ -9,7 +9,7 @@ function DayTimeInput ({DAYS}) {
                 return (
                     <div className="day" key={index}>
                         <p className={day}>{day}</p>
-                        <TimeDropDown name={day} />
+                        <TimeDropDown name={day} selected={selected} />
                     </div>
                 )
             })}

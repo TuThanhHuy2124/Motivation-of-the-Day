@@ -1,6 +1,6 @@
 import json
 import firebase_admin
-from datetime import datetime, timedelta
+from datetime import datetime
 from firebase_admin import credentials, db
 from logic import get_all_from_file, get_users_from_file, get_email_names_from_file
 
@@ -32,7 +32,10 @@ def confirm_user(email: str, id: str) -> None:
     subs_ref = db.reference("subscribers")
     sub_ref = subs_ref.child(_to_email_name(email))
     if get_all_from_file()[_to_email_name(email)]["id"] == id:
-        sub_ref.update({"confirmed": True})
+        sub_ref.update({
+            "confirmed": True,
+            "confirmed_date": datetime.now().strftime("%m/%d/%Y")
+        })
     else:
         raise Exception
     fetched = subs_ref.get()

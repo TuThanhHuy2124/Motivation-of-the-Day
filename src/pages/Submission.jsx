@@ -1,20 +1,38 @@
-import CategoryDropDown from '../components/CategoryDropDown'
-import InfoInput from '../components/InfoInput'
+import { useEffect, useState } from 'react';
+import SelectionDisplay from '../components/SelectionDisplay'
 import DayTimeInput from '../components/DayTimeInput'
 
 function Submission() {
     const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    // const queryParams = new URLSearchParams(window.location.search);
-    // const first_name_url = queryParams.get("first_name")
-    // const last_name_url = queryParams.get("last_name")
-    // const email_url = queryParams.get("email")
+    const searchQuery = new URLSearchParams(window.location.search)
+    const email = searchQuery.get("email")
+    const id = searchQuery.get("id")
+    const [categories, setCategories] = useState([])
+    const [day_times, setDayTimes] = useState(null)
+    const [first_name, setFirstName] = useState(null)
+    const [last_name, setLastName] = useState(null)
 
-    const is_valid = (first_name, last_name, email, categories, day_times) => {
-      console.log()
-      return (first_name !== "") &&
-             (last_name !== "") &&
-             (email !== "") &&
-             (categories.length !== 0) &&
+    useEffect(() => {
+      const getUser = async () => {
+        fetch(`/getuser${window.location.search}`)
+            .then(response => {
+              if(response.ok) {
+                response.json().then(user => {
+                  console.log(user)
+                  setFirstName(user["first_name"])
+                  setLastName(user["last_name"])
+                  if(user.hasOwnProperty("categories")) { setCategories(user["categories"]) }
+                  if(user.hasOwnProperty("day_times")) { setDayTimes(user["day_times"]) }
+                })
+              }
+            })
+      }
+      getUser()
+    }, [])
+
+    const is_valid = (categories, day_times) => {
+      console.log(categories, day_times)
+      return (categories.length !== 0) &&
              (Object.keys(day_times).length !== 0)
     }
 
@@ -57,47 +75,42 @@ function Submission() {
     const elements = form.elements;
     const elements_array = Array(...elements);
 
-    const first_name = elements["first_name"].value;
-    const last_name = elements["last_name"].value;
-    const email = elements["email"].value;
     const categories = elements_array.filter(element => (element.className === "category" && element.checked === true))
                                      .map(elements => elements.id);
     const times = elements_array.filter(element => element.className === "hour" || element.className === "minute")
     const day_times = constructDayTimes(times, categories)
-
-    const date_obj = new Date()
-    const day = String(date_obj.getDate()).padStart(2, "0");
-    const month = String(date_obj.getMonth() + 1).padStart(2, "0");
-    const year = String(date_obj.getFullYear());
-    const date = `${year}-${month}-${day}`
     
-    console.log(first_name, last_name, email, categories, day_times)
+    console.log(categories, day_times)
 
-    if(is_valid(first_name, last_name, email, categories, day_times)) {
+    if(is_valid(categories, day_times)) {
       fetch("/adduser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          first_name: first_name,
-          last_name: last_name,
           email: email,
-          day_times: day_times,
-          confirmed: false,
-          confirmed_date: date
+          id: id,
+          catergories: categories, 
+          day_times: day_times
         })
       })
     } else console.log("prevented")
   }
 
   return (
+    <>
+    <div className='personal-info'>
+      <p>First Name: {first_name}</p>
+      <p>Last Name: {last_name}</p>
+      <p>Email: {email}</p>
+    </div>
     <form>
-      <InfoInput />
-      <CategoryDropDown />
-      <DayTimeInput DAYS={DAYS}/>
+      <SelectionDisplay selected={categories} setSelected={setCategories}/>
+      <DayTimeInput DAYS={DAYS} selected={categories}/>
       <button type='submit' onClick={addUser}>Submit</button>
     </form>
+    </>
   )
 }
 
