@@ -29,6 +29,12 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,      
         ws: true,
+      },
+      '/authenticateuser': {
+        target: 'https://localhost:5000',
+        changeOrigin: true,
+        secure: false,      
+        ws: true,
       }
     }
   }

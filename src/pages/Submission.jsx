@@ -4,10 +4,10 @@ import DayTimeInput from '../components/DayTimeInput'
 
 function Submission() {
     const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    //const queryParams = new URLSearchParams(window.location.search);
-    //const first_name_url = queryParams.get("first_name")
-    //const last_name_url = queryParams.get("last_name")
-    //const email_url = queryParams.get("email")
+    // const queryParams = new URLSearchParams(window.location.search);
+    // const first_name_url = queryParams.get("first_name")
+    // const last_name_url = queryParams.get("last_name")
+    // const email_url = queryParams.get("email")
 
     const is_valid = (first_name, last_name, email, categories, day_times) => {
       console.log()

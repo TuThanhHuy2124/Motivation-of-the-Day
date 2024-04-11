@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import InfoInput from "../components/InfoInput";
 
 function Import () {
@@ -13,12 +14,13 @@ function Import () {
             last_name: last_name
         });
         console.log(params.toString())
-        fetch(`/getuser?${params.toString()}`, {method: "GET"})
+        fetch(`/authenticateuser?${params.toString()}`, {method: "GET"})
             .then(response => {
                 if(response.ok) {
                     return response.json().then(data => {
                         console.log(data);
-                        window.location.href = `localhost:5137/submission?${params.toString()}`
+                        const nextParams = new URLSearchParams(data)
+                        window.location.href = `localhost:5137/submission?${nextParams.toString()}`
                     })
                 }
                 else {

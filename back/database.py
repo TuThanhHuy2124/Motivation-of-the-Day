@@ -39,8 +39,7 @@ def confirm_user(email: str, id: str) -> None:
     print(fetched)
     _write_to_file(fetched)
 
-
-def fetch_user(email: str, first_name: str, last_name: str) -> dict:
+def get_user_id(email: str, first_name: str, last_name: str) -> str:
     data = get_all_from_file()
     email_name = _to_email_name(email)
     print(data, email_name)
@@ -50,6 +49,22 @@ def fetch_user(email: str, first_name: str, last_name: str) -> dict:
         user = data[email_name]
         if user_confirmed(email):
             if user["first_name"] == first_name and user["last_name"] == last_name:
+                return user["id"]
+            else:
+                raise InformationMismatched("Wrong first or last name")
+        else:
+            raise InformationMismatched("User has not verified their account yet")
+
+def fetch_user(email: str, id: str) -> dict:
+    data = get_all_from_file()
+    email_name = _to_email_name(email)
+    print(data, email_name)
+    if email_name not in data:
+        raise InformationMismatched("Email cannot be found")
+    else:
+        user = data[email_name]
+        if user_confirmed(email):
+            if user["id"] == id:
                 return user
             else:
                 raise InformationMismatched("Wrong first or last name")
