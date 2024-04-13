@@ -1,21 +1,30 @@
 import json
 import firebase_admin
 from datetime import datetime
-from firebase_admin import credentials, db
+from collections import namedtuple
 from logic import get_all_subscribers
+from firebase_admin import credentials, db
 
 databaseURL = "https://motivation-of-the-day-default-rtdb.firebaseio.com/"
 cred = credentials.Certificate("data/firebase_cred.json")
 firebase_admin.initialize_app(cred, {'databaseURL': databaseURL})
+# ConditionResultPackage namedtuple
+ConditionResultPackage = namedtuple("ConditionResultPackage", ["condition", "result", "failed_message"])
 
 # Exceptions
 class InformationMismatched(Exception):
-    def __init__(self, message):
-        self.message = message
+    def __init__(self, message) -> None:
+        self._message = message
+
+    def __str__(self) -> str:
+        return self._message
 
 class UserDoesNotExist(Exception):
-    def __init__(self, message):
+    def __init__(self, message) -> None:
         self.message = message
+
+    def __str__(self) -> str:
+        return self._message
 
 # Helper functions
 def _to_email_name(email: str) -> str:
@@ -56,7 +65,7 @@ def verify_log_in(func: function) -> function:
     Then, return the 'result' (which is also returned by the func).
 
     Require the wrapped func to take 'email' and 'user' as parameters.
-    Require the wrapped func to return a 'condition' and a 'result' (in this order). 
+    Require the wrapped func to return a ConditionResultPackage. 
     """
     def wrapper(*args, email, **kwargs):
         data = get_all_subscribers()
@@ -67,12 +76,12 @@ def verify_log_in(func: function) -> function:
             raise InformationMismatched("Email cannot be found")
         else:
             user = data[email_name]
-            condition, result = func(*args, **kwargs, email=email, user=user)
+            package = func(*args, **kwargs, email=email, user=user)
             if user_confirmed(email):
-                if condition:
-                    return result
+                if package.condition:
+                    return package.result
                 else:
-                    raise InformationMismatched("Wrong first or last name")
+                    raise InformationMismatched(package.failed_message)
             else:
                 raise InformationMismatched("User has not verified their account yet")
     return wrapper
@@ -106,7 +115,8 @@ def get_user_id(first_name: str, last_name: str, * , email: str, user: dict) -> 
     """
     condition = user["first_name"] == first_name and user["last_name"] == last_name
     result = user["id"]
-    return condition, result
+    failed_message = "Wrong first or last name"
+    return ConditionResultPackage(condition, result, failed_message)
 
 @verify_log_in  
 def fetch_user(id: str, * , email: str, user: dict) -> dict:
@@ -115,23 +125,24 @@ def fetch_user(id: str, * , email: str, user: dict) -> dict:
     """
     condition = user["id"] == id
     result = user
-    return condition, result
+    failed_message = "User's ID does not match"
+    return ConditionResultPackage(condition, result, failed_message)
 
 @verify_log_in
-def update_day_times(id: str, categories: list, day_times: dict, * , email: str, user: dict):
+def update_user_day_times(id: str, categories: list, day_times: dict, * , email: str, user: dict):
     """
     Update user's 'categories' and 'day_times' if the inputted email and id match
     """
-    condition = user["id"] == id
-
     @push_and_get
-    def _update(*, email: str, sub_ref):
+    def _update(*, email: str, sub_ref) -> None:
         sub_ref.update({
                     "categories": categories,
                     "day_times": day_times,
                 })
-    
+        
+    condition = user["id"] == id
     result = _update(email=email)
+    failed_message = "User's ID does not match"
 
-    return condition, result
+    return ConditionResultPackage(condition, result, failed_message)
         

@@ -1,70 +1,98 @@
-from flask import Flask, request, abort, Response
-from database import push_user, fetch_user, user_exists, confirm_user, user_confirmed, get_user_id, update_day_times, InformationMismatched
-from mail import send_confirmation
 import json
+from mail import send_confirmation
+from flask import Flask, request, abort, Response
+from database import push_user, fetch_user, user_exists, confirm_user, user_confirmed, get_user_id, update_user_day_times, InformationMismatched, UserDoesNotExist
+
 app = Flask(__name__)
 
 class UserAlreadyExists(Exception):
-    def __init__(self, message):
-        self.message = message
+    def __init__(self, message) -> None:
+        self._message = message
 
-    def __str__(self):
-        return self.message
+    def __str__(self) -> str:
+        return self._message
 
 @app.route("/updatedaytimes", methods=["PUT"])
-def add_user():
+def update_day_times():
+    """
+    Provide an endpoint for frontend to update 'day_times' attribute for a user.
+    """
     try:
         if(request.method == "PUT"):
-            update_day_times(**request.json)
-            print("Done")
-            return "User Pushed", 200
-    except Exception as e:
+            sucess_msg = "User's day times updated"
+            update_user_day_times(**request.json)
+            print(sucess_msg)
+            return sucess_msg, 200
+        
+    except InformationMismatched as e:
         print(e)
-        return "Cannot Push To Server", 500
+        return str(e), 404
     
 @app.route("/getuser", methods=["GET"])
 def get_user():
+    """
+    Provide an endpoint for frontend to request a user's data by responding 
+    with the user's JSON if the request email and ID all match.
+    """
     try:
         if(request.method == "GET"):
             email = request.args.get("email")
             id = request.args.get("id")
             print(email, id)
-            return fetch_user(id, email=email)
+            return fetch_user(id, email=email), 200
+        
     except InformationMismatched as e:
         print(e)
-        abort(404)
+        return str(e), 404
 
 @app.route("/signupuser", methods=["POST"])
 def sign_up_user():
+    """
+    Provide an endpoint for frontend to sign a user up.
+    """
     try:
         if(request.method == "POST"):
             print(request.json)
             if(not user_exists(request.json["email"])):
                 send_confirmation(request.json["email"], request.json["id"])
                 push_user(request.json, email=request.json["email"])
+                return "Confirmation Email Sent", 200
             else:
-                print("raised")
-                raise UserAlreadyExists("User already exists in database")
-        return "Confirmation Email Sent", 200
+                error = "User already exists in the database"
+                print(error)
+                raise UserAlreadyExists(error)
+            
     except UserAlreadyExists as e:
         print(e)
         return str(e), 404
 
 @app.route("/verifyuser", methods=["PUT"])
 def verify_user():
+    """
+    Only verify a user once.
+    Provide an endpoint for frontend to verify a user when they confirm their email.
+    """
     try:
         if(request.method == "PUT"):
             print(request.json["id"], request.json["email"])
             if(not user_confirmed(request.json["email"])):
+                success_msg = "Verify user successfully"
                 confirm_user(id=request.json["id"], email=request.json["email"])
-                print("Verify user successfully")
-        return "User Verified", 200
-    except:
-        return "Cannot Verify User", 500
+                print(success_msg)
+                return success_msg, 200
+            else:
+                return "User already verified email", 404
+            
+    except UserDoesNotExist as e:
+        print(e)
+        return str(e), 404
     
 @app.route("/authenticateuser", methods=["GET"])
 def authenticate_user():
-    """When Import send an authentication request, if user exists and all the information matches, return user's email address, first name, and last name so they can use /getuser"""
+    """
+    Provide an endpoint for frontend to authenticate a user by responding with the 
+    user's email and ID if the request email, first name, and last name all match.
+    """
     try:
         if(request.method == "GET"):
             email = request.args.get("email")
@@ -76,9 +104,10 @@ def authenticate_user():
                 "id": get_user_id(first_name, last_name, email=email)
             }
             return json.dumps(response), 200
+        
     except InformationMismatched as e:
         print(e)
-        abort(404)
+        return str(e), 404
 
 if __name__ == "__main__":
     app.run(ssl_context="adhoc", debug=True)
