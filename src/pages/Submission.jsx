@@ -4,14 +4,17 @@ import SelectionDisplay from '../components/SelectionDisplay'
 import DayTimeInput from '../components/DayTimeInput'
 
 function Submission() {
-    const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    const searchQuery = new URLSearchParams(window.location.search)
-    const email = searchQuery.get("email")
-    const id = searchQuery.get("id")
-    const [categories, setCategories] = useState([])
-    const [day_times, setDayTimes] = useState([])
-    const [first_name, setFirstName] = useState(null)
-    const [last_name, setLastName] = useState(null)
+    const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const searchQuery = new URLSearchParams(window.location.search);
+    const email = searchQuery.get("email");
+    const id = searchQuery.get("id");
+    const [reloadData, setReloadData] = useState(true);
+    const [status, setStatus] = useState(null);
+    const [statusColor, setStatusColor] = useState(null);
+    const [day_times, setDayTimes] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [first_name, setFirstName] = useState(null);
+    const [last_name, setLastName] = useState(null);
 
     useEffect(() => {
       const getUser = async () => {
@@ -22,69 +25,87 @@ function Submission() {
                   console.log(user)
                   setFirstName(user["first_name"])
                   setLastName(user["last_name"])
+                  // eslint-disable-next-line no-prototype-builtins
                   if(user.hasOwnProperty("categories")) { setCategories(user["categories"]) }
+                  // eslint-disable-next-line no-prototype-builtins
                   if(user.hasOwnProperty("day_times")) { setDayTimes(user["day_times"]) }
                 })
               }
             })
       }
       getUser()
-    }, [])
+    }, [reloadData])
 
     const is_valid = (categories, day_times) => {
       console.log(categories, day_times)
-      return (categories.length !== 0) &&
-             (Object.keys(day_times).length !== 0)
+      var err = "";
+
+      if (categories.length === 0) { 
+        err += "No category has been selected"; 
+      }
+
+      if (Object.keys(day_times).length === 0) {
+        err += (err === "") ? "No time input found" : " and no time input found";
+      }
+
+      if (err !== "") { setStatus(err); setStatusColor("red"); }
+
+      return (categories.length !== 0) 
+          && (Object.keys(day_times).length !== 0);
     }
 
     const constructDayTimes = (times, chosen_categories) => {
       
-      const day_times = {}
+      const day_times = {};
       for(const day of DAYS) {
 
-        day_times[day] = []
-        var index = 0
+        day_times[day] = [];
+        var index = 0;
 
         // eslint-disable-next-line no-constant-condition
         while(true) {
 
-          const time_obj = {}
-          const [time] = times.filter(time => time.id === (day + "-" + index) && time.className === "time")
-          const [chosen_category] = chosen_categories.filter(selection => selection.id === (day + "-" + index))
+          const time_obj = {};
+          const [time] = times.filter(time => time.id === (day + "-" + index) && time.className === "time");
+          const [chosen_category] = chosen_categories.filter(selection => selection.id === (day + "-" + index));
           
           
           if(time === undefined) {break}
           else if(time.value === "") {index++; continue;}
           else {
-            time_obj["time"] = time.value
-            time_obj["category"] = (chosen_category.value === "mixed") ? categories : [chosen_category.value]
+            time_obj["time"] = time.value;
+            time_obj["category"] = (chosen_category.value === "mixed") ? categories : [chosen_category.value];
           }
 
-          day_times[day].push(time_obj)
-          index++
+          day_times[day].push(time_obj);
+          index++;
         }
 
-        if(day_times[day].length === 0) {delete day_times[day]}
+        if(day_times[day].length === 0) { delete day_times[day]; }
       }
 
-      return day_times
+      return day_times;
   }
 
   const addUser = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     
     const form = e.target.form;
     const elements = form.elements;
     const elements_array = Array(...elements);
 
-    const times = elements_array.filter(element => element.className === "time")
-    const chosen_categories = elements_array.filter(element => element.className === "chosen-category")
-    console.log(times, chosen_categories)
-    const day_times = constructDayTimes(times, chosen_categories)
+    const times = elements_array.filter(element => element.className === "time");
+    const chosen_categories = elements_array.filter(element => element.className === "chosen-category");
+    console.log(times, chosen_categories);
+    const day_times = constructDayTimes(times, chosen_categories);
     
-    console.log(day_times)
+    console.log(day_times);
 
     if(is_valid(categories, day_times)) {
+      const triggerReload = !reloadData;
+      setStatus("User's data has been updated");
+      setStatusColor("green");
+      setReloadData(triggerReload);
       fetch("/updatedaytimes", {
         method: "PUT",
         headers: {
@@ -97,11 +118,12 @@ function Submission() {
           day_times: day_times
         })
       })
-    } else console.log("prevented")
+    }
   }
 
   return (
     <>
+    <p className={"status" + " " + statusColor}>{status}</p>
     <div className='personal-info'>
       <p>First Name: {first_name}</p>
       <p>Last Name: {last_name}</p>
