@@ -9,7 +9,7 @@ function Submission() {
     const email = searchQuery.get("email")
     const id = searchQuery.get("id")
     const [categories, setCategories] = useState([])
-    const [day_times, setDayTimes] = useState()
+    const [day_times, setDayTimes] = useState([])
     const [first_name, setFirstName] = useState(null)
     const [last_name, setLastName] = useState(null)
 
@@ -56,8 +56,8 @@ function Submission() {
           if(time === undefined) {break}
           else if(time.value === "") {index++; continue;}
           else {
-            time_obj["time"] = time
-            time_obj["category"] = chosen_categories[chosen_categories.selectedIndex].innerText
+            time_obj["time"] = time.value
+            time_obj["category"] = (chosen_category.value === "mixed") ? categories : [chosen_category.value]
           }
 
           day_times[day].push(time_obj)
@@ -84,20 +84,20 @@ function Submission() {
     
     console.log(day_times)
 
-    // if(is_valid(categories, day_times)) {
-    //   fetch("/adduser", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       email: email,
-    //       id: id,
-    //       catergories: categories, 
-    //       day_times: day_times
-    //     })
-    //   })
-    // } else console.log("prevented")
+    if(is_valid(categories, day_times)) {
+      fetch("/updatedaytimes", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          id: id,
+          categories: categories, 
+          day_times: day_times
+        })
+      })
+    } else console.log("prevented")
   }
 
   return (

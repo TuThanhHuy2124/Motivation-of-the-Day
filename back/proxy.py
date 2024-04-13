@@ -1,5 +1,5 @@
 from flask import Flask, request, abort, Response
-from database import push_user, fetch_user, user_exists, confirm_user, user_confirmed, get_user_id, InformationMismatched
+from database import push_user, fetch_user, user_exists, confirm_user, user_confirmed, get_user_id, update_day_times, InformationMismatched
 from mail import send_confirmation
 import json
 app = Flask(__name__)
@@ -11,14 +11,15 @@ class UserAlreadyExists(Exception):
     def __str__(self):
         return self.message
 
-@app.route("/adduser", methods=["POST"])
+@app.route("/updatedaytimes", methods=["PUT"])
 def add_user():
     try:
-        if(request.method == "POST"):
-            push_user(request.json)
-            print("Add user successfully")
-        return "User Pushed", 200
-    except:
+        if(request.method == "PUT"):
+            update_day_times(**request.json)
+            print("Done")
+            return "User Pushed", 200
+    except Exception as e:
+        print(e)
         return "Cannot Push To Server", 500
     
 @app.route("/getuser", methods=["GET"])

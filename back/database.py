@@ -16,7 +16,6 @@ def _to_email_name(email):
     return email.split("@")[0]
 
 def _write_to_file(raw_data: dict, file_name="data/subscribers.json") -> None:
-    #data = [value for key, value in raw_data.items()]
     with open(file_name, "w") as file:
         json.dump(raw_data, file)
 
@@ -74,9 +73,29 @@ def fetch_user(email: str, id: str) -> dict:
         else:
             raise InformationMismatched("User has not verified their account yet")
     
-def change_day_times():
-    pass
-
+def update_day_times(email: str, id: str, categories: list, day_times: dict):
+    data = get_all_from_file()
+    email_name = _to_email_name(email)
+    subs_ref = db.reference("subscribers")
+    sub_ref = subs_ref.child(_to_email_name(email))
+    if email_name not in data:
+        raise InformationMismatched("Email cannot be found")
+    else:
+        user = data[email_name]
+        if user_confirmed(email):
+            if user["id"] == id:
+                sub_ref.update({
+                    "categories": categories,
+                    "day_times": day_times,
+                })
+                fetched = subs_ref.get()
+                print(fetched)
+                _write_to_file(fetched)
+            else:
+                raise InformationMismatched("Wrong first or last name")
+        else:
+            raise InformationMismatched("User has not verified their account yet")
+        
 def user_exists(email):
     return _to_email_name(email) in get_email_names_from_file()
 

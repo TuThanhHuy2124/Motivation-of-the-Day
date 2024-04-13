@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/adduser': {
+      '/updatedaytimes': {
           target: 'https://localhost:5000',
           changeOrigin: true,
           secure: false,      

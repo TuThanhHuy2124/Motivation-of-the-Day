@@ -3,7 +3,7 @@ function SelectedDropDown ({ selected, name, index }) {
 
     return (
         <select className="chosen-category" id={name + "-" + index}>
-            <option id="mixed">Mixed</option>
+            <option id="mixed">mixed</option>
             {selected.map((option, index) => <option key={index} id={option}>{option}</option>)}
         </select>
     )
