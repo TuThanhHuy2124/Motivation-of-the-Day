@@ -2,12 +2,13 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function Confirmation() {
-    const [submissionDisplay, setSubmissionDisplay] = useState(false)
-    const queryParams = new URLSearchParams(window.location.search)
-    const id = queryParams.get("id")
-    const email = queryParams.get("email")
+    const [statusColor, setStatusColor] = useState(null);
+    const [submissionDisplay, setSubmissionDisplay] = useState(null);
+    const queryParams = new URLSearchParams(window.location.search);
+    const id = queryParams.get("id");
+    const email = queryParams.get("email");
 
-    console.log(id, email)
+    console.log(id, email);
 
     useEffect(() => {
         const verifyUser = async () => {
@@ -23,20 +24,31 @@ function Confirmation() {
             })
             .then(response => {
                 if(response.ok) {
-                    setSubmissionDisplay(true)
+                    setStatusColor("green");
+                    setSubmissionDisplay(true);
                 }
                 else {
-                    console.log(response)
+                    setStatusColor("red");
+                    setSubmissionDisplay(false);
                 }
             })
         }
-        verifyUser()
+        verifyUser();
     }, [])
 
     return (
         <>
-            <h1>Thank you for verifying your email address</h1>
-            <h2>You may now proceed to submit the form</h2>
+            {
+                submissionDisplay ? 
+                    <>
+                        <h1>Thank you for verifying your email address</h1>
+                        <h2>You may now proceed to submit the form</h2>
+                    </> :
+                    <>
+                        <h1>You have already verified your email</h1>
+                        <h2>Please use <Link to="/import">Import</Link> to load your data</h2>
+                    </>
+            }
             {submissionDisplay && <Link to={"/submission" + window.location.search}><button>Submission</button></Link>}
         </>
     )
