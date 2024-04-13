@@ -1,16 +1,24 @@
-import smtplib
 import time
-from collections import namedtuple
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from datetime import datetime
-from logic import get_simplified_user, rearrange_name, get_users_from_file
+import smtplib
 from api import get_quote_obj
+from datetime import datetime
+from collections import namedtuple
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from logic import get_simplified_user, rearrange_name, get_users_from_file
 
+# EmailPackage namedtuple
 EmailPackage = namedtuple("EmailPackage", ["receiver", "subject", "text_content", "html_content"])
 
-def email_decorator(func) -> None:
-    def inner(*arg, **kwargs):
+# Decorator
+def email_decorator(func: function) -> None:
+    """
+    Manage all aspects of sending an email. Get information of receiver's email, 
+    subject, text content and HTML content through the wrapped func.
+
+    Require wrapped func to return an EmailPackage.
+    """
+    def wrapper(*arg, **kwargs):
         package = func(*arg, **kwargs)
 
         sender = 'motivation.of.the.day.2124@gmail.com' 
@@ -47,10 +55,14 @@ def email_decorator(func) -> None:
         #terminating the server
         smtp_server.quit()
 
-    return inner
+    return wrapper
 
+# Functions to send emails
 @email_decorator
-def send_confirmation(email, id):
+def send_confirmation(email: str, id: str) -> EmailPackage:
+    """
+    Return EmailPackage contains necessary information to send out a confirmation email
+    """
     print("send confirmation", email, id)
     receiver = email
 
@@ -111,7 +123,10 @@ def send_confirmation(email, id):
     return EmailPackage(receiver, subject, text_content, html_content)
 
 @email_decorator
-def send_email(simplified_user):
+def send_quote(simplified_user: dict) -> EmailPackage:
+    """
+    Return EmailPackage contains necessary information to send out a quote email
+    """
     quote_obj = get_quote_obj(simplified_user["category"])
     print(quote_obj, quote_obj["category"])
     date = datetime.now().strftime("%m/%d/%Y")
@@ -167,12 +182,12 @@ def send_email(simplified_user):
     
     return EmailPackage(receiver, subject, text_content, html_content)
 
-def run():
+def run() -> None:
     print(get_users_from_file())
     for user in get_users_from_file():
         simplified_user = get_simplified_user(user)
         if(simplified_user is not None):
-            send_email(simplified_user)
+            send_quote(simplified_user)
 
 if __name__ == "__main__":
     print("mail.py is running")
