@@ -1,7 +1,10 @@
 import requests
 import random
 
-def get_quote_obj(categories: list):
+def get_quote_obj(categories: list) -> dict:
+    """
+    Get a quote object from Ninja APIs and return
+    """
     category = random.choice(categories)
     api_key = "1qpFcNrVOpbXR7dP8n40Xw==xc9lcaX5HKIHxXbv"
     url = f"https://api.api-ninjas.com/v1/quotes?category={category}"
@@ -14,5 +17,3 @@ def get_quote_obj(categories: list):
             raise ValueError("Length of quote object is not 1") 
     else:
         print("Error:", response.status_code, response.text)
-
-#print(get_quote_obj("success"))
