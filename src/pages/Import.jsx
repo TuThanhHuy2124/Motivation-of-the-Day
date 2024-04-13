@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import InfoInput from "../components/InfoInput";
 
 function Import () {
+    const [status, setStatus] = useState(null);
+    const [statusColor, setStatusColor] = useState(null);
     const [authenticationInfo, setAuthenticationInfo] = useState(null);
 
     const handleImport = (e) => {
@@ -12,17 +14,23 @@ function Import () {
             first_name: first_name,
             last_name: last_name
         });
-        console.log(params.toString())
+        console.log(params.toString());
         fetch(`/authenticateuser?${params.toString()}`, {method: "GET"})
             .then(response => {
                 if(response.ok) {
-                    return response.json().then(data => {
+                    response.json().then(data => {
                         console.log(data);
                         setAuthenticationInfo(data);
+                        setStatus("User's data imported");
+                        setStatusColor("green");
                     })
                 }
                 else {
-                    console.log(response)
+                    response.json().then(data => {
+                        console.log(data);
+                        setStatus(data["response"]);
+                        setStatusColor("green");
+                    })
                 }
             })
             
@@ -30,8 +38,8 @@ function Import () {
 
     useEffect(() => {
         if(authenticationInfo !== null) {
-            const nextParams = new URLSearchParams(authenticationInfo)
-            window.location.href = `http://localhost:5173/submission?${nextParams.toString()}`
+            const nextParams = new URLSearchParams(authenticationInfo);
+            window.location.href = `http://localhost:5173/submission?${nextParams.toString()}`;
         }
     }, [authenticationInfo])
 
@@ -39,6 +47,7 @@ function Import () {
         <form onSubmit={handleImport}>
             <InfoInput/><br/>
             <button type="submit">Import</button>
+            <p className={"status" + " " + statusColor}>{status}</p>
         </form>
     )
 
