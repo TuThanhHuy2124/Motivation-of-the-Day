@@ -2,7 +2,7 @@ import json
 import firebase_admin
 from datetime import datetime
 from firebase_admin import credentials, db
-from logic import get_all_from_file, get_users_from_file, get_email_names_from_file
+from logic import get_all_subscribers
 
 databaseURL = "https://motivation-of-the-day-default-rtdb.firebaseio.com/"
 cred = credentials.Certificate("data/firebase_cred.json")
@@ -27,10 +27,10 @@ def _write_to_file(raw_data: dict, file_name="data/subscribers.json") -> None:
 
 # Check users information
 def user_exists(email: str) -> bool:
-    return _to_email_name(email) in get_email_names_from_file()
+    return _to_email_name(email) in get_all_subscribers()
 
 def user_confirmed(email: str) -> bool:
-    return _to_email_name(email) in get_all_from_file() and get_all_from_file()[_to_email_name(email)]["confirmed"]
+    return _to_email_name(email) in get_all_subscribers() and get_all_subscribers()[_to_email_name(email)]["confirmed"]
 
 # Decorators
 def push_and_get(func: function) -> function:
@@ -59,7 +59,7 @@ def verify_log_in(func: function) -> function:
     Require the wrapped func to return a 'condition' and a 'result' (in this order). 
     """
     def wrapper(*args, email, **kwargs):
-        data = get_all_from_file()
+        data = get_all_subscribers()
         email_name = _to_email_name(email)
         print(data, email_name)
         
@@ -90,7 +90,7 @@ def confirm_user(id: str, *, email: str, sub_ref) -> None:
     """
     Add 'confirmed' and 'confirmed_date' attributes to 'sub_ref' (user's address in the database) (which is passed from the decorator)
     """
-    if get_all_from_file()[_to_email_name(email)]["id"] == id:
+    if get_all_subscribers()[_to_email_name(email)]["id"] == id:
         sub_ref.update({
             "confirmed": True,
             "confirmed_date": datetime.now().strftime("%m/%d/%Y")
