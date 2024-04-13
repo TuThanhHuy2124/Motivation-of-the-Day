@@ -29,7 +29,7 @@ def get_user():
             email = request.args.get("email")
             id = request.args.get("id")
             print(email, id)
-            return fetch_user(email, id)
+            return fetch_user(id, email=email)
     except InformationMismatched as e:
         print(e)
         abort(404)
@@ -41,7 +41,7 @@ def sign_up_user():
             print(request.json)
             if(not user_exists(request.json["email"])):
                 send_confirmation(request.json["email"], request.json["id"])
-                push_user(request.json)
+                push_user(request.json, email=request.json["email"])
             else:
                 print("raised")
                 raise UserAlreadyExists("User already exists in database")
@@ -56,7 +56,7 @@ def verify_user():
         if(request.method == "PUT"):
             print(request.json["id"], request.json["email"])
             if(not user_confirmed(request.json["email"])):
-                confirm_user(request.json["email"], request.json["id"])
+                confirm_user(id=request.json["id"], email=request.json["email"])
                 print("Verify user successfully")
         return "User Verified", 200
     except:
@@ -73,7 +73,7 @@ def authenticate_user():
             print(email, first_name, last_name)
             response = {
                 "email": email,
-                "id": get_user_id(email, first_name, last_name)
+                "id": get_user_id(first_name, last_name, email=email)
             }
             return json.dumps(response), 200
     except InformationMismatched as e:
