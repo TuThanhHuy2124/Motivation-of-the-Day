@@ -42,7 +42,7 @@ def user_confirmed(email: str) -> bool:
     return _to_email_name(email) in get_all_subscribers() and get_all_subscribers()[_to_email_name(email)]["confirmed"]
 
 # Decorators
-def push_and_get(func: function) -> function:
+def push_and_get(func):
     """
     Get the correct address in the database then call the func 
     (which suppposed to add data to that point to the database).
@@ -59,7 +59,7 @@ def push_and_get(func: function) -> function:
         _write_to_file(fetched)
     return wrapper
 
-def verify_log_in(func: function) -> function:
+def verify_log_in(func):
     """
     Verify the email with extra condition (which is returned by the func).
     Then, return the 'result' (which is also returned by the func).

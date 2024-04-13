@@ -11,7 +11,7 @@ from logic import get_user_if_confirmed, rearrange_name, get_all_subscribers
 EmailPackage = namedtuple("EmailPackage", ["receiver", "subject", "text_content", "html_content"])
 
 # Decorator
-def email_decorator(func: function) -> None:
+def email_decorator(func):
     """
     Manage all aspects of sending an email. Get information of receiver's email, 
     subject, text content and HTML content through the wrapped func.

@@ -11,40 +11,7 @@ class UserAlreadyExists(Exception):
 
     def __str__(self) -> str:
         return self._message
-
-@app.route("/updatedaytimes", methods=["PUT"])
-def update_day_times():
-    """
-    Provide an endpoint for frontend to update 'day_times' attribute for a user.
-    """
-    try:
-        if(request.method == "PUT"):
-            sucess_msg = "User's day times updated"
-            update_user_day_times(**request.json)
-            print(sucess_msg)
-            return sucess_msg, 200
-        
-    except InformationMismatched as e:
-        print(e)
-        return str(e), 404
     
-@app.route("/getuser", methods=["GET"])
-def get_user():
-    """
-    Provide an endpoint for frontend to request a user's data by responding 
-    with the user's JSON if the request email and ID all match.
-    """
-    try:
-        if(request.method == "GET"):
-            email = request.args.get("email")
-            id = request.args.get("id")
-            print(email, id)
-            return fetch_user(id, email=email), 200
-        
-    except InformationMismatched as e:
-        print(e)
-        return str(e), 404
-
 @app.route("/signupuser", methods=["POST"])
 def sign_up_user():
     """
@@ -65,7 +32,7 @@ def sign_up_user():
     except UserAlreadyExists as e:
         print(e)
         return str(e), 404
-
+    
 @app.route("/verifyuser", methods=["PUT"])
 def verify_user():
     """
@@ -85,8 +52,8 @@ def verify_user():
             
     except UserDoesNotExist as e:
         print(e)
-        return str(e), 404
-    
+        return str(e), 404  
+     
 @app.route("/authenticateuser", methods=["GET"])
 def authenticate_user():
     """
@@ -107,7 +74,40 @@ def authenticate_user():
         
     except InformationMismatched as e:
         print(e)
-        return str(e), 404
-
+        return str(e), 404    
+    
+@app.route("/getuser", methods=["GET"])
+def get_user():
+    """
+    Provide an endpoint for frontend to request a user's data by responding 
+    with the user's JSON if the request email and ID all match.
+    """
+    try:
+        if(request.method == "GET"):
+            email = request.args.get("email")
+            id = request.args.get("id")
+            print(email, id)
+            return fetch_user(id, email=email), 200
+        
+    except InformationMismatched as e:
+        print(e)
+        return str(e), 404    
+    
+@app.route("/updatedaytimes", methods=["PUT"])
+def update_day_times():
+    """
+    Provide an endpoint for frontend to update 'day_times' attribute for a user.
+    """
+    try:
+        if(request.method == "PUT"):
+            sucess_msg = "User's day times updated"
+            update_user_day_times(**request.json)
+            print(sucess_msg)
+            return sucess_msg, 200
+        
+    except InformationMismatched as e:
+        print(e)
+        return str(e), 404     
+    
 if __name__ == "__main__":
     app.run(ssl_context="adhoc", debug=True)
