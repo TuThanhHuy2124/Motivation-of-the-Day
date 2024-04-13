@@ -1,7 +1,9 @@
+import { useState } from "react";
 import InfoInput from "../components/InfoInput";
 
 function SignUp () {
-    
+    const [status, setStatus] = useState(null);
+
     const handleSignUp = (e) => {
         e.preventDefault();
         const [first_name, last_name, email] = [e.target[0].value, e.target[1].value, e.target[2].value];
@@ -20,20 +22,16 @@ function SignUp () {
                 confirmed: false,
                 confirmed_date: null,
             })
-        }).then(response => {
-            if(response.ok) {
-                return response.json()
-            }
-            else {
-                console.log(response); 
-            }
         })
+        .then(response => response.json())
+        .then(data => setStatus(data["response"]))
     }
 
     return (
         <form onSubmit={handleSignUp}>
             <InfoInput/><br/>
             <button type="submit">Sign Up</button>
+            <p>{status}</p>
         </form>
     )
 

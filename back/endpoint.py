@@ -4,34 +4,22 @@ from flask import Flask, request, abort, Response
 from database import push_user, fetch_user, user_exists, confirm_user, user_confirmed, get_user_id, update_user_day_times, InformationMismatched, UserDoesNotExist
 
 app = Flask(__name__)
-
-class UserAlreadyExists(Exception):
-    def __init__(self, message) -> None:
-        self._message = message
-
-    def __str__(self) -> str:
-        return self._message
     
 @app.route("/signupuser", methods=["POST"])
 def sign_up_user():
     """
     Provide an endpoint for frontend to sign a user up.
     """
-    try:
-        if(request.method == "POST"):
-            print(request.json)
-            if(not user_exists(request.json["email"])):
-                send_confirmation(request.json["email"], request.json["id"])
-                push_user(request.json, email=request.json["email"])
-                return "Confirmation Email Sent", 200
-            else:
-                error = "User already exists in the database"
-                print(error)
-                raise UserAlreadyExists(error)
-            
-    except UserAlreadyExists as e:
-        print(e)
-        return str(e), 404
+    if(request.method == "POST"):
+        print(request.json)
+        if(not user_exists(request.json["email"])):
+            send_confirmation(request.json["email"], request.json["id"])
+            push_user(request.json, email=request.json["email"])
+            return json.dumps({"response": "Confirmation Email Sent"}), 200
+        else:
+            error = "User already exists in the database"
+            print(error)
+            return json.dumps({"response": error}), 404
     
 @app.route("/verifyuser", methods=["PUT"])
 def verify_user():
@@ -46,13 +34,13 @@ def verify_user():
                 success_msg = "Verify user successfully"
                 confirm_user(id=request.json["id"], email=request.json["email"])
                 print(success_msg)
-                return success_msg, 200
+                return json.dumps({"response": success_msg}), 200
             else:
-                return "User already verified email", 404
+                return json.dumps({"response": "User already verified email"}), 404
             
     except UserDoesNotExist as e:
         print(e)
-        return str(e), 404  
+        return json.dumps({"response": str(e)}), 404  
      
 @app.route("/authenticateuser", methods=["GET"])
 def authenticate_user():
@@ -74,7 +62,7 @@ def authenticate_user():
         
     except InformationMismatched as e:
         print(e)
-        return str(e), 404    
+        return json.dumps({"response": str(e)}), 404    
     
 @app.route("/getuser", methods=["GET"])
 def get_user():
@@ -91,7 +79,7 @@ def get_user():
         
     except InformationMismatched as e:
         print(e)
-        return str(e), 404    
+        return json.dumps({"response": str(e)}), 404    
     
 @app.route("/updatedaytimes", methods=["PUT"])
 def update_day_times():
@@ -103,11 +91,11 @@ def update_day_times():
             sucess_msg = "User's day times updated"
             update_user_day_times(**request.json)
             print(sucess_msg)
-            return sucess_msg, 200
+            return json.dumps({"respponse": sucess_msg}), 200
         
     except InformationMismatched as e:
         print(e)
-        return str(e), 404     
+        return json.dumps({"response": str(e)}), 404     
     
 if __name__ == "__main__":
     app.run(ssl_context="adhoc", debug=True)
