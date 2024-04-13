@@ -9,7 +9,7 @@ function Submission() {
     const email = searchQuery.get("email")
     const id = searchQuery.get("id")
     const [categories, setCategories] = useState([])
-    const [day_times, setDayTimes] = useState(null)
+    const [day_times, setDayTimes] = useState()
     const [first_name, setFirstName] = useState(null)
     const [last_name, setLastName] = useState(null)
 
@@ -37,7 +37,7 @@ function Submission() {
              (Object.keys(day_times).length !== 0)
     }
 
-    const constructDayTimes = (times, categories) => {
+    const constructDayTimes = (times, chosen_categories) => {
       
       const day_times = {}
       for(const day of DAYS) {
@@ -49,14 +49,15 @@ function Submission() {
         while(true) {
 
           const time_obj = {}
-          const [hour] = times.filter(time => time.id === (day + "-" + index) && time.className === "hour")
-          const [minute] = times.filter(time => time.id === (day + "-" + index) && time.className === "minute")
+          const [time] = times.filter(time => time.id === (day + "-" + index) && time.className === "time")
+          const [chosen_category] = chosen_categories.filter(selection => selection.id === (day + "-" + index))
           
-          if(hour === undefined || minute === undefined) {break}
-          else if(hour.value === "" || minute.value == "") {index++; continue;}
+          
+          if(time === undefined) {break}
+          else if(time.value === "") {index++; continue;}
           else {
-            time_obj["time"] = (hour.value.length == 1 ? "0" + hour.value : hour.value) + ":" + (minute.value.length == 1 ? "0" + minute.value : minute.value)
-            time_obj["category"] = categories
+            time_obj["time"] = time
+            time_obj["category"] = chosen_categories[chosen_categories.selectedIndex].innerText
           }
 
           day_times[day].push(time_obj)
@@ -76,27 +77,27 @@ function Submission() {
     const elements = form.elements;
     const elements_array = Array(...elements);
 
-    const categories = elements_array.filter(element => (element.className === "category" && element.checked === true))
-                                     .map(elements => elements.id);
-    const times = elements_array.filter(element => element.className === "hour" || element.className === "minute")
-    const day_times = constructDayTimes(times, categories)
+    const times = elements_array.filter(element => element.className === "time")
+    const chosen_categories = elements_array.filter(element => element.className === "chosen-category")
+    console.log(times, chosen_categories)
+    const day_times = constructDayTimes(times, chosen_categories)
     
-    console.log(categories, day_times)
+    console.log(day_times)
 
-    if(is_valid(categories, day_times)) {
-      fetch("/adduser", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          id: id,
-          catergories: categories, 
-          day_times: day_times
-        })
-      })
-    } else console.log("prevented")
+    // if(is_valid(categories, day_times)) {
+    //   fetch("/adduser", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       email: email,
+    //       id: id,
+    //       catergories: categories, 
+    //       day_times: day_times
+    //     })
+    //   })
+    // } else console.log("prevented")
   }
 
   return (

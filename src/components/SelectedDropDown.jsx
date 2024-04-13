@@ -1,10 +1,10 @@
 // eslint-disable-next-line react/prop-types
-function SelectedDropDown ({ selected }) {
+function SelectedDropDown ({ selected, name, index }) {
 
     return (
-        <select>
-            <option>Mixed</option>
-            {selected.map((option, index) => <option key={index}>{option}</option>)}
+        <select className="chosen-category" id={name + "-" + index}>
+            <option id="mixed">Mixed</option>
+            {selected.map((option, index) => <option key={index} id={option}>{option}</option>)}
         </select>
     )
 

@@ -17,7 +17,7 @@ function TimeDropDown ({name, selected}) {
             {Array(inputCounter).fill(null).map((elem, index) => (
                 <>
                     <Time key={index} name={name} index={index}/>
-                    <SelectedDropDown selected={selected}/><br/>
+                    <SelectedDropDown selected={selected} name={name} index={index}/><br/>
                 </>))}
             <button onClick={addInput}>Add</button>
         </>
