@@ -11,4 +11,4 @@ function InfoInput () {
     )
 }
 
-export default InfoInput
+export default InfoInput;

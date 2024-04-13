@@ -132,7 +132,7 @@ function Submission() {
     <form>
       <div className='main-display'>
         <SelectionDisplay selected={categories} setSelected={setCategories}/>
-        <DayTimeInput DAYS={DAYS} selected={categories}/>
+        <DayTimeInput DAYS={DAYS} selected={categories} day_times={day_times}/>
       </div>
       <button type='submit' onClick={addUser}>Submit</button>
     </form>
@@ -140,4 +140,4 @@ function Submission() {
   )
 }
 
-export default Submission
+export default Submission;

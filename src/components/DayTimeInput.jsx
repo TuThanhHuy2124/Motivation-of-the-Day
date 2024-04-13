@@ -1,15 +1,14 @@
 /* eslint-disable react/prop-types */
-import TimeDropDown from "./TimeDropDown"
+import TimeDropDown from "./TimeDropDown";
 
-function DayTimeInput ({DAYS, selected}) {
-
+function DayTimeInput ({DAYS, selected, day_times}) {
     return (
         <div className="dayTimesInput">
             {DAYS.map((day, index) => {
                 return (
                     <div className="day" key={index}>
                         <p className={day}>{day}</p>
-                        <TimeDropDown name={day} selected={selected} />
+                        <TimeDropDown name={day} selected={selected} times={day_times[day]}/>
                     </div>
                 )
             })}
@@ -17,4 +16,4 @@ function DayTimeInput ({DAYS, selected}) {
     )
 }
 
-export default DayTimeInput
+export default DayTimeInput;

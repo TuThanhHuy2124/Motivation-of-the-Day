@@ -1,9 +1,9 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Layout from "./pages/Layout"
-import Submission from "./pages/Submission"
-import SignUp from "./pages/SignUp"
-import Import from "./pages/Import"
-import Confirmation from "./pages/Confirmation"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./pages/Layout";
+import Submission from "./pages/Submission";
+import SignUp from "./pages/SignUp";
+import Import from "./pages/Import";
+import Confirmation from "./pages/Confirmation";
 
 function App () {
 
@@ -22,4 +22,4 @@ function App () {
 
 }
 
-export default App
+export default App;

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react"
 import "./SelectionDisplay.css"
 
@@ -70,20 +71,24 @@ const OPTIONS= ['age',
                 'success']
 
 function SelectionDisplay({ selected, setSelected }) {
-    console.log(selected)
-    const [unselected, setUnselected] = useState(OPTIONS.filter(option => {console.log(selected.indexOf(option)); return (selected.indexOf(option) === -1);}))
-    console.log(unselected)
+    console.log(selected);
+    const [unselected, setUnselected] = useState(
+        OPTIONS.filter(option => {
+            console.log(selected.indexOf(option)); 
+            return (selected.indexOf(option) === -1);
+        }));
+    console.log(unselected);
 
     const handleDiv = (e) => {
-        e.preventDefault()
-        console.log(e.target.id)
+        e.preventDefault();
+        console.log(e.target.id);
         if(selected.indexOf(e.target.id) !== -1) { 
-            setSelected(selected.filter(category => category !== e.target.id).sort())
-            setUnselected([...unselected, e.target.id].sort()) 
+            setSelected(selected.filter(category => category !== e.target.id).sort());
+            setUnselected([...unselected, e.target.id].sort());
         } 
         else { 
-            setSelected([...selected, e.target.id].sort())
-            setUnselected(unselected.filter(category => category !== e.target.id).sort())
+            setSelected([...selected, e.target.id].sort());
+            setUnselected(unselected.filter(category => category !== e.target.id).sort());
         }
     }
     
@@ -103,4 +108,4 @@ function SelectionDisplay({ selected, setSelected }) {
     )
 }
 
-export default SelectionDisplay
+export default SelectionDisplay;

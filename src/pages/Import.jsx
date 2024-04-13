@@ -53,4 +53,4 @@ function Import () {
 
 }
 
-export default Import
+export default Import;
