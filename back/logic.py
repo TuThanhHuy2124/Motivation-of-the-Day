@@ -36,6 +36,7 @@ def get_user_if_confirmed(user_obj: dict) -> dict | None:
             """
             Return true if it is the right time and day to send an email and false otherwise
             """
+            if day not in user_obj["day_times"]: return False
             time_list = user_obj["day_times"][day]
             is_time = True in [(time == time_obj["time"]) for time_obj in time_list]
             return (day in user_obj["day_times"].keys()) and (is_time)

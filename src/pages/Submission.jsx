@@ -8,9 +8,9 @@ function Submission() {
     const searchQuery = new URLSearchParams(window.location.search);
     const email = searchQuery.get("email");
     const id = searchQuery.get("id");
-    const [reloadData, setReloadData] = useState(true);
+    // const [reloadData, setReloadData] = useState(true);
     const [status, setStatus] = useState(null);
-    const [statusColor, setStatusColor] = useState(null);
+    // const [statusColor, setStatusColor] = useState(null);
     const [day_times, setDayTimes] = useState([]);
     const [categories, setCategories] = useState([]);
     const [first_name, setFirstName] = useState(null);
@@ -34,7 +34,7 @@ function Submission() {
             })
       }
       getUser()
-    }, [reloadData])
+    }, [])
 
     const is_valid = (categories, day_times) => {
       console.log(categories, day_times)
@@ -48,7 +48,7 @@ function Submission() {
         err += (err === "") ? "No time input found" : " and no time input found";
       }
 
-      if (err !== "") { setStatus(err); setStatusColor("red"); }
+      if (err !== "") { setStatus(err); }
 
       return (categories.length !== 0) 
           && (Object.keys(day_times).length !== 0);
@@ -102,10 +102,10 @@ function Submission() {
     console.log(day_times);
 
     if(is_valid(categories, day_times)) {
-      const triggerReload = !reloadData;
-      setStatus("User's data has been updated");
-      setStatusColor("green");
-      setReloadData(triggerReload);
+      // const triggerReload = !reloadData;
+      // setStatus("User's data has been updated");
+      // setStatusColor("green");
+      // setReloadData(triggerReload);
       fetch("/updatedaytimes", {
         method: "PUT",
         headers: {
@@ -118,12 +118,14 @@ function Submission() {
           day_times: day_times
         })
       })
+      window.alert("User's data has been updated");
+      window.location.reload();
     }
   }
 
   return (
     <>
-    <p className={"status" + " " + statusColor}>{status}</p>
+    <p className={"status red"}>{status}</p>
     <div className='personal-info'>
       <p>First Name: {first_name}</p>
       <p>Last Name: {last_name}</p>
