@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import "./Confirmation.css"
 
 function Confirmation() {
     const [statusColor, setStatusColor] = useState(null);
@@ -37,20 +38,20 @@ function Confirmation() {
     }, [])
 
     return (
-        <>
+        <div className="confirmation">
             {
                 submissionDisplay ? 
-                    <>
-                        <h1>Thank you for verifying your email address</h1>
-                        <h2>You may now proceed to submit the form</h2>
-                    </> :
-                    <>
-                        <h1>You have already verified your email</h1>
-                        <h2>Please use <Link to="/import">Import</Link> to load your data</h2>
-                    </>
+                    <div className="confirmation-container">
+                        <h1 className="line-1">Thank you for verifying your email address</h1>
+                        <h2 className="line-2">You may now proceed to submit the form</h2>
+                        <Link to={"/submission" + window.location.search}><button>Submission</button></Link>
+                    </div> :
+                    <div className="confirmation-container">
+                        <h1 className="line-1">You have already verified your email</h1>
+                        <h2 className="line-2">Please use <Link to="/import">Import</Link> to load your data</h2>
+                    </div>
             }
-            {submissionDisplay && <Link to={"/submission" + window.location.search}><button>Submission</button></Link>}
-        </>
+        </div>
     )
 }
 
