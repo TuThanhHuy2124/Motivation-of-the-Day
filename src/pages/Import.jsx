@@ -29,7 +29,7 @@ function Import () {
                     response.json().then(data => {
                         console.log(data);
                         setStatus(data["response"]);
-                        setStatusColor("green");
+                        setStatusColor("red");
                     })
                 }
             })

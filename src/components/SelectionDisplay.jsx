@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "./SelectionDisplay.css"
 
 const OPTIONS= ['age', 
@@ -71,17 +71,16 @@ const OPTIONS= ['age',
                 'success']
 
 function SelectionDisplay({ selected, setSelected }) {
-    console.log(selected);
-    const [unselected, setUnselected] = useState(
-        OPTIONS.filter(option => {
-            console.log(selected.indexOf(option)); 
-            return (selected.indexOf(option) === -1);
-        }));
-    console.log(unselected);
+    const [unselected, setUnselected] = useState([]);
+
+    useEffect(() => {
+        setUnselected(OPTIONS.filter(option => selected.indexOf(option) === -1))
+    }, [selected])
 
     const handleDiv = (e) => {
         e.preventDefault();
         console.log(e.target.id);
+        
         if(selected.indexOf(e.target.id) !== -1) { 
             setSelected(selected.filter(category => category !== e.target.id).sort());
             setUnselected([...unselected, e.target.id].sort());

@@ -19,19 +19,12 @@ function SignUp () {
                 first_name: first_name,
                 last_name: last_name,
                 email: email,
-                day_times: [],
                 confirmed: false,
-                confirmed_date: null,
             })
         })
         .then(response => {
-            if(response.ok) {
-                setStatusColor("green");
-            }
-            else {
-                setStatusColor("red");
-            }
-            
+            if(response.ok) { setStatusColor("green"); }
+            else { setStatusColor("red"); }
             response.json().then(data => setStatus(data["response"]));
         })
     }

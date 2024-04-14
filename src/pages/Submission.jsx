@@ -1,16 +1,14 @@
+import "./Submission.css";
 import { useEffect, useState } from 'react';
-import "./Submission.css"
-import SelectionDisplay from '../components/SelectionDisplay'
-import DayTimeInput from '../components/DayTimeInput'
+import DayTimeInput from '../components/DayTimeInput';
+import SelectionDisplay from '../components/SelectionDisplay';
 
 function Submission() {
     const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     const searchQuery = new URLSearchParams(window.location.search);
     const email = searchQuery.get("email");
     const id = searchQuery.get("id");
-    // const [reloadData, setReloadData] = useState(true);
-    const [status, setStatus] = useState(null);
-    // const [statusColor, setStatusColor] = useState(null);
+    
     const [day_times, setDayTimes] = useState([]);
     const [categories, setCategories] = useState([]);
     const [first_name, setFirstName] = useState(null);
@@ -22,13 +20,11 @@ function Submission() {
             .then(response => {
               if(response.ok) {
                 response.json().then(user => {
-                  console.log(user)
-                  setFirstName(user["first_name"])
-                  setLastName(user["last_name"])
-                  // eslint-disable-next-line no-prototype-builtins
-                  if(user.hasOwnProperty("categories")) { setCategories(user["categories"]) }
-                  // eslint-disable-next-line no-prototype-builtins
-                  if(user.hasOwnProperty("day_times")) { setDayTimes(user["day_times"]) }
+                  console.log(user);
+                  setFirstName(user["first_name"]);
+                  setLastName(user["last_name"]);
+                  if(Object.prototype.hasOwnProperty.call(user, "categories")) { setCategories(user["categories"]); }
+                  if(Object.prototype.hasOwnProperty.call(user, "day_times")) { setDayTimes(user["day_times"]); }
                 })
               }
             })
@@ -36,96 +32,46 @@ function Submission() {
       getUser()
     }, [])
 
-    const is_valid = (categories, day_times) => {
-      console.log(categories, day_times)
-      var err = "";
-
-      if (categories.length === 0) { 
-        err += "No category has been selected"; 
+  const filterInvalid = (day_times) => {
+    for(const day of DAYS) {
+      if(day_times[day] !== undefined) {
+        day_times[day] = day_times[day].filter(time_obj => time_obj.time !== "" && time_obj.category.length !== 0);
       }
-
-      if (Object.keys(day_times).length === 0) {
-        err += (err === "") ? "No time input found" : " and no time input found";
-      }
-
-      if (err !== "") { setStatus(err); }
-
-      return (categories.length !== 0) 
-          && (Object.keys(day_times).length !== 0);
     }
+    console.log(day_times);
+    return day_times;
+  }
 
-    const constructDayTimes = (times, chosen_categories) => {
-      
-      const day_times = {};
-      for(const day of DAYS) {
-
-        day_times[day] = [];
-        var index = 0;
-
-        // eslint-disable-next-line no-constant-condition
-        while(true) {
-
-          const time_obj = {};
-          const [time] = times.filter(time => time.id === (day + "-" + index) && time.className === "time");
-          const [chosen_category] = chosen_categories.filter(selection => selection.id === (day + "-" + index));
-          
-          
-          if(time === undefined) {break}
-          else if(time.value === "") {index++; continue;}
-          else {
-            time_obj["time"] = time.value;
-            time_obj["category"] = (chosen_category.value === "mixed") ? categories : [chosen_category.value];
-          }
-
-          day_times[day].push(time_obj);
-          index++;
-        }
-
-        if(day_times[day].length === 0) { delete day_times[day]; }
+  const sortByTime = (day_times) => {
+    for(const day of DAYS) {
+      if(day_times[day] !== undefined) {
+        day_times[day].sort((a, b) => a["time"].localeCompare(b["time"]));
       }
-
-      return day_times;
+    }
+    return day_times;
   }
 
   const addUser = (e) => {
     e.preventDefault();
-    
-    const form = e.target.form;
-    const elements = form.elements;
-    const elements_array = Array(...elements);
-
-    const times = elements_array.filter(element => element.className === "time");
-    const chosen_categories = elements_array.filter(element => element.className === "chosen-category");
-    console.log(times, chosen_categories);
-    const day_times = constructDayTimes(times, chosen_categories);
-    
-    console.log(day_times);
-
-    if(is_valid(categories, day_times)) {
-      // const triggerReload = !reloadData;
-      // setStatus("User's data has been updated");
-      // setStatusColor("green");
-      // setReloadData(triggerReload);
-      fetch("/updatedaytimes", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          id: id,
-          categories: categories, 
-          day_times: day_times
-        })
+    console.log(filterInvalid(day_times));
+    fetch("/updatedaytimes", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        id: id,
+        categories: categories, 
+        day_times: sortByTime(filterInvalid(day_times))
       })
-      window.alert("User's data has been updated");
-      window.location.reload();
-    }
+    })
+    window.alert("User's data has been updated");
+    window.location.reload();
   }
 
   return (
     <>
-    <p className={"status red"}>{status}</p>
     <div className='personal-info'>
       <p>First Name: {first_name}</p>
       <p>Last Name: {last_name}</p>
@@ -134,7 +80,7 @@ function Submission() {
     <form>
       <div className='main-display'>
         <SelectionDisplay selected={categories} setSelected={setCategories}/>
-        <DayTimeInput DAYS={DAYS} selected={categories} day_times={day_times}/>
+        <DayTimeInput DAYS={DAYS} selected={categories} day_times={day_times} setDayTimes={setDayTimes}/>
       </div>
       <button type='submit' onClick={addUser}>Submit</button>
     </form>

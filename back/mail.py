@@ -5,7 +5,7 @@ from datetime import datetime
 from collections import namedtuple
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from logic import get_user_if_confirmed, rearrange_name, get_all_subscribers
+from logic import get_user_if_valid, rearrange_name, get_all_subscribers
 
 # EmailPackage namedtuple
 EmailPackage = namedtuple("EmailPackage", ["receiver", "subject", "text_content", "html_content"])
@@ -185,7 +185,7 @@ def send_quote(simplified_user: dict) -> EmailPackage:
 def run() -> None:
     print(get_all_subscribers())
     for email_name, user in get_all_subscribers().items():
-        simplified_user = get_user_if_confirmed(user)
+        simplified_user = get_user_if_valid(user)
         if(simplified_user is not None):
             send_quote(simplified_user)
 
