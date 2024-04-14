@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InfoInput from "../components/InfoInput";
+import "./Form.css";
 
 function SignUp () {
     const [status, setStatus] = useState(null);
     const [statusColor, setStatusColor] = useState(null);
+
+    useEffect(() => {
+        setTimeout(() => setStatus(null), 3000);
+    }, [status])
 
     const handleSignUp = (e) => {
         e.preventDefault();
@@ -30,11 +35,15 @@ function SignUp () {
     }
 
     return (
-        <form onSubmit={handleSignUp}>
-            <InfoInput/><br/>
-            <button type="submit">Sign Up</button>
-            <p className={"status" + " " + statusColor}>{status}</p>
+        <>
+        <form className="input-form" onSubmit={handleSignUp}>
+            <div className="input-container">
+                <InfoInput/>
+                <button className="input-button" type="submit">Sign Up</button>
+            </div>
         </form>
+        {(status !== null) && <p className={"status" + " " + statusColor}>{status}</p>}
+        </>
     )
 
 }

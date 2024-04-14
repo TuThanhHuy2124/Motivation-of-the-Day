@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import InfoInput from "../components/InfoInput";
+import "./Form.css";
 
 function Import () {
     const [status, setStatus] = useState(null);
@@ -44,10 +45,12 @@ function Import () {
     }, [authenticationInfo])
 
     return (
-        <form onSubmit={handleImport}>
-            <InfoInput/><br/>
-            <button type="submit">Import</button>
-            <p className={"status" + " " + statusColor}>{status}</p>
+        <form className="input-form" onSubmit={handleImport}>
+            <div className="input-container">
+                <InfoInput/>
+                <button className="input-button" type="submit">Import</button>
+            </div>
+            {(status !== null) && <p className={"status" + " " + statusColor}>{status}</p>}
         </form>
     )
 

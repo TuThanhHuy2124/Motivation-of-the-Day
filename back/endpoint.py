@@ -17,7 +17,7 @@ def sign_up_user():
             push_user(request.json, email=request.json["email"])
             return json.dumps({"response": "Confirmation email sent"}), 200
         else:
-            error = "User already exists in the database"
+            error = "User already exists"
             print(error)
             return json.dumps({"response": error}), 404
     

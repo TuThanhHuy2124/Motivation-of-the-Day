@@ -1,3 +1,32 @@
 * {
+    font-family: "DM Sans";
     user-select: none;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+:root {
+    background-color: #F7F2EB;
+}
+
+button {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #ECF2FF;
+    box-shadow: 2px 2px 3px;
+    border: none;
+    outline: 0px solid black;
+    transition: outline 0.1s;
+}
+button:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0px 0px;
+    transition: 0.1s;
+}
+button:hover{
+    outline: 2px solid black;
+    outline-offset: -2px;
+    transition: 0.1s;
 }

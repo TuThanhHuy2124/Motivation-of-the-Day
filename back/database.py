@@ -21,7 +21,7 @@ class InformationMismatched(Exception):
 
 class UserDoesNotExist(Exception):
     def __init__(self, message) -> None:
-        self.message = message
+        self._message = message
 
     def __str__(self) -> str:
         return self._message

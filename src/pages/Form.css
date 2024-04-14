@@ -1,0 +1,39 @@
+.input-form {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-container {
+    height: 70vh;
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-image: linear-gradient(to bottom right, #315E8B, #BAD6EB);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px black;
+    font-size: 1.5em;
+}
+
+.input-button {
+    font-size: 0.75em;
+}
+
+.status {
+    padding: 10px;
+    border-radius: 20px;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    right: 1.5vw;
+}
+.green {
+    background-color: rgba(0, 128, 0, 0.7);
+}
+.red {
+    background-color: rgba(255, 0, 0, 0.7);
+}

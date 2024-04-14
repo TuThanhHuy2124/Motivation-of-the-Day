@@ -1,13 +1,20 @@
-import { Outlet, Link} from "react-router-dom"
+import { Outlet, Link} from "react-router-dom";
+import "./Layout.css";
 
 function Layout () {
 
     return (
-        <>
-            <Link to="/import">Import Page</Link><br/>
-            <Link to="/signup">Sign Up Page</Link><br/>
+        <div>
+            <h1 className="title">Motivation of the Day</h1>
+            <nav>
+                <div className="hover-trigger"></div>
+                <ul>
+                    <li><Link to="/import">Import</Link><br/></li>
+                    <li><Link to="/">Sign Up</Link><br/></li>
+                </ul>
+            </nav>
             <Outlet />
-        </>
+        </div>
     )
 
 }

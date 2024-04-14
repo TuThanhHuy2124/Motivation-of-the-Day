@@ -1,4 +1,5 @@
 import time
+import urllib
 import smtplib
 from api import get_quote_obj
 from datetime import datetime
@@ -64,6 +65,11 @@ def send_confirmation(email: str, id: str) -> EmailPackage:
     Return EmailPackage contains necessary information to send out a confirmation email
     """
     print("send confirmation", email, id)
+    params = {
+        "email": email,
+        "id": id
+    }   
+
     receiver = email
 
     subject = "Quote of the Day - Email Verification"
@@ -111,7 +117,7 @@ def send_confirmation(email: str, id: str) -> EmailPackage:
                                         <a href="https://www.google.com" target="_blank">
                                             <button><h3>Verify Email</h3></button>
                                         </a>
-                                        <p>Should redirect to this instead when deploy: <u>localhost:5173/confirmation?id={id}&email=tuthanhhuy2004%40gmail.com</u></p>
+                                        <p>Should redirect to this instead when deploy: <u>localhost:5173/confirmation?{urllib.parse.urlencode(params)}</u></p>
                                     </div>
                                     <h2>Please <i>ignore</i> this email if you did not sign up for this</h2>
                                 </div>
