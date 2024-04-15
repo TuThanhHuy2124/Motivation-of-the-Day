@@ -53,11 +53,14 @@ const TimeZoneDropDown = ({ preset_timezone, setTimezone }) => {
     }
 
     return (
-        <select onChange={handleTimeZoneChange}>
-            {UTCs.map(([display_UTC, UTC_value], index) => {
-                return <option key={index} value={UTC_value} selected={UTC_value === initializeTimezone()}>{display_UTC}</option>
-            })}
-        </select>
+        <>
+            <a href="https://www.google.com/search?q=my+time+zone" target="_blank"><button>Your Time Zone</button></a><br/>
+            <select onChange={handleTimeZoneChange}>
+                {UTCs.map(([display_UTC, UTC_value], index) => {
+                    return <option key={index} value={UTC_value} selected={UTC_value === initializeTimezone()}>{display_UTC}</option>
+                })}
+            </select>
+        </>
     )
 }
 
