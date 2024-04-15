@@ -2,6 +2,7 @@ import "./Submission.css";
 import { useEffect, useState } from 'react';
 import DayTimeInput from '../components/DayTimeInput';
 import SelectionDisplay from '../components/SelectionDisplay';
+import TimeZoneDropDown from "../components/TimeZoneDropDown";
 
 function Submission() {
     const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -9,6 +10,7 @@ function Submission() {
     const email = searchQuery.get("email");
     const id = searchQuery.get("id");
     
+    const [timezone, setTimezone] = useState(null)
     const [day_times, setDayTimes] = useState([]);
     const [categories, setCategories] = useState([]);
     const [first_name, setFirstName] = useState(null);
@@ -25,6 +27,7 @@ function Submission() {
                   setLastName(user["last_name"]);
                   if(Object.prototype.hasOwnProperty.call(user, "categories")) { setCategories(user["categories"]); }
                   if(Object.prototype.hasOwnProperty.call(user, "day_times")) { setDayTimes(user["day_times"]); }
+                  if(Object.prototype.hasOwnProperty.call(user, "timezone")) { setTimezone(user["timezone"]); }
                 })
               }
             })
@@ -60,6 +63,7 @@ function Submission() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        timezone: timezone,
         email: email,
         id: id,
         categories: categories, 
@@ -76,6 +80,7 @@ function Submission() {
       <p>First Name: {first_name}</p>
       <p>Last Name: {last_name}</p>
       <p>Email: {email}</p>
+      <TimeZoneDropDown preset_timezone={timezone} setTimezone={setTimezone}/>
     </div>
     <form>
       <div className='main-display'>

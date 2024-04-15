@@ -129,13 +129,14 @@ def fetch_user(id: str, * , email: str, user: dict) -> dict:
     return ConditionResultPackage(condition, result, failed_message)
 
 @verify_log_in
-def update_user_day_times(id: str, categories: list, day_times: dict, * , email: str, user: dict):
+def update_user_day_times(id: str, categories: list, day_times: dict, timezone: int, * , email: str, user: dict):
     """
-    Update user's 'categories' and 'day_times' if the inputted email and id match
+    Update user's 'categories', 'day_times', and 'timezone' if the inputted email and id match
     """
     @push_and_get
     def _update(*, email: str, sub_ref) -> None:
         sub_ref.update({
+                    "timezone": timezone,
                     "categories": categories,
                     "day_times": day_times,
                 })
