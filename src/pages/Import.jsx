@@ -15,7 +15,7 @@ function Import () {
             first_name: first_name,
             last_name: last_name
         });
-        console.log(params.toString());
+        console.log(params.toString()); 
         fetch(`/authenticateuser?${params.toString()}`, {method: "GET"})
             .then(response => {
                 if(response.ok) {
@@ -47,7 +47,9 @@ function Import () {
     return (
         <form className="input-form" onSubmit={handleImport}>
             <div className="input-container">
-                <InfoInput/>
+                <InfoInput require_email={true}
+                           require_password={true}
+                           require_names={true}/>
                 <button className="input-button" type="submit">Import</button>
             </div>
             {(status !== null) && <p className={"status" + " " + statusColor}>{status}</p>}

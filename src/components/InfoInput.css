@@ -1,11 +1,19 @@
-.first-name-container, .last-name-container, .email-container {
+.first-name-container, 
+.last-name-container, 
+.email-container,
+.password-container,
+.password-confirmation-container {
     display: flex;
     flex-direction: column; 
     width: inherit;
     padding: 0px 20px 0px 20px;
     color: white;
 }
-.first-name-container input, .last-name-container input, .email-container input {
+.first-name-container input, 
+.last-name-container input, 
+.email-container input,
+.password-container input,
+.password-confirmation-container input{
     border-radius: 10px;
     height: 30px;
     background-color: #ECF2FF;

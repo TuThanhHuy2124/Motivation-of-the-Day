@@ -5,40 +5,60 @@ import "./Form.css";
 function SignUp () {
     const [status, setStatus] = useState(null);
     const [statusColor, setStatusColor] = useState(null);
-
+    
     useEffect(() => {
         setTimeout(() => setStatus(null), 3000);
     }, [status])
 
     const handleSignUp = (e) => {
         e.preventDefault();
-        const [first_name, last_name, email] = [e.target[0].value, e.target[1].value, e.target[2].value];
-        console.log(first_name, last_name, email);
-        fetch(`/signupuser`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                id: Math.random().toString(36).slice(2),
-                first_name: first_name,
-                last_name: last_name,
-                email: email,
-                confirmed: false,
+        const [first_name, 
+               last_name, 
+               email, 
+               password, 
+               password_confirmation] = [e.target[0].value,
+                                         e.target[1].value, 
+                                         e.target[2].value,
+                                         e.target[3].value, 
+                                         e.target[4].value];
+        console.log(first_name, last_name, email, password, password_confirmation);
+        if((password === password_confirmation) && (password.length >= 8)) {
+            fetch(`/signupuser`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    id: Math.random().toString(36).slice(2),
+                    first_name: first_name,
+                    last_name: last_name,
+                    email: email,
+                    password: password,
+                    confirmed: false,
+                })
             })
-        })
-        .then(response => {
-            if(response.ok) { setStatusColor("green"); }
-            else { setStatusColor("red"); }
-            response.json().then(data => setStatus(data["response"]));
-        })
+            .then(response => {
+                if(response.ok) { setStatusColor("green"); }
+                else { setStatusColor("red"); }
+                response.json().then(data => setStatus(data["response"]));
+            })
+        } else if (password.length < 8) {
+            setStatus("Password needs to have at least 8 characters");
+            setStatusColor("red");
+        } else {
+            setStatus("Password mismatched");
+            setStatusColor("red");
+        }
     }
 
     return (
         <>
         <form className="input-form" onSubmit={handleSignUp}>
             <div className="input-container">
-                <InfoInput/>
+                <InfoInput require_names={true} 
+                           require_email={true} 
+                           require_password={true} 
+                           require_password_confirmation={true}/>
                 <button className="input-button" type="submit">Sign Up</button>
             </div>
         </form>
