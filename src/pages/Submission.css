@@ -18,6 +18,7 @@
 .dayTimesInput {
     overflow-y: auto;
     height: 55vh;
+    border-radius: 10px;
 }
 
 
@@ -33,7 +34,7 @@
     justify-content: space-around;
     align-items: center;
 }
-.personal-info p, 
+.personal-info > p, 
 .personal-info div {
     display: flex;
     flex-direction: row;

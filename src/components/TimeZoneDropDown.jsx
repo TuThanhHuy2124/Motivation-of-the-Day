@@ -45,22 +45,16 @@ const TimeZoneDropDown = ({ preset_timezone, setTimezone }) => {
 
     const handleTimeZoneChange = (e) => {setTimezone(Number(e.target[e.target.selectedIndex].value));}
 
-    const initializeTimezone = () => {
-        if(preset_timezone === null) { 
-            setTimezone(-12);
-            return -12;
-        }
-        return preset_timezone;
-    }
-
     return (
         <div className="timezone-dropdown-container">
-            <a href="https://www.google.com/search?q=my+time+zone" target="_blank"><button>Your Time Zone</button></a><br/>
+            <p>Your Time Zone:</p>
             <select className="timezone-dropdown" onChange={handleTimeZoneChange}>
+                <option id="blank"></option>
                 {UTCs.map(([display_UTC, UTC_value], index) => {
-                    return <option key={index} value={UTC_value} selected={UTC_value === initializeTimezone()}>{display_UTC}</option>
+                    return <option key={index} value={UTC_value} selected={UTC_value === preset_timezone}>{display_UTC}</option>
                 })}
             </select>
+            <a href="https://www.bing.com/search?q=what+is+my+utc+time+zone" target="_blank"><button>Your Time Zone</button></a><br/>
         </div>
     )
 }

@@ -54,24 +54,28 @@ function Submission() {
     return day_times;
   }
 
+  const dataAllValid = () => {return (timezone !== null);}
+
   const addUser = (e) => {
     e.preventDefault();
     console.log(filterInvalid(day_times));
-    fetch("/updatedaytimes", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        timezone: timezone,
-        email: email,
-        id: id,
-        categories: categories, 
-        day_times: sortByTime(filterInvalid(day_times))
+    if(dataAllValid()) {
+      fetch("/updatedaytimes", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          timezone: timezone,
+          email: email,
+          id: id,
+          categories: categories, 
+          day_times: sortByTime(filterInvalid(day_times))
+        })
       })
-    })
-    window.alert("User's data has been updated");
-    window.location.reload();
+      window.alert("User's data has been updated");
+      window.location.reload();
+    } else console.log("prevented");
   }
 
   return (
