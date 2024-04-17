@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import SelectedDropDown from "./SelectedDropDown";
 import TimeInput from "./TimeInput";
+import "./TimeCategoryInput.css"
 
 function TimeCategoryInput ({day, selected, day_times, setDayTimes}) {
     const times = day_times[day];
@@ -48,7 +49,7 @@ function TimeCategoryInput ({day, selected, day_times, setDayTimes}) {
             times.map((time_obj, index) => {
                 console.log(time_obj)
                 return (
-                <div key={index}>
+                <div key={index} className="time-category-container">
                     <TimeInput day={day} 
                           index={index} 
                           day_times={day_times}
@@ -60,7 +61,7 @@ function TimeCategoryInput ({day, selected, day_times, setDayTimes}) {
                                       day_times={day_times}
                                       setDayTimes={setDayTimes}
                                       preset_category={getPresetCategory(time_obj)}/>
-                    <button className={day + " " + index}onClick={removeInput}>X</button><br/>
+                    <button className={day + " " + index}onClick={removeInput}>X</button>
                 </div>)})}
             <button onClick={addInput}>Add</button>
         </>

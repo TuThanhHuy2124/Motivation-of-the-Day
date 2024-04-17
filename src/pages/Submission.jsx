@@ -77,12 +77,12 @@ function Submission() {
   return (
     <>
     <div className='personal-info'>
-      <p>First Name: {first_name}</p>
-      <p>Last Name: {last_name}</p>
-      <p>Email: {email}</p>
+      <p>First Name: <b>{first_name}</b></p>
+      <p>Last Name: <b>{last_name}</b></p>
+      <p>Email: <b>{email}</b></p>
       <TimeZoneDropDown preset_timezone={timezone} setTimezone={setTimezone}/>
     </div>
-    <form>
+    <form className="submission">
       <div className='main-display'>
         <SelectionDisplay selected={categories} setSelected={setCategories}/>
         <DayTimeInput DAYS={DAYS} selected={categories} day_times={day_times} setDayTimes={setDayTimes}/>

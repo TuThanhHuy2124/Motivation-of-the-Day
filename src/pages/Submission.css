@@ -1,10 +1,67 @@
 .main-display {
+    width: 100vw;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
+.main-display > div {
+    border-radius: 20px;
+    padding: 30px;
+    width: 25vw;
+    height: 70vh;
+    background-image: linear-gradient(to bottom right, #315E8B, #BAD6EB);
+}
 
-.unselected, .selected {
+
+.unselected, 
+.selected,
+.dayTimesInput {
     overflow-y: auto;
-    max-height: 70vh;
+    height: 55vh;
+}
+
+
+.unselected-display > h3,
+.selected-display > h3 {
+    text-align: center;
+}
+
+
+.personal-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.personal-info p, 
+.personal-info div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 20vw;
+    border-radius: 10px;
+    height: 8vh;
+    background-image: linear-gradient(to bottom right, #315E8B, #BAD6EB);
+}
+.personal-info p b{
+    padding-left: 5px;
+}
+.personal-info div {
+    justify-content: space-evenly;
+}
+
+b {
+    color: white;
+}
+
+.submission {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.submission > button {
+    font-size: 1.5em;
+    margin-top: 10px;
 }

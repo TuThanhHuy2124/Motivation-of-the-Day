@@ -94,14 +94,18 @@ function SelectionDisplay({ selected, setSelected }) {
     
     return (
         <>
-            <div className="unselected">
+            <div className="unselected-display">
                 <h3>Unselected</h3>
-                {unselected.map((option, index) => <div key={index} className="category" name={option} id={option} onClick={handleDiv}>{option}</div>)} 
+                <div className="unselected">
+                    {unselected.map((option, index) => <div key={index} className="category" name={option} id={option} onClick={handleDiv}>{option}</div>)} 
+                </div>
             </div>
 
-            <div className="selected">
+            <div className="selected-display">
                 <h3>Selected</h3>
-                {selected.map((option, index) => <div key={index} className="category" name={option} id={option} onClick={handleDiv}>{option}</div>)} 
+                <div className="selected">
+                    {selected.map((option, index) => <div key={index} className="category" name={option} id={option} onClick={handleDiv}>{option}</div>)} 
+                </div>
             </div>
         </>
     )

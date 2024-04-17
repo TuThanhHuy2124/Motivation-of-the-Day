@@ -1,3 +1,4 @@
+import "./TimeZoneDropDown.css"
 const UTCs = [
     ["UTC-12:00", -12],
     ["UTC-11:00", -11],
@@ -53,14 +54,14 @@ const TimeZoneDropDown = ({ preset_timezone, setTimezone }) => {
     }
 
     return (
-        <>
+        <div className="timezone-dropdown-container">
             <a href="https://www.google.com/search?q=my+time+zone" target="_blank"><button>Your Time Zone</button></a><br/>
-            <select onChange={handleTimeZoneChange}>
+            <select className="timezone-dropdown" onChange={handleTimeZoneChange}>
                 {UTCs.map(([display_UTC, UTC_value], index) => {
                     return <option key={index} value={UTC_value} selected={UTC_value === initializeTimezone()}>{display_UTC}</option>
                 })}
             </select>
-        </>
+        </div>
     )
 }
 

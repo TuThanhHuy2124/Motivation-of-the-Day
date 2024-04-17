@@ -1,3 +1,5 @@
+import "./SelectedDropDown.css"
+
 /* eslint-disable react/prop-types */
 function SelectedDropDown ({ selected, day, index, preset_category, day_times, setDayTimes }) {
 
