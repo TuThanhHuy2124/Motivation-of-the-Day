@@ -7,9 +7,8 @@ function Confirmation() {
     const [submissionDisplay, setSubmissionDisplay] = useState(null);
     const queryParams = new URLSearchParams(window.location.search);
     const id = queryParams.get("id");
-    const email = queryParams.get("email");
 
-    console.log(id, email);
+    console.log(id);
 
     useEffect(() => {
         const verifyUser = async () => {
@@ -19,7 +18,6 @@ function Confirmation() {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    email: email,
                     id: id
                 })
             })

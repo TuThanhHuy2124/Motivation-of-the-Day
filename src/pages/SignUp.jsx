@@ -29,7 +29,8 @@ function SignUp () {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    id: Math.random().toString(36).slice(2),
+                    id: Math.random().toString(36).slice(2) + 
+                        Math.random().toString(36).slice(2),
                     first_name: first_name,
                     last_name: last_name,
                     email: email,

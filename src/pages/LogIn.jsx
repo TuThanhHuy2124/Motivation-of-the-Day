@@ -2,18 +2,17 @@ import { useEffect, useState } from "react";
 import InfoInput from "../components/InfoInput";
 import "./Form.css";
 
-function Import () {
+function SignIn () {
     const [status, setStatus] = useState(null);
     const [statusColor, setStatusColor] = useState(null);
     const [authenticationInfo, setAuthenticationInfo] = useState(null);
 
     const handleImport = (e) => {
         e.preventDefault();
-        const [first_name, last_name, email] = [e.target[0].value, e.target[1].value, e.target[2].value];
+        const [email, password] = [e.target[0].value, e.target[1].value];
         const params = new URLSearchParams({
             email: email,
-            first_name: first_name,
-            last_name: last_name
+            password: password
         });
         console.log(params.toString()); 
         fetch(`/authenticateuser?${params.toString()}`, {method: "GET"})
@@ -48,9 +47,8 @@ function Import () {
         <form className="input-form" onSubmit={handleImport}>
             <div className="input-container">
                 <InfoInput require_email={true}
-                           require_password={true}
-                           require_names={true}/>
-                <button className="input-button" type="submit">Import</button>
+                           require_password={true}/>
+                <button className="input-button" type="submit">Log In</button>
             </div>
             {(status !== null) && <p className={"status" + " " + statusColor}>{status}</p>}
         </form>
@@ -58,4 +56,4 @@ function Import () {
 
 }
 
-export default Import;
+export default SignIn;

@@ -9,7 +9,7 @@ function Layout () {
             <nav>
                 <div className="hover-trigger"></div>
                 <ul>
-                    <li><Link to="/import">Import</Link><br/></li>
+                    <li><Link to="/login">Log In</Link><br/></li>
                     <li><Link to="/">Sign Up</Link><br/></li>
                 </ul>
             </nav>

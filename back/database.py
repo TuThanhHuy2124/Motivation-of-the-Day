@@ -34,12 +34,24 @@ def _write_to_file(raw_data: dict, file_name="data/subscribers.json") -> None:
     with open(file_name, "w") as file:
         json.dump(raw_data, file)
 
-# Check users information
-def user_exists(email: str) -> bool:
-    return _to_email_name(email) in get_all_subscribers()
+# Get user's id from email and password
+def get_user_id(email: str, password: str) -> str:
+    """
+    Return user's id if the inputted email and password match
+    """
+    for id, user in get_all_subscribers().items():
+        if user["email"] == email and user["password"] == password:
+            return id
+    raise InformationMismatched("Wrong email or password")
 
-def user_confirmed(email: str) -> bool:
-    return _to_email_name(email) in get_all_subscribers() and get_all_subscribers()[_to_email_name(email)]["confirmed"]
+
+# Check user's information
+def user_exists(email: str) -> bool:
+    return True in set((subscriber["email"] == email) for id, subscriber in get_all_subscribers().items())
+
+def user_confirmed(id: str) -> bool:
+    subscribers = get_all_subscribers()
+    return (id in subscribers) and ("confirmed" in subscribers[id]) and (subscribers[id]["confirmed"])
 
 # Decorators
 def push_and_get(func):
@@ -48,12 +60,12 @@ def push_and_get(func):
     (which suppposed to add data to that point to the database).
     Then, fetch the data from database and write into 'subscriber.json'.
 
-    Require wrapped func to take 'email' and 'sub_ref' as parameters.
+    Require wrapped func to take 'id' and 'sub_ref' as parameters.
     """
-    def wrapper(*args, email, **kwargs):
+    def wrapper(*args, id, **kwargs):
         subs_ref = db.reference("subscribers")
-        sub_ref = subs_ref.child(_to_email_name(email))
-        func(*args, **kwargs, email=email, sub_ref=sub_ref)
+        sub_ref = subs_ref.child(id)
+        func(*args, **kwargs, id=id, sub_ref=sub_ref)
         fetched = subs_ref.get()
         print(fetched)
         _write_to_file(fetched)
@@ -64,20 +76,19 @@ def verify_log_in(func):
     Verify the email with extra condition (which is returned by the func).
     Then, return the 'result' (which is also returned by the func).
 
-    Require the wrapped func to take 'email' and 'user' as parameters.
+    Require the wrapped func to take 'id' and 'user' as parameters.
     Require the wrapped func to return a ConditionResultPackage. 
     """
-    def wrapper(*args, email, **kwargs):
+    def wrapper(*args, id, **kwargs):
         data = get_all_subscribers()
-        email_name = _to_email_name(email)
-        print(data, email_name)
+        print(data, id)
         
-        if email_name not in data:
-            raise InformationMismatched("Email cannot be found")
+        if id not in data:
+            raise InformationMismatched("ID cannot be found")
         else:
-            user = data[email_name]
-            package = func(*args, **kwargs, email=email, user=user)
-            if user_confirmed(email):
+            user = data[id]
+            package = func(*args, **kwargs, id=id, user=user)
+            if user_confirmed(id):
                 if package.condition:
                     return package.result
                 else:
@@ -88,18 +99,18 @@ def verify_log_in(func):
 
 # Use push_and_get
 @push_and_get
-def push_user(user: dict, *, email: str, sub_ref) -> None:
+def push_user(user: dict, *, id: str, sub_ref) -> None:
     """
     Add 'user' to 'sub_ref' (user's address in the database) (which is passed from the decorator)
     """
     sub_ref.set(user)
 
 @push_and_get
-def confirm_user(id: str, *, email: str, sub_ref) -> None:
+def confirm_user(*, id: str, sub_ref) -> None:
     """
     Add 'confirmed' and 'confirmed_date' attributes to 'sub_ref' (user's address in the database) (which is passed from the decorator)
     """
-    if get_all_subscribers()[_to_email_name(email)]["id"] == id:
+    if id in get_all_subscribers():
         sub_ref.update({
             "confirmed": True,
             "confirmed_date": datetime.now().strftime("%m/%d/%Y")
@@ -108,20 +119,10 @@ def confirm_user(id: str, *, email: str, sub_ref) -> None:
         raise UserDoesNotExist("Cannot verify because user does not exist")
 
 # Use verify_log_in
-@verify_log_in     
-def get_user_id(first_name: str, last_name: str, * , email: str, user: dict) -> str:
-    """
-    Return user's id if the inputted email, first name, and last name match
-    """
-    condition = user["first_name"] == first_name and user["last_name"] == last_name
-    result = user["id"]
-    failed_message = "Wrong first or last name"
-    return ConditionResultPackage(condition, result, failed_message)
-
 @verify_log_in  
-def fetch_user(id: str, * , email: str, user: dict) -> dict:
+def fetch_user(* , id: str, user: dict) -> dict:
     """
-    Return user's data if the inputted email and id match
+    Return user's data if the inputted id matches
     """
     condition = user["id"] == id
     result = user
@@ -129,12 +130,12 @@ def fetch_user(id: str, * , email: str, user: dict) -> dict:
     return ConditionResultPackage(condition, result, failed_message)
 
 @verify_log_in
-def update_user_day_times(id: str, categories: list, day_times: dict, timezone: int, * , email: str, user: dict):
+def update_user_day_times(categories: list, day_times: dict, timezone: int, * , id: str, user: dict):
     """
-    Update user's 'categories', 'day_times', and 'timezone' if the inputted email and id match
+    Update user's 'categories', 'day_times', and 'timezone' if the inputted id matches
     """
     @push_and_get
-    def _update(*, email: str, sub_ref) -> None:
+    def _update(*, id: str, sub_ref) -> None:
         sub_ref.update({
                     "timezone": timezone,
                     "categories": categories,
@@ -142,7 +143,7 @@ def update_user_day_times(id: str, categories: list, day_times: dict, timezone: 
                 })
         
     condition = user["id"] == id
-    result = _update(email=email)
+    result = _update(id=id)
     failed_message = "User's ID does not match"
 
     return ConditionResultPackage(condition, result, failed_message)

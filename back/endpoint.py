@@ -13,8 +13,8 @@ def sign_up_user():
     if(request.method == "POST"):
         print(request.json)
         if(not user_exists(request.json["email"])):
+            push_user(request.json, id=request.json["id"])
             send_confirmation(request.json["email"], request.json["id"])
-            push_user(request.json, email=request.json["email"])
             return json.dumps({"response": "Confirmation email sent"}), 200
         else:
             error = "User already exists"
@@ -29,10 +29,10 @@ def verify_user():
     """
     try:
         if(request.method == "PUT"):
-            print(request.json["id"], request.json["email"])
-            if(not user_confirmed(request.json["email"])):
+            print(request.json["id"])
+            if(not user_confirmed(request.json["id"])):
                 success_msg = "Verify user successfully"
-                confirm_user(id=request.json["id"], email=request.json["email"])
+                confirm_user(id=request.json["id"])
                 print(success_msg)
                 return json.dumps({"response": success_msg}), 200
             else:
@@ -46,18 +46,14 @@ def verify_user():
 def authenticate_user():
     """
     Provide an endpoint for frontend to authenticate a user by responding with the 
-    user's email and ID if the request email, first name, and last name all match.
+    user's ID if the request email and password all match.
     """
     try:
         if(request.method == "GET"):
             email = request.args.get("email")
-            first_name = request.args.get("first_name")
-            last_name = request.args.get("last_name")
-            print(email, first_name, last_name)
-            response = {
-                "email": email,
-                "id": get_user_id(first_name, last_name, email=email)
-            }
+            password = request.args.get("password")
+            print(email, password)
+            response = {"id": get_user_id(email, password)}
             return json.dumps(response), 200
         
     except InformationMismatched as e:
@@ -68,14 +64,13 @@ def authenticate_user():
 def get_user():
     """
     Provide an endpoint for frontend to request a user's data by responding 
-    with the user's JSON if the request email and ID all match.
+    with the user's JSON if the request ID matches.
     """
     try:
         if(request.method == "GET"):
-            email = request.args.get("email")
             id = request.args.get("id")
-            print(email, id)
-            return fetch_user(id, email=email), 200
+            print(id)
+            return fetch_user(id=id), 200
         
     except InformationMismatched as e:
         print(e)
@@ -84,7 +79,7 @@ def get_user():
 @app.route("/updatedaytimes", methods=["PUT"])
 def update_day_times():
     """
-    Provide an endpoint for frontend to update 'day_times' attribute for a user.
+    Provide an endpoint for frontend to update 'day_times', 'categories', and 'timezone' attribute for a user.
     """
     try:
         if(request.method == "PUT"):

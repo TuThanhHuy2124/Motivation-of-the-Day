@@ -7,7 +7,6 @@ import TimeZoneDropDown from "../components/TimeZoneDropDown";
 function Submission() {
     const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     const searchQuery = new URLSearchParams(window.location.search);
-    const email = searchQuery.get("email");
     const id = searchQuery.get("id");
     
     const [timezone, setTimezone] = useState(null)
@@ -15,6 +14,7 @@ function Submission() {
     const [categories, setCategories] = useState([]);
     const [first_name, setFirstName] = useState(null);
     const [last_name, setLastName] = useState(null);
+    const [email, setEmail] = useState(null);
 
     useEffect(() => {
       const getUser = async () => {
@@ -23,6 +23,7 @@ function Submission() {
               if(response.ok) {
                 response.json().then(user => {
                   console.log(user);
+                  setEmail(user["email"])
                   setFirstName(user["first_name"]);
                   setLastName(user["last_name"]);
                   if(Object.prototype.hasOwnProperty.call(user, "categories")) { setCategories(user["categories"]); }
