@@ -68,7 +68,6 @@ function Submission() {
         },
         body: JSON.stringify({
           timezone: timezone,
-          email: email,
           id: id,
           categories: categories, 
           day_times: sortByTime(filterInvalid(day_times))
