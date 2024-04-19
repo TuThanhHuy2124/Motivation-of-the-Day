@@ -1,16 +1,20 @@
 .loading-container {
-    height: 88vh;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
     display: flex;
-    justify-content: center;
+    position: fixed;
     align-items: center;
+    justify-content: center;
+    background-color: #c0c8cf50;
 }
 
 .circle {
-    display: block;
-    border: 1vw solid white;
     width: 10vw;
     height: 10vw;
+    position: absolute;
     border-radius: 10vh;
+    border: 1vw solid white;
     border-bottom: 1vw solid #315E8B;
     animation: 1s infinite spin ease-out;
 }

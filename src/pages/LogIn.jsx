@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import InfoInput from "../components/InfoInput";
 import "./Form.css";
+import Loading from "../components/Loading";
 
 function LogIn () {
     const [status, setStatus] = useState(null);
+    const [isLoading, setLoading] = useState(false);
     const [statusColor, setStatusColor] = useState(null);
     const [authenticationInfo, setAuthenticationInfo] = useState(null);
 
@@ -15,6 +17,7 @@ function LogIn () {
             password: password
         });
         console.log(params.toString()); 
+        setLoading(true);
         fetch(`/authenticateuser?${params.toString()}`, {method: "GET"})
             .then(response => {
                 if(response.ok) {
@@ -32,6 +35,7 @@ function LogIn () {
                         setStatusColor("red");
                     })
                 }
+                setLoading(false);
             })
             
     }
@@ -44,6 +48,8 @@ function LogIn () {
     }, [authenticationInfo])
 
     return (
+        <>
+        {isLoading && <Loading/>}
         <form className="input-form" onSubmit={handleImport}>
             <div className="input-container">
                 <InfoInput require_email={true}
@@ -52,6 +58,7 @@ function LogIn () {
             </div>
             {(status !== null) && <p className={"status" + " " + statusColor}>{status}</p>}
         </form>
+        </>
     )
 
 }

@@ -4,6 +4,7 @@ import Submission from "./pages/Submission";
 import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
 import Confirmation from "./pages/Confirmation";
+import Loading from "./components/Loading";
 
 function App () {
 
@@ -16,6 +17,7 @@ function App () {
                         <Route path="/submission" element={<Submission />}></Route>
                         <Route path="/confirmation" element={<Confirmation />}></Route>
                 </Route>
+                <Route path="/test" element={<Loading/>}/>
                 <Route path="*" element={<h1>Oops, nothing is here!</h1>}/>
             </Routes>
         </BrowserRouter>
