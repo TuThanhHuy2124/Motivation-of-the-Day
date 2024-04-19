@@ -11,6 +11,7 @@ def sign_up_user():
     """
     Provide an endpoint for frontend to sign a user up.
     """
+    time.sleep(2)
     if(request.method == "POST"):
         print(request.json)
         if(not user_exists(request.json["email"])):
@@ -88,6 +89,7 @@ def update_day_times():
     """
     Provide an endpoint for frontend to update 'day_times', 'categories', and 'timezone' attribute for a user.
     """
+    time.sleep(2)
     try:
         if(request.method == "PUT"):
             sucess_msg = "User's day times updated"

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import InfoInput from "../components/InfoInput";
+import Loading from "../components/Loading";
 import "./Form.css";
 
 function SignUp () {
     const [status, setStatus] = useState(null);
+    const [isLoading, setLoading] = useState(false);
     const [statusColor, setStatusColor] = useState(null);
     
     useEffect(() => {
@@ -23,6 +25,7 @@ function SignUp () {
                                          e.target[4].value];
         console.log(first_name, last_name, email, password, password_confirmation);
         if((password === password_confirmation) && (password.length >= 8)) {
+            setLoading(true)
             fetch(`/signupuser`, {
                 method: "POST",
                 headers: {
@@ -42,6 +45,7 @@ function SignUp () {
                 if(response.ok) { setStatusColor("green"); }
                 else { setStatusColor("red"); }
                 response.json().then(data => setStatus(data["response"]));
+                setLoading(false);
             })
         } else if (password.length < 8) {
             setStatus("Password needs to have at least 8 characters");
@@ -54,6 +58,7 @@ function SignUp () {
 
     return (
         <>
+        {isLoading && <Loading/>}
         <form className="input-form" onSubmit={handleSignUp}>
             <div className="input-container">
                 <InfoInput require_names={true} 
