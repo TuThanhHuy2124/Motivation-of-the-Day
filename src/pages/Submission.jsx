@@ -13,7 +13,6 @@ function Submission() {
 
     const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     const searchQuery = new URLSearchParams(window.location.search);
-    const email = searchQuery.get("email");
     const id = searchQuery.get("id");
     
     function setProperty(obj, property, defaultResult) {
@@ -29,6 +28,7 @@ function Submission() {
     const [categories, setCategories] = useState(setProperty(user, "categories", []));
     const first_name = user["first_name"];
     const last_name = user["last_name"];
+    const [email, setEmail] = useState(setProperty(user, "email", null));
 
     // useEffect(() => {
     //   const getUser = async () => {
@@ -37,6 +37,7 @@ function Submission() {
     //           if(response.ok) {
     //             response.json().then(user => {
     //               console.log(user);
+    //               setEmail(user["email"]);
     //               setFirstName(user["first_name"]);
     //               setLastName(user["last_name"]);
     //               if(Object.prototype.hasOwnProperty.call(user, "categories")) { setCategories(user["categories"]); }
@@ -81,7 +82,6 @@ function Submission() {
         },
         body: JSON.stringify({
           timezone: timezone,
-          email: email,
           id: id,
           categories: categories, 
           day_times: sortByTime(filterInvalid(day_times))

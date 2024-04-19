@@ -65,10 +65,7 @@ def send_confirmation(email: str, id: str) -> EmailPackage:
     Return EmailPackage contains necessary information to send out a confirmation email
     """
     print("send confirmation", email, id)
-    params = {
-        "email": email,
-        "id": id
-    }   
+    params = {"id": id}   
 
     receiver = email
 
