@@ -1,54 +1,40 @@
 import "./Submission.css";
-import { useState } from 'react';
-import wrapPromise from "../wrapPromise";
+import { useEffect, useState } from 'react';
 import DayTimeInput from '../components/DayTimeInput';
 import SelectionDisplay from '../components/SelectionDisplay';
 import TimeZoneDropDown from "../components/TimeZoneDropDown";
 
-const data = wrapPromise(fetch(`/getuser${window.location.search}`));
-
 function Submission() {
-    
-    const user = data.read()
-    console.log(user)
-
     const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     const searchQuery = new URLSearchParams(window.location.search);
     const id = searchQuery.get("id");
     
-    function setProperty(obj, property, defaultResult) {
-      if(obj === null) return defaultResult
-      else if(Object.prototype.hasOwnProperty.call(obj, property)) {
-        return obj[property]
-      } else return defaultResult
-    }
+    const [timezone, setTimezone] = useState(null)
+    const [day_times, setDayTimes] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [first_name, setFirstName] = useState(null);
+    const [last_name, setLastName] = useState(null);
+    const [email, setEmail] = useState(null);
 
-    const [timezone, setTimezone] = useState(setProperty(user, "timezone", null));
-    const [day_times, setDayTimes] = useState(setProperty(user, "day_times", []));
-    const [categories, setCategories] = useState(setProperty(user, "categories", []));
-    const [email, setEmail] = useState(setProperty(user, "email", null));
-    const first_name = user["first_name"];
-    const last_name = user["last_name"];
-
-    // useEffect(() => {
-    //   const getUser = async () => {
-    //     fetch(`/getuser${window.location.search}`)
-    //         .then(response => {
-    //           if(response.ok) {
-    //             response.json().then(user => {
-    //               console.log(user);
-    //               setEmail(user["email"]);
-    //               setFirstName(user["first_name"]);
-    //               setLastName(user["last_name"]);
-    //               if(Object.prototype.hasOwnProperty.call(user, "categories")) { setCategories(user["categories"]); }
-    //               if(Object.prototype.hasOwnProperty.call(user, "day_times")) { setDayTimes(user["day_times"]); }
-    //               if(Object.prototype.hasOwnProperty.call(user, "timezone")) { setTimezone(user["timezone"]); }
-    //             })
-    //           }
-    //         })
-    //   }
-    //   getUser()
-    // }, [])
+    useEffect(() => {
+      const getUser = async () => {
+        fetch(`/getuser${window.location.search}`)
+            .then(response => {
+              if(response.ok) {
+                response.json().then(user => {
+                  console.log(user);
+                  setEmail(user["email"])
+                  setFirstName(user["first_name"]);
+                  setLastName(user["last_name"]);
+                  if(Object.prototype.hasOwnProperty.call(user, "categories")) { setCategories(user["categories"]); }
+                  if(Object.prototype.hasOwnProperty.call(user, "day_times")) { setDayTimes(user["day_times"]); }
+                  if(Object.prototype.hasOwnProperty.call(user, "timezone")) { setTimezone(user["timezone"]); }
+                })
+              }
+            })
+      }
+      getUser()
+    }, [])
 
   const filterInvalid = (day_times) => {
     for(const day of DAYS) {
