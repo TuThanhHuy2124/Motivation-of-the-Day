@@ -16,7 +16,7 @@ function App () {
                         <Route path="/submission" element={<Submission />}></Route>
                         <Route path="/confirmation" element={<Confirmation />}></Route>
                 </Route>
-                <Route path="*" element={<h1>Oops, there's nothing here</h1>}/>
+                <Route path="*" element={<h1>Oops, nothing is here!</h1>}/>
             </Routes>
         </BrowserRouter>
     )

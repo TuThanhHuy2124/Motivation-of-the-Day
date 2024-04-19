@@ -1,5 +1,6 @@
 import "./Submission.css";
 import { useEffect, useState } from 'react';
+import Loading from "../components/Loading";
 import DayTimeInput from '../components/DayTimeInput';
 import SelectionDisplay from '../components/SelectionDisplay';
 import TimeZoneDropDown from "../components/TimeZoneDropDown";
@@ -9,6 +10,7 @@ function Submission() {
     const searchQuery = new URLSearchParams(window.location.search);
     const id = searchQuery.get("id");
     
+    const [isLoading, setLoading] = useState(true);
     const [timezone, setTimezone] = useState(null)
     const [day_times, setDayTimes] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -31,6 +33,7 @@ function Submission() {
                   if(Object.prototype.hasOwnProperty.call(user, "timezone")) { setTimezone(user["timezone"]); }
                 })
               }
+              setLoading(false);
             })
       }
       getUser()
@@ -92,19 +95,24 @@ function Submission() {
 
   return (
     <>
-    <div className='personal-info'>
-      <p>First Name: <b>{first_name}</b></p>
-      <p>Last Name: <b>{last_name}</b></p>
-      <p>Email: <b>{email}</b></p>
-      <TimeZoneDropDown preset_timezone={timezone} setTimezone={setTimezone}/>
-    </div>
-    <form className="submission">
-      <div className='main-display'>
-        <SelectionDisplay selected={categories} setSelected={setCategories}/>
-        <DayTimeInput DAYS={DAYS} selected={categories} day_times={day_times} setDayTimes={setDayTimes}/>
-      </div>
-      <button type='submit' onClick={updateUser}>Submit</button>
-    </form>
+    {
+      isLoading ? <Loading/> :
+      <>
+        <div className='personal-info'>
+          <p>First Name: <b>{first_name}</b></p>
+          <p>Last Name: <b>{last_name}</b></p>
+          <p>Email: <b>{email}</b></p>
+          <TimeZoneDropDown preset_timezone={timezone} setTimezone={setTimezone}/>
+        </div>
+        <form className="submission">
+          <div className='main-display'>
+            <SelectionDisplay selected={categories} setSelected={setCategories}/>
+            <DayTimeInput DAYS={DAYS} selected={categories} day_times={day_times} setDayTimes={setDayTimes}/>
+          </div>
+          <button type='submit' onClick={updateUser}>Submit</button>
+        </form>
+      </>
+    }
     </>
   )
 }
