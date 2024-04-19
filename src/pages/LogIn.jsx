@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import InfoInput from "../components/InfoInput";
 import "./Form.css";
 
-function SignIn () {
+function LogIn () {
     const [status, setStatus] = useState(null);
     const [statusColor, setStatusColor] = useState(null);
     const [authenticationInfo, setAuthenticationInfo] = useState(null);
@@ -56,4 +56,4 @@ function SignIn () {
 
 }
 
-export default SignIn;
+export default LogIn;

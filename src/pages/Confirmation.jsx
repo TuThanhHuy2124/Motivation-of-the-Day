@@ -46,7 +46,7 @@ function Confirmation() {
                     </div> :
                     <div className="confirmation-container">
                         <h1 className="line-1">You have already verified your email</h1>
-                        <h2 className="line-2">Please use <Link to="/import">Import</Link> to load your data</h2>
+                        <h2 className="line-2">Please use <Link to="/login">Log In</Link> to load your data</h2>
                     </div>
             }
         </div>

@@ -52,9 +52,12 @@ def authenticate_user():
         if(request.method == "GET"):
             email = request.args.get("email")
             password = request.args.get("password")
-            print(email, password)
-            response = {"id": get_user_id(email, password)}
-            return json.dumps(response), 200
+            id = get_user_id(email, password)
+            print(email, password, id)
+            if(user_confirmed(id)):
+                response = {"id": id}
+                return json.dumps(response), 200
+            raise InformationMismatched("User has not confirmed their account yet")
         
     except InformationMismatched as e:
         print(e)
@@ -86,7 +89,7 @@ def update_day_times():
             sucess_msg = "User's day times updated"
             update_user_day_times(**request.json)
             print(sucess_msg)
-            return json.dumps({"respponse": sucess_msg}), 200
+            return json.dumps({"response": sucess_msg}), 200
         
     except InformationMismatched as e:
         print(e)

@@ -57,7 +57,7 @@ function Submission() {
 
   const dataAllValid = () => {return (timezone !== null);}
 
-  const addUser = (e) => {
+  const updateUser = (e) => {
     e.preventDefault();
     console.log(filterInvalid(day_times));
     if(dataAllValid()) {
@@ -73,8 +73,20 @@ function Submission() {
           day_times: sortByTime(filterInvalid(day_times))
         })
       })
-      window.alert("User's data has been updated");
-      window.location.reload();
+      .then(response => {
+        if(response.ok) {
+          response.json().then(data => {
+            console.log(data)
+            window.alert(data["response"]);
+            window.location.reload();
+          })
+        }
+        else {
+          response.json().then(data => {
+            throw Error(data["response"]);
+          })
+        }
+      });
     } else console.log("prevented");
   }
 
@@ -91,7 +103,7 @@ function Submission() {
         <SelectionDisplay selected={categories} setSelected={setCategories}/>
         <DayTimeInput DAYS={DAYS} selected={categories} day_times={day_times} setDayTimes={setDayTimes}/>
       </div>
-      <button type='submit' onClick={addUser}>Submit</button>
+      <button type='submit' onClick={updateUser}>Submit</button>
     </form>
     </>
   )
