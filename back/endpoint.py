@@ -54,10 +54,13 @@ def authenticate_user():
         if(request.method == "GET"):
             email = request.args.get("email")
             password = request.args.get("password")
-            print(email, password)
-            response = {"id": get_user_id(email, password)}
-            return json.dumps(response), 200
-        
+            id = get_user_id(email, password)
+            print(email, password, id)
+            if(user_confirmed(id)):
+                response = {"id": id}
+                return json.dumps(response), 200
+            raise InformationMismatched("User has not confirmed their account yet")
+
     except InformationMismatched as e:
         print(e)
         return json.dumps({"response": str(e)}), 404    
