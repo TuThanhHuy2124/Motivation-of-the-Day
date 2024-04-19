@@ -1,0 +1,25 @@
+.loading-container {
+    height: 88vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle {
+    display: block;
+    border: 1vw solid black;
+    width: 10vw;
+    height: 10vw;
+    border-radius: 10vh;
+    border-top: 1vw solid red;
+    animation: 1s infinite spin linear;
+}
+
+@keyframes spin {
+    from {
+        transform: rotateZ(0deg);
+    }
+    to {
+        transform: rotateZ(360deg);
+    }
+}

@@ -8,6 +8,7 @@ import TimeZoneDropDown from "../components/TimeZoneDropDown";
 const data = wrapPromise(fetch(`/getuser${window.location.search}`));
 
 function Submission() {
+    
     const user = data.read()
     console.log(user)
 
@@ -20,15 +21,14 @@ function Submission() {
       else if(Object.prototype.hasOwnProperty.call(obj, property)) {
         return obj[property]
       } else return defaultResult
-
     }
 
     const [timezone, setTimezone] = useState(setProperty(user, "timezone", null));
     const [day_times, setDayTimes] = useState(setProperty(user, "day_times", []));
     const [categories, setCategories] = useState(setProperty(user, "categories", []));
+    const [email, setEmail] = useState(setProperty(user, "email", null));
     const first_name = user["first_name"];
     const last_name = user["last_name"];
-    const [email, setEmail] = useState(setProperty(user, "email", null));
 
     // useEffect(() => {
     //   const getUser = async () => {
