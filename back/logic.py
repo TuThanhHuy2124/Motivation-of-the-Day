@@ -4,7 +4,7 @@ def get_all_subscribers() -> dict:
     """
     Return all the user_objs from subsribers.json
     """
-    file_name = "data/subscribers.json"
+    file_name = "subscribers.json"
     try:
         with open(file_name, "r") as file:
             user_objs = json.load(file)
