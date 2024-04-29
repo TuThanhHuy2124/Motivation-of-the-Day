@@ -1,5 +1,4 @@
 import json
-import time
 from mail import send_confirmation
 from flask import Flask, request, abort, Response
 from database import push_user, fetch_user, user_exists, confirm_user, user_confirmed, get_user_id, update_user_day_times, InformationMismatched, UserDoesNotExist
@@ -11,7 +10,6 @@ def sign_up_user():
     """
     Provide an endpoint for frontend to sign a user up.
     """
-    time.sleep(2)
     if(request.method == "POST"):
         print(request.json)
         if(not user_exists(request.json["email"])):
@@ -29,7 +27,6 @@ def verify_user():
     Only verify a user once.
     Provide an endpoint for frontend to verify a user when they confirm their email.
     """
-    time.sleep(2)
     try:
         if(request.method == "PUT"):
             print(request.json["id"])
@@ -51,7 +48,6 @@ def authenticate_user():
     Provide an endpoint for frontend to authenticate a user by responding with the 
     user's ID if the request email and password all match.
     """
-    time.sleep(2)
     try:
         if(request.method == "GET"):
             email = request.args.get("email")
@@ -73,7 +69,6 @@ def get_user():
     Provide an endpoint for frontend to request a user's data by responding 
     with the user's JSON if the request ID matches.
     """
-    time.sleep(2)
     try:
         if(request.method == "GET"):
             id = request.args.get("id")
@@ -89,7 +84,6 @@ def update_day_times():
     """
     Provide an endpoint for frontend to update 'day_times', 'categories', and 'timezone' attribute for a user.
     """
-    time.sleep(2)
     try:
         if(request.method == "PUT"):
             sucess_msg = "User's day times updated"

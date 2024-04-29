@@ -31,7 +31,7 @@ def get_user_if_valid(user_obj: dict) -> dict | None:
     (contains just enough information to send an email).
     If no, return None.
     """
-    if user_obj["confirmed"]:
+    if user_obj["confirmed"] and "day_times" in user_obj:
         now = datetime.now()
         day = now.strftime("%A")
         time = now.strftime("%H:%M")
