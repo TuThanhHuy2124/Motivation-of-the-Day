@@ -9,7 +9,7 @@ from firebase_admin import credentials, db
 
 #SECRET = dotenv_values("./data/.env")
 databaseURL = os.environ.get("DATABASE_URL")
-cred = credentials.Certificate(json.loads(os.environ.get(["FIREBASE_CRED"])))
+cred = credentials.Certificate(json.loads(os.environ.get("FIREBASE_CRED")))
 firebase_admin.initialize_app(cred, {'databaseURL': databaseURL})
 # ConditionResultPackage namedtuple
 ConditionResultPackage = namedtuple("ConditionResultPackage", ["condition", "result", "failed_message"])
