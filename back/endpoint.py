@@ -4,7 +4,11 @@ from flask import Flask, request, abort, Response
 from database import push_user, fetch_user, user_exists, confirm_user, user_confirmed, get_user_id, update_user_day_times, InformationMismatched, UserDoesNotExist
 
 app = Flask(__name__)
-    
+
+@app.route("/runmail")
+def run_mail_scanner():
+    run_mail()
+
 @app.route("/signupuser", methods=["POST"])
 def sign_up_user():
     """
@@ -96,5 +100,4 @@ def update_day_times():
         return json.dumps({"response": str(e)}), 404     
     
 if __name__ == "__main__":
-    run_mail()
     app.run(ssl_context="adhoc", debug=True)
