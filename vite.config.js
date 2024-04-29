@@ -7,31 +7,31 @@ export default defineConfig({
   server: {
     proxy: {
       '/updatedaytimes': {
-          target: 'https://localhost:5000',
+          target: 'https://motivation-of-the-day.onrender.com',
           changeOrigin: true,
           secure: false,      
           ws: true,
       },
       '/getuser': {
-        target: 'https://localhost:5000',
+        target: 'https://motivation-of-the-day.onrender.com',
         changeOrigin: true,
         secure: false,      
         ws: true,
       },
       '/signupuser': {
-        target: 'https://localhost:5000',
+        target: 'https://motivation-of-the-day.onrender.com',
         changeOrigin: true,
         secure: false,      
         ws: true,
       },
       '/verifyuser': {
-        target: 'https://localhost:5000',
+        target: 'https://motivation-of-the-day.onrender.com',
         changeOrigin: true,
         secure: false,      
         ws: true,
       },
       '/authenticateuser': {
-        target: 'https://localhost:5000',
+        target: 'https://motivation-of-the-day.onrender.com',
         changeOrigin: true,
         secure: false,      
         ws: true,
