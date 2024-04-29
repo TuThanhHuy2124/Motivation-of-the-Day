@@ -27,3 +27,4 @@ dist-ssr
 data
 .venv
 __pycache__
+subscribers.json

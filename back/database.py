@@ -30,10 +30,7 @@ class UserDoesNotExist(Exception):
         return self._message
 
 # Helper functions
-def _to_email_name(email: str) -> str:
-    return email.split("@")[0]
-
-def _write_to_file(raw_data: dict, file_name="data/subscribers.json") -> None:
+def _write_to_file(raw_data: dict, file_name="subscribers.json") -> None:
     with open(file_name, "w") as file:
         json.dump(raw_data, file)
 
