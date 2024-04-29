@@ -1,5 +1,5 @@
 import json
-from mail import send_confirmation
+from mail import send_confirmation, run_mail
 from flask import Flask, request, abort, Response
 from database import push_user, fetch_user, user_exists, confirm_user, user_confirmed, get_user_id, update_user_day_times, InformationMismatched, UserDoesNotExist
 
@@ -96,4 +96,5 @@ def update_day_times():
         return json.dumps({"response": str(e)}), 404     
     
 if __name__ == "__main__":
+    run_mail()
     app.run(ssl_context="adhoc", debug=True)

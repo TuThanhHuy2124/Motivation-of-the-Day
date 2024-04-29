@@ -4,6 +4,7 @@ import smtplib
 from api import get_quote_obj
 from datetime import datetime
 from collections import namedtuple
+from multiprocessing import Process
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from logic import get_user_if_valid, rearrange_name, get_all_subscribers
@@ -186,15 +187,19 @@ def send_quote(simplified_user: dict) -> EmailPackage:
     
     return EmailPackage(receiver, subject, text_content, html_content)
 
-def run() -> None:
+def scan_and_send_mail() -> None:
     print(get_all_subscribers())
     for email_name, user in get_all_subscribers().items():
         simplified_user = get_user_if_valid(user)
         if(simplified_user is not None):
             send_quote(simplified_user)
 
-if __name__ == "__main__":
+def infinite_scanner() -> None:
     print("mail.py is running")
     while True:
-        run()
+        scan_and_send_mail()
         time.sleep(60)
+
+def run_mail() -> None:
+    p = Process(target=infinite_scanner)
+    p.start()
