@@ -139,9 +139,10 @@ def send_quote(simplified_user: dict) -> EmailPackage:
 
     subject = f"Quote of the Day - {date} - {time}"
 
-    text_content = f"Hello, {simplified_user["first_name"]}\n"\
-                   f"Here is your quote about {quote_obj["category"]} for {date} at {time}:\n"\
-                   f"{quote_obj["quote"]} - {rearrange_name(quote_obj["author"])}"
+    text_content = ""
+                #    f"Hello, {simplified_user["first_name"]}\n"\
+                #    f"Here is your quote about {quote_obj["category"]} for {date} at {time}:\n"\
+                #    f"{quote_obj["quote"]} - {rearrange_name(quote_obj["author"])}"
 
     html_content = f"""
                     <html>
