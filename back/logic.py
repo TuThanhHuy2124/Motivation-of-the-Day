@@ -5,8 +5,13 @@ def get_all_subscribers() -> dict:
     Return all the user_objs from subsribers.json
     """
     file_name = "data/subscribers.json"
-    with open(file_name, "r") as file:
-        user_objs = json.load(file)
+    try:
+        with open(file_name, "r") as file:
+            user_objs = json.load(file)
+    except FileNotFoundError:
+        with open(file_name, "w") as file:
+            file.write("{}")
+            user_objs = dict()
     return user_objs
 
 def rearrange_name(name: str) -> str:
