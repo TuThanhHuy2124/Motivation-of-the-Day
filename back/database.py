@@ -1,14 +1,15 @@
+import os
 import json
 import firebase_admin
-from dotenv import dotenv_values
+#from dotenv import dotenv_values
 from datetime import datetime
 from collections import namedtuple
 from logic import get_all_subscribers
 from firebase_admin import credentials, db
 
-SECRET = dotenv_values("./data/.env")
-databaseURL = SECRET["DATABASE_URL"]
-cred = credentials.Certificate(json.loads(SECRET["FIREBASE_CRED"]))
+#SECRET = dotenv_values("./data/.env")
+databaseURL = os.environ.get("DATABASE_URL")
+cred = credentials.Certificate(json.loads(os.environ.get(["FIREBASE_CRED"])))
 firebase_admin.initialize_app(cred, {'databaseURL': databaseURL})
 # ConditionResultPackage namedtuple
 ConditionResultPackage = namedtuple("ConditionResultPackage", ["condition", "result", "failed_message"])
