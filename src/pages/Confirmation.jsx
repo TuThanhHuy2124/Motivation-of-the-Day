@@ -14,7 +14,7 @@ function Confirmation() {
 
     useEffect(() => {
         const verifyUser = async () => {
-            fetch("/verifyuser", {
+            fetch(`${import.meta.env.VITE_BACKEND_URL}/verifyuser`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"

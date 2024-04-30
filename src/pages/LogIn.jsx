@@ -18,7 +18,7 @@ function LogIn () {
         });
         console.log(params.toString()); 
         setLoading(true);
-        fetch(`/authenticateuser?${params.toString()}`, {method: "GET"})
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/authenticateuser?${params.toString()}`, {method: "GET"})
             .then(response => {
                 if(response.ok) {
                     response.json().then(data => {
