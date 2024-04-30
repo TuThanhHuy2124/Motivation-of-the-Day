@@ -45,7 +45,8 @@ def get_user_if_valid(user_obj: dict) -> dict | None:
             if "day_times" not in user_obj : return False
             if day not in converted_day_times: return False
             time_list = converted_day_times[day]
-            print("time list: " +time_list)
+            print("time list: ")
+            print(time_list)
             is_time = True in [(time == time_obj["time"]) for time_obj in time_list]
             return (day in converted_day_times.keys()) and (is_time)
         
