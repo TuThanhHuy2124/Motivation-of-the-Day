@@ -189,6 +189,7 @@ def send_quote(simplified_user: dict) -> EmailPackage:
 def scan_and_send_mail() -> None:
     for email_name, user in get_all_subscribers().items():
         simplified_user = get_user_if_valid(user)
+        print(simplified_user)
         if(simplified_user is not None):
             send_quote(simplified_user)
 

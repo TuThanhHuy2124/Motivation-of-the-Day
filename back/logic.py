@@ -33,6 +33,7 @@ def get_user_if_valid(user_obj: dict) -> dict | None:
     """
     if user_obj["confirmed"] and "day_times" in user_obj:
         now = datetime.now()
+        print(now)
         day = now.strftime("%A")
         time = now.strftime("%H:%M")
         converted_day_times = _rearrange_day_times(user_obj["day_times"], user_obj["timezone"])
@@ -44,6 +45,7 @@ def get_user_if_valid(user_obj: dict) -> dict | None:
             if "day_times" not in user_obj : return False
             if day not in converted_day_times: return False
             time_list = converted_day_times[day]
+            print("time list: " +time_list)
             is_time = True in [(time == time_obj["time"]) for time_obj in time_list]
             return (day in converted_day_times.keys()) and (is_time)
         
@@ -52,6 +54,7 @@ def get_user_if_valid(user_obj: dict) -> dict | None:
             Return the list of categories that associates with this time and day of the week
             """
             time_objs = converted_day_times[day]
+            print("get category: " + time_objs)
             for time_obj in time_objs:
                 if(time_obj["time"] == time):
                     return time_obj["category"]
