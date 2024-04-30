@@ -53,6 +53,12 @@ def user_confirmed(id: str) -> bool:
     subscribers = get_all_subscribers()
     return (id in subscribers) and ("confirmed" in subscribers[id]) and (subscribers[id]["confirmed"])
 
+def get_users_from_firebase():
+    subs_ref = db.reference("subscribers")
+    fetched = subs_ref.get()
+    print(fetched)
+    _write_to_file(fetched)
+
 # Decorators
 def push_and_get(func):
     """

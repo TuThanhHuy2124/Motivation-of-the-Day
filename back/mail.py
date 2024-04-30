@@ -4,7 +4,6 @@ import smtplib
 from api import get_quote_obj
 from datetime import datetime
 from collections import namedtuple
-from multiprocessing import Process
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from logic import get_user_if_valid, rearrange_name, get_all_subscribers
@@ -194,12 +193,7 @@ def scan_and_send_mail() -> None:
         if(simplified_user is not None):
             send_quote(simplified_user)
 
-def infinite_scanner() -> None:
+if __name__ == "__main__":
     print("mail.py is running")
-    while True:
-        scan_and_send_mail()
-        time.sleep(60)
-
-def run_mail() -> None:
-    p = Process(target=infinite_scanner)
-    p.start()
+    scan_and_send_mail()
+    time.sleep(60)

@@ -1,14 +1,9 @@
 import json
-from mail import send_confirmation, run_mail
+from mail import send_confirmation
 from flask import Flask, request, abort, Response
 from database import push_user, fetch_user, user_exists, confirm_user, user_confirmed, get_user_id, update_user_day_times, InformationMismatched, UserDoesNotExist
 
 app = Flask(__name__)
-
-@app.route("/runmail")
-def run_mail_scanner():
-    run_mail()
-    return "success", 200
 
 @app.route("/signupuser", methods=["POST"])
 def sign_up_user():
