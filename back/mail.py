@@ -1,6 +1,7 @@
 import time
 import urllib
 import smtplib
+from database import  get_users_from_firebase
 from api import get_quote_obj
 from datetime import datetime
 from collections import namedtuple
@@ -187,7 +188,7 @@ def send_quote(simplified_user: dict) -> EmailPackage:
     return EmailPackage(receiver, subject, text_content, html_content)
 
 def scan_and_send_mail() -> None:
-    print(get_all_subscribers())
+    get_users_from_firebase()
     for email_name, user in get_all_subscribers().items():
         simplified_user = get_user_if_valid(user)
         if(simplified_user is not None):

@@ -1,5 +1,4 @@
 import json
-from database import get_users_from_firebase
 from datetime import datetime, timedelta
 def get_all_subscribers() -> dict:
     """
@@ -11,7 +10,7 @@ def get_all_subscribers() -> dict:
             user_objs = json.load(file)
     except FileNotFoundError:
         with open(file_name, "w") as file:
-            file.write(get_users_from_firebase())
+            file.write("{}")
             user_objs = dict()
     return user_objs
 

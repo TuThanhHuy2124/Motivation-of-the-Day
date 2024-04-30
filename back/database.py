@@ -1,11 +1,16 @@
 import os
 import json
 import firebase_admin
-#from dotenv import dotenv_values
 from datetime import datetime
+from dotenv import load_dotenv
 from collections import namedtuple
 from logic import get_all_subscribers
 from firebase_admin import credentials, db
+
+try:
+    load_dotenv("data/.env")
+except:
+    pass
 
 #SECRET = dotenv_values("./data/.env")
 databaseURL = os.environ.get("DATABASE_URL")

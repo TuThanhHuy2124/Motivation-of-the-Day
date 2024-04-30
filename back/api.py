@@ -1,12 +1,20 @@
 import os
 import requests
 import random
-from dotenv import dotenv_values
+from dotenv import load_dotenv
+
 
 def get_quote_obj(categories: list) -> dict:
     """
     Get a quote object from Ninja APIs and return
     """
+    
+    try:
+        load_dotenv("data/.env")
+    except:
+        pass
+
+
     category = random.choice(categories)
     api_key = os.environ.get("API_KEY")
     url = f"https://api.api-ninjas.com/v1/quotes?category={category}"
