@@ -1,10 +1,10 @@
 import urllib
 import smtplib
-from database import  get_users_from_firebase
 from api import get_quote_obj
 from datetime import datetime
 from collections import namedtuple
 from email.mime.text import MIMEText
+from database import sync_from_firebase
 from email.mime.multipart import MIMEMultipart
 from logic import get_user_if_valid, rearrange_name, get_all_subscribers
 
@@ -187,7 +187,6 @@ def send_quote(simplified_user: dict) -> EmailPackage:
     return EmailPackage(receiver, subject, text_content, html_content)
 
 def scan_and_send_mail() -> None:
-    get_users_from_firebase()
     for email_name, user in get_all_subscribers().items():
         simplified_user = get_user_if_valid(user)
         if(simplified_user is not None):
@@ -195,4 +194,5 @@ def scan_and_send_mail() -> None:
 
 if __name__ == "__main__":
     print("mail.py is running")
+    sync_from_firebase()
     scan_and_send_mail()
