@@ -1,4 +1,3 @@
-import time
 import urllib
 import smtplib
 from database import  get_users_from_firebase
@@ -197,4 +196,3 @@ def scan_and_send_mail() -> None:
 if __name__ == "__main__":
     print("mail.py is running")
     scan_and_send_mail()
-    time.sleep(60)
