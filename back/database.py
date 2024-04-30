@@ -59,6 +59,7 @@ def user_confirmed(id: str) -> bool:
     return (id in subscribers) and ("confirmed" in subscribers[id]) and (subscribers[id]["confirmed"])
 
 def sync_from_firebase():
+    print("syncing...")
     subs_ref = db.reference("subscribers")
     fetched = subs_ref.get()
     print(fetched)
