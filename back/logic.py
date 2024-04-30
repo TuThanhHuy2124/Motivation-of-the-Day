@@ -1,5 +1,10 @@
 import json
 from datetime import datetime, timedelta, timezone
+
+def get_timezone() -> timezone:
+    CA_TIMEZONE = -7
+    return timezone(timedelta(hours=CA_TIMEZONE))
+
 def get_all_subscribers() -> dict:
     """
     Return all the user_objs from subsribers.json
@@ -32,9 +37,7 @@ def get_user_if_valid(user_obj: dict) -> dict | None:
     If no, return None.
     """
     if user_obj["confirmed"] and "day_times" in user_obj:
-        timezone_offset = -7
-        tz = timezone(timedelta(hours=timezone_offset))
-        now = datetime.now(tz=tz)
+        now = datetime.now(tz=get_timezone())
         print(now)
         day = now.strftime("%A")
         time = now.strftime("%H:%M")

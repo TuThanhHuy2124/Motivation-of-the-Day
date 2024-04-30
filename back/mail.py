@@ -6,7 +6,7 @@ from collections import namedtuple
 from email.mime.text import MIMEText
 from database import sync_from_firebase
 from email.mime.multipart import MIMEMultipart
-from logic import get_user_if_valid, rearrange_name, get_all_subscribers
+from logic import get_user_if_valid, rearrange_name, get_all_subscribers, get_timezone
 
 # EmailPackage namedtuple
 EmailPackage = namedtuple("EmailPackage", ["receiver", "subject", "text_content", "html_content"])
@@ -174,7 +174,7 @@ def send_quote(simplified_user: dict) -> EmailPackage:
                     <body>
                         <div class="everything">
                             <h1>Hello, <i>{simplified_user["first_name"]}</i>!</h1>
-                            <h2>Here is your quote about <i>{quote_obj["category"]}</i> for <i>{datetime.now().strftime("%m/%d/%Y")}</i> at <i>{datetime.now().strftime("%H:%M")}</i>:</h2>
+                            <h2>Here is your quote about <i>{quote_obj["category"]}</i> for <i>{datetime.now(tz=get_timezone()).strftime("%m/%d/%Y")}</i> at <i>{datetime.now(tz=get_timezone()).strftime("%H:%M")}</i>:</h2>
                             <div class="quote-container">
                                 <h2>{quote_obj["quote"]}</h2>
                                 <h2 class="author">- {rearrange_name(quote_obj["author"])}</h2>
