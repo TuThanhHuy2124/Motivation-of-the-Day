@@ -57,7 +57,8 @@ def get_user_if_valid(user_obj: dict) -> dict | None:
             Return the list of categories that associates with this time and day of the week
             """
             time_objs = converted_day_times[day]
-            print("get category: " + time_objs)
+            print("get category: ")
+            print(time_objs)
             for time_obj in time_objs:
                 if(time_obj["time"] == time):
                     return time_obj["category"]
