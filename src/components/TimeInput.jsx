@@ -22,6 +22,7 @@ function TimeInput ({day, index, preset_time, day_times, setDayTimes}) {
                   type="time" 
                   className="time-input" 
                   value={value} 
+                  step={600}
                   onInput={handleTimeInput}/>
 }
 
