@@ -194,6 +194,5 @@ def scan_and_send_mail() -> None:
 
 if __name__ == "__main__":
     print("mail.py is running")
-    sync_from_firebase()
     scan_and_send_mail()
     print("mail.py stopped")
