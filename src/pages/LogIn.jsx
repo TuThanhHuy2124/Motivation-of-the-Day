@@ -43,7 +43,7 @@ function LogIn () {
     useEffect(() => {
         if(authenticationInfo !== null) {
             const nextParams = new URLSearchParams(authenticationInfo);
-            window.location.href = `http://localhost:5173/submission?${nextParams.toString()}`;
+            window.location.href = `https://motivation-of-the-day.netlify.app/submission?${nextParams.toString()}`;
         }
     }, [authenticationInfo])
 
