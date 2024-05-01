@@ -16,7 +16,9 @@ def get_all_subscribers() -> dict:
     except FileNotFoundError:
         with open(file_name, "w") as file:
             file.write("{}")
-            user_objs = dict()
+            user_objs = {}
+    print("returning user_objs: ")
+    print(user_objs)
     return user_objs
 
 def rearrange_name(name: str) -> str:
