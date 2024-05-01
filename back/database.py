@@ -63,6 +63,7 @@ def sync_from_firebase():
     subs_ref = db.reference("subscribers")
     fetched = subs_ref.get()
     print(fetched)
+    if(fetched is None): fetched = {}
     _write_to_file(fetched)
 
 # Decorators
