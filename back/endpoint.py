@@ -1,35 +1,42 @@
 import json
-from flask_cors import CORS
 from mail import send_confirmation
-from flask import Flask, request, abort, Response
+from flask import Flask, request, abort, Response, jsonify
 from database import push_user, fetch_user, user_exists, confirm_user, user_confirmed, get_user_id, update_user_day_times, sync_from_firebase, InformationMismatched, UserDoesNotExist
 
-def prepare_flask_app() -> Flask:
+FRONTEND_URL = "https://motivation-of-the-day.netlify.app"
+
+def _prepare_flask_app() -> Flask:
     sync_from_firebase()
     return Flask(__name__)
 
-app = prepare_flask_app()
-cors = CORS(app, origins="https://motivation-of-the-day.netlify.app")
+def _build_response(msg: str, additional_info: dict = {}):
+    response_dict = {"response": msg}
+    response_dict.update(additional_info)
+    response = jsonify(response_dict)
+    response.headers.add("Access-Control-Allow-Origin", FRONTEND_URL)
+    print(response, response_dict)
+    return response
+
+app = _prepare_flask_app()
 
 @app.route("/signupuser", methods=["POST"])
-@cors_origin(origins="https://motivation-of-the-day.netlify.app")
 def sign_up_user():
     """
     Provide an endpoint for frontend to sign a user up.
     """
     if(request.method == "POST"):
+        
         print(request.json)
         if(not user_exists(request.json["email"])):
             push_user(request.json, id=request.json["id"])
             send_confirmation(request.json["email"], request.json["id"])
-            return json.dumps({"response": "Confirmation email sent"}), 200
+            return _build_response("Confirmation email sent"), 200
         else:
             error = "User already exists"
             print(error)
-            return json.dumps({"response": error}), 404
+            return _build_response(error), 404
     
 @app.route("/verifyuser", methods=["PUT"])
-@cors_origin(origins="https://motivation-of-the-day.netlify.app")
 def verify_user():
     """
     Only verify a user once.
@@ -42,16 +49,15 @@ def verify_user():
                 success_msg = "Verify user successfully"
                 confirm_user(id=request.json["id"])
                 print(success_msg)
-                return json.dumps({"response": success_msg}), 200
+                return _build_response(success_msg), 200
             else:
-                return json.dumps({"response": "User already verified email"}), 404
+                return _build_response("User already verified email"), 404
             
     except UserDoesNotExist as e:
         print(e)
-        return json.dumps({"response": str(e)}), 404  
+        return _build_response(str(e)), 404  
      
 @app.route("/authenticateuser", methods=["GET"])
-@cors_origin(origins="https://motivation-of-the-day.netlify.app")
 def authenticate_user():
     """
     Provide an endpoint for frontend to authenticate a user by responding with the 
@@ -64,16 +70,14 @@ def authenticate_user():
             id = get_user_id(email, password)
             print(email, password, id)
             if(user_confirmed(id)):
-                response = {"id": id}
-                return json.dumps(response), 200
+                return _build_response("User logged in", {"id": id}), 200
             raise InformationMismatched("User has not confirmed their account yet")
         
     except InformationMismatched as e:
         print(e)
-        return json.dumps({"response": str(e)}), 404    
+        return _build_response(str(e)), 404    
     
 @app.route("/getuser", methods=["GET"])
-@cors_origin(origins="https://motivation-of-the-day.netlify.app")
 def get_user():
     """
     Provide an endpoint for frontend to request a user's data by responding 
@@ -83,14 +87,13 @@ def get_user():
         if(request.method == "GET"):
             id = request.args.get("id")
             print(id)
-            return fetch_user(id=id), 200
+            return _build_response("User's id fetched", fetch_user(id=id)), 200
         
     except InformationMismatched as e:
         print(e)
-        return json.dumps({"response": str(e)}), 404    
+        return _build_response(str(e)), 404    
     
 @app.route("/updatedaytimes", methods=["PUT"])
-@cors_origin(origins="https://motivation-of-the-day.netlify.app")
 def update_day_times():
     """
     Provide an endpoint for frontend to update 'day_times', 'categories', and 'timezone' attribute for a user.
@@ -100,11 +103,11 @@ def update_day_times():
             sucess_msg = "User's day times updated"
             update_user_day_times(**request.json)
             print(sucess_msg)
-            return json.dumps({"response": sucess_msg}), 200
+            return _build_response(sucess_msg), 200
         
     except InformationMismatched as e:
         print(e)
-        return json.dumps({"response": str(e)}), 404     
+        return _build_response(str(e)), 404     
     
 if __name__ == "__main__":
     sync_from_firebase()
