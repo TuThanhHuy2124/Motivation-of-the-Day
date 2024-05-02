@@ -79,7 +79,6 @@ function SelectionDisplay({ selected, setSelected }) {
 
     const handleDiv = (e) => {
         e.preventDefault();
-        console.log(e.target.id);
         
         if(selected.indexOf(e.target.id) !== -1) { 
             setSelected(selected.filter(category => category !== e.target.id).sort());

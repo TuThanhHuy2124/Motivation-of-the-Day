@@ -32,7 +32,6 @@ function TimeCategoryInput ({day, selected, day_times, setDayTimes}) {
         const dayTimesCopy = {...day_times};
 
         dayTimesCopy[e_day].splice(e_index, 1)
-        console.log(dayTimesCopy, e)
         
         setDayTimes(dayTimesCopy)
     }
@@ -47,7 +46,6 @@ function TimeCategoryInput ({day, selected, day_times, setDayTimes}) {
         <>
             {(times !== undefined) && 
             times.map((time_obj, index) => {
-                console.log(time_obj)
                 return (
                 <div key={index} className="time-category-container">
                     <TimeInput day={day} 

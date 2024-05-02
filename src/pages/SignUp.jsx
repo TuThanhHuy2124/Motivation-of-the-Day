@@ -23,7 +23,6 @@ function SignUp () {
                                          e.target[2].value,
                                          e.target[3].value, 
                                          e.target[4].value];
-        console.log(first_name, last_name, email, password, password_confirmation);
         if((password === password_confirmation) && (password.length >= 8)) {
             setLoading(true)
             fetch(`${import.meta.env.VITE_BACKEND_URL}/signupuser`, {

@@ -16,13 +16,11 @@ function LogIn () {
             email: email,
             password: password
         });
-        console.log(params.toString()); 
         setLoading(true);
         fetch(`${import.meta.env.VITE_BACKEND_URL}/authenticateuser?${params.toString()}`, {method: "GET"})
             .then(response => {
                 if(response.ok) {
                     response.json().then(data => {
-                        console.log(data);
                         setAuthenticationInfo(data);
                         setStatus("User's data imported");
                         setStatusColor("green");
@@ -30,7 +28,6 @@ function LogIn () {
                 }
                 else {
                     response.json().then(data => {
-                        console.log(data);
                         setStatus(data["response"]);
                         setStatusColor("red");
                     })

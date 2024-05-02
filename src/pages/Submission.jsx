@@ -24,7 +24,6 @@ function Submission() {
             .then(response => {
               if(response.ok) {
                 response.json().then(user => {
-                  console.log(user);
                   setEmail(user["email"])
                   setFirstName(user["first_name"]);
                   setLastName(user["last_name"]);
@@ -45,7 +44,6 @@ function Submission() {
         day_times[day] = day_times[day].filter(time_obj => time_obj.time !== "" && time_obj.category.length !== 0);
       }
     }
-    console.log(day_times);
     return day_times;
   }
 
@@ -62,7 +60,6 @@ function Submission() {
 
   const updateUser = (e) => {
     e.preventDefault();
-    console.log(filterInvalid(day_times));
     if(dataAllValid()) {
       fetch(`${import.meta.env.VITE_BACKEND_URL}/updatedaytimes`, {
         method: "PUT",
@@ -79,7 +76,6 @@ function Submission() {
       .then(response => {
         if(response.ok) {
           response.json().then(data => {
-            console.log(data)
             window.alert(data["response"]);
             window.location.reload();
           })
@@ -90,7 +86,6 @@ function Submission() {
           })
         }
       });
-    } else console.log("prevented");
   }
 
   return (

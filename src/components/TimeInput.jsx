@@ -7,14 +7,12 @@ function TimeInput ({day, index, preset_time, day_times, setDayTimes}) {
 
     const handleTimeInput = (e) => {
         e.preventDefault();
-        console.log(e, e.target.value);
         
         const dayTimesCopy = {...day_times};
         dayTimesCopy[day][index].time = e.target.value;
 
         setValue(null);
         setDayTimes(dayTimesCopy);
-        console.log(dayTimesCopy);
     }
 
     return <input name={day} 

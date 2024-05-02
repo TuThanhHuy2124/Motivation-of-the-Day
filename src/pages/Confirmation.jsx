@@ -10,8 +10,6 @@ function Confirmation() {
     const queryParams = new URLSearchParams(window.location.search);
     const id = queryParams.get("id");
 
-    console.log(id);
-
     useEffect(() => {
         const verifyUser = async () => {
             fetch(`${import.meta.env.VITE_BACKEND_URL}/verifyuser`, {

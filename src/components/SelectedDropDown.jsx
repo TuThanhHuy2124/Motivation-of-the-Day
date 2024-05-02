@@ -15,7 +15,6 @@ function SelectedDropDown ({ selected, day, index, preset_category, day_times, s
         }
 
         setDayTimes(dayTimesCopy);
-        console.log(dayTimesCopy);
     }
 
     return (
