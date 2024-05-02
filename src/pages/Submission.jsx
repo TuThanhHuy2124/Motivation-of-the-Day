@@ -86,7 +86,7 @@ function Submission() {
           })
         }
       });
-  }
+  }}
 
   return (
     <>
