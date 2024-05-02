@@ -20,8 +20,9 @@ function Submission() {
 
     useEffect(() => {
       const getUser = async () => {
-        fetch(`${import.meta.env.VITE_BACKEND_URL}/getuser${window.location.search}`)
+        fetch(`/getuser${window.location.search}`)
             .then(response => {
+              console.log(response)
               if(response.ok) {
                 response.json().then(user => {
                   console.log(user);
@@ -64,7 +65,7 @@ function Submission() {
     e.preventDefault();
     console.log(filterInvalid(day_times));
     if(dataAllValid()) {
-      fetch(`${import.meta.env.VITE_BACKEND_URL}/updatedaytimes`, {
+      fetch(`/updatedaytimes`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

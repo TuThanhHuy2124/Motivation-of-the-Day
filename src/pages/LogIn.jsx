@@ -18,7 +18,7 @@ function LogIn () {
         });
         console.log(params.toString()); 
         setLoading(true);
-        fetch(`${import.meta.env.VITE_BACKEND_URL}/authenticateuser?${params.toString()}`, {method: "GET"})
+        fetch(`/authenticateuser?${params.toString()}`, {method: "GET"})
             .then(response => {
                 if(response.ok) {
                     response.json().then(data => {
@@ -43,7 +43,7 @@ function LogIn () {
     useEffect(() => {
         if(authenticationInfo !== null) {
             const nextParams = new URLSearchParams(authenticationInfo);
-            window.location.href = `https://motivation-of-the-day.netlify.app/submission?${nextParams.toString()}`;
+            window.location.href = `http://localhost:5173/submission?${nextParams.toString()}`;
         }
     }, [authenticationInfo])
 
