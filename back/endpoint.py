@@ -1,4 +1,5 @@
 import json
+from flask_cors import CORS
 from mail import send_confirmation
 from flask import Flask, request, abort, Response
 from database import push_user, fetch_user, user_exists, confirm_user, user_confirmed, get_user_id, update_user_day_times, sync_from_firebase, InformationMismatched, UserDoesNotExist
@@ -8,8 +9,10 @@ def prepare_flask_app() -> Flask:
     return Flask(__name__)
 
 app = prepare_flask_app()
+cors = CORS(app, origins="https://motivation-of-the-day.netlify.app")
 
 @app.route("/signupuser", methods=["POST"])
+@cors_origin(origins="https://motivation-of-the-day.netlify.app")
 def sign_up_user():
     """
     Provide an endpoint for frontend to sign a user up.
@@ -26,6 +29,7 @@ def sign_up_user():
             return json.dumps({"response": error}), 404
     
 @app.route("/verifyuser", methods=["PUT"])
+@cors_origin(origins="https://motivation-of-the-day.netlify.app")
 def verify_user():
     """
     Only verify a user once.
@@ -47,6 +51,7 @@ def verify_user():
         return json.dumps({"response": str(e)}), 404  
      
 @app.route("/authenticateuser", methods=["GET"])
+@cors_origin(origins="https://motivation-of-the-day.netlify.app")
 def authenticate_user():
     """
     Provide an endpoint for frontend to authenticate a user by responding with the 
@@ -68,6 +73,7 @@ def authenticate_user():
         return json.dumps({"response": str(e)}), 404    
     
 @app.route("/getuser", methods=["GET"])
+@cors_origin(origins="https://motivation-of-the-day.netlify.app")
 def get_user():
     """
     Provide an endpoint for frontend to request a user's data by responding 
@@ -84,6 +90,7 @@ def get_user():
         return json.dumps({"response": str(e)}), 404    
     
 @app.route("/updatedaytimes", methods=["PUT"])
+@cors_origin(origins="https://motivation-of-the-day.netlify.app")
 def update_day_times():
     """
     Provide an endpoint for frontend to update 'day_times', 'categories', and 'timezone' attribute for a user.
