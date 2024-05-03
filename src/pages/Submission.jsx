@@ -20,20 +20,25 @@ function Submission() {
 
     useEffect(() => {
       const getUser = async () => {
-        fetch(`${import.meta.env.VITE_BACKEND_URL}/getuser${window.location.search}`)
-            .then(response => {
-              if(response.ok) {
-                response.json().then(user => {
-                  setEmail(user["email"])
-                  setFirstName(user["first_name"]);
-                  setLastName(user["last_name"]);
-                  if(Object.prototype.hasOwnProperty.call(user, "categories")) { setCategories(user["categories"]); }
-                  if(Object.prototype.hasOwnProperty.call(user, "day_times")) { setDayTimes(user["day_times"]); }
-                  if(Object.prototype.hasOwnProperty.call(user, "timezone")) { setTimezone(user["timezone"]); }
-                })
-              }
-              setLoading(false);
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/getuser${window.location.search}`, {
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": import.meta.env.VITE_FRONTEND_URL
+          }
+        })
+        .then(response => {
+          if(response.ok) {
+            response.json().then(user => {
+              setEmail(user["email"])
+              setFirstName(user["first_name"]);
+              setLastName(user["last_name"]);
+              if(Object.prototype.hasOwnProperty.call(user, "categories")) { setCategories(user["categories"]); }
+              if(Object.prototype.hasOwnProperty.call(user, "day_times")) { setDayTimes(user["day_times"]); }
+              if(Object.prototype.hasOwnProperty.call(user, "timezone")) { setTimezone(user["timezone"]); }
             })
+          }
+          setLoading(false);
+        })
       }
       getUser()
     }, [])
@@ -65,6 +70,7 @@ function Submission() {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": import.meta.env.VITE_FRONTEND_URL
         },
         body: JSON.stringify({
           timezone: timezone,

@@ -3,6 +3,7 @@ import InfoInput from "../components/InfoInput";
 import Loading from "../components/Loading";
 import "./SignUp.css";
 
+
 function SignUp () {
     const [status, setStatus] = useState(null);
     const [isLoading, setLoading] = useState(false);
@@ -29,6 +30,7 @@ function SignUp () {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": import.meta.env.VITE_FRONTEND_URL
                 },
                 body: JSON.stringify({
                     id: Math.random().toString(36).slice(2) + 

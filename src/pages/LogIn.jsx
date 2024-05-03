@@ -17,7 +17,13 @@ function LogIn () {
             password: password
         });
         setLoading(true);
-        fetch(`${import.meta.env.VITE_BACKEND_URL}/authenticateuser?${params.toString()}`, {method: "GET"})
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/authenticateuser?${params.toString()}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": import.meta.env.VITE_FRONTEND_URL
+                    }
+                })
             .then(response => {
                 if(response.ok) {
                     response.json().then(data => {

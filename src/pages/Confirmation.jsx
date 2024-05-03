@@ -15,7 +15,8 @@ function Confirmation() {
             fetch(`${import.meta.env.VITE_BACKEND_URL}/verifyuser`, {
                 method: "PUT",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": import.meta.env.VITE_FRONTEND_URL
                 },
                 body: JSON.stringify({
                     id: id
