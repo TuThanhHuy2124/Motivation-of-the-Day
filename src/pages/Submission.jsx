@@ -94,9 +94,9 @@ function Submission() {
       isLoading ? <Loading/> :
       <>
         <div className='personal-info'>
-          <p>First Name: <b>{first_name}</b></p>
-          <p>Last Name: <b>{last_name}</b></p>
-          <p>Email: <b>{email}</b></p>
+          <p className="first-name-fetched">First Name: <b>{first_name}</b></p>
+          <p className="last-name-fetched">Last Name: <b>{last_name}</b></p>
+          <p className="email-fetched">Email: <b>{email}</b></p>
           <TimeZoneDropDown preset_timezone={timezone} setTimezone={setTimezone}/>
         </div>
         <form className="submission">

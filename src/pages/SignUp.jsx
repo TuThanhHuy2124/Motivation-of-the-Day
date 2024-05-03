@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import InfoInput from "../components/InfoInput";
 import Loading from "../components/Loading";
-import "./Form.css";
+import "./SignUp.css";
 
 function SignUp () {
     const [status, setStatus] = useState(null);
@@ -58,13 +58,13 @@ function SignUp () {
     return (
         <>
         {isLoading && <Loading/>}
-        <form className="input-form" onSubmit={handleSignUp}>
-            <div className="input-container">
+        <form className="sign-up-form" onSubmit={handleSignUp}>
+            <div className="sign-up-container">
                 <InfoInput require_names={true} 
                            require_email={true} 
                            require_password={true} 
                            require_password_confirmation={true}/>
-                <button className="input-button" type="submit">Sign Up</button>
+                <button className="sign-up-button" type="submit">Sign Up</button>
             </div>
         </form>
         {(status !== null) && <p className={"status" + " " + statusColor}>{status}</p>}

@@ -1,32 +1,69 @@
 * {
     font-family: "DM Sans";
     user-select: none;
+    color: var(--text-color);
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
+
+    --text-color: #164863;
+    --background-color: #ffffff;
+    --primary-color: #DDF2FD;
+    --secondary-color: #427D9D;
+    --accent-color: #9BBEC8;
+
+    --sign-up-form-width: 70vw;
+    --sign-up-form-height: 65vh;
+
+    --log-in-form-width: 50vw;
+    --log-in-form-height: 30vh;
 }
 
+/* :root {
+    background: url("/background.svg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+} */
+
 :root {
-    background-color: #F7F2EB;
+    background-color: var(--secondary-color);
+}
+
+.status {
+    padding: 10px;
+    border-radius: 20px;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    right: 1.5vw;
+}
+.green {
+    background-color: rgba(0, 128, 0, 0.7);
+}
+.red {
+    background-color: rgba(255, 0, 0, 0.7);
 }
 
 button {
     cursor: pointer;
     padding: 10px;
-    border-radius: 10px;
-    background-color: #ECF2FF;
-    box-shadow: 2px 2px 3px;
     border: none;
-    outline: 0px solid black;
+    border-radius: 10px;
+    box-shadow:  3px 3px 12px #8d9ba2,
+                -3px -3px 12px #ffffff;
+    outline: 0px solid ;
     transition: outline 0.1s;
+    background-color: var(--accent-color);
 }
 button:active {
-    transform: translate(2px, 2px);
-    box-shadow: 0px 0px;
-    transition: 0.1s;
+    transition: 50ms;
+    transform: translate(3px, 3px);
+    box-shadow: 0px 0px var(--primary-color);
 }
 button:hover{
-    outline: 2px solid black;
+    transition: 50ms;
     outline-offset: -2px;
-    transition: 0.1s;
+    outline: 2px solid var(--primary-color);
 }

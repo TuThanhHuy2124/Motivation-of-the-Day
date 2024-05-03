@@ -2,7 +2,7 @@
     text-align: center;
     font-size: 4em;
     margin: 10px 0px 0px 0px;
-    color: #315E8B;
+    color: var(--primary-color);
 }
 
 nav {
@@ -16,7 +16,7 @@ nav {
     justify-content: center;
     transform: translate(-12.5vw, 0px);
     transition: transform 0.6s;
-    background-color: #315E8B;
+    background-color: var(--primary-color);
 }
 nav:hover {
     transform: translate(0px, 0px);
@@ -40,12 +40,11 @@ li {
 }
 li a {
     text-decoration: none;
-    color: white;
+    color: var(--text-color);
 }
 li:hover {
-    background-color: #d5eef95d;
-    transition: background-color 0.1s;
-    box-shadow: 3px 0px #d6eef8 inset;
+    background-color: #b6ced6;
+    box-shadow: 3px 0px var(--text-color) inset;
 }
 
 .hover-trigger {
@@ -55,5 +54,5 @@ li:hover {
     height: 40px;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
-    background-color: #315E8B;
+    background-color: var(--primary-color);
 }

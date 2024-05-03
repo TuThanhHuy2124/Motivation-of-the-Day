@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import InfoInput from "../components/InfoInput";
-import "./Form.css";
+import "./LogIn.css";
 import Loading from "../components/Loading";
 
 function LogIn () {
@@ -47,11 +47,11 @@ function LogIn () {
     return (
         <>
         {isLoading && <Loading/>}
-        <form className="input-form" onSubmit={handleImport}>
-            <div className="input-container">
+        <form className="log-in-form" onSubmit={handleImport}>
+            <div className="log-in-container">
                 <InfoInput require_email={true}
                            require_password={true}/>
-                <button className="input-button" type="submit">Log In</button>
+                <button className="log-in-button" type="submit">Log In</button>
             </div>
             {(status !== null) && <p className={"status" + " " + statusColor}>{status}</p>}
         </form>

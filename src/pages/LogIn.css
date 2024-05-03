@@ -1,0 +1,28 @@
+.log-in-form {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.log-in-container {
+    height: var(--log-in-form-height);
+    width: var(--log-in-form-width);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 50px;
+    background: var(--primary-color);
+    -webkit-box-shadow:0px 0px 60px 20px rgba(221,242,253,0.61);
+    -moz-box-shadow: 0px 0px 60px 20px rgba(221,242,253,0.61);
+    box-shadow: 0px 0px 60px 20px rgba(221,242,253,0.61);
+    padding: 20px;
+    border-radius: 20px;
+    font-size: 1.5em;
+}
+
+.log-in-button {
+    font-size: 0.75em;
+}
+
