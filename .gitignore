@@ -24,6 +24,7 @@ dist-ssr
 *.sw?
 
 # Files and folders from backend
+.env
 */.env
 data
 .venv

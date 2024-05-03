@@ -1,4 +1,5 @@
 import json
+from flask_cors import CORS, cross_origin
 from mail import send_confirmation
 from flask import Flask, request, abort, Response, jsonify
 from database import push_user, fetch_user, user_exists, confirm_user, user_confirmed, get_user_id, update_user_day_times, sync_from_firebase, InformationMismatched, UserDoesNotExist
@@ -13,13 +14,15 @@ def _build_response(msg: str, additional_info: dict = {}):
     response_dict = {"response": msg}
     response_dict.update(additional_info)
     response = jsonify(response_dict)
-    response.headers.add("Access-Control-Allow-Origin", FRONTEND_URL)
     print(response, response_dict)
     return response
 
 app = _prepare_flask_app()
+CORS(app, origins=[FRONTEND_URL])
+
 
 @app.route("/signupuser", methods=["POST"])
+@cross_origin()
 def sign_up_user():
     """
     Provide an endpoint for frontend to sign a user up.
@@ -37,6 +40,7 @@ def sign_up_user():
             return _build_response(error), 404
     
 @app.route("/verifyuser", methods=["PUT"])
+@cross_origin()
 def verify_user():
     """
     Only verify a user once.
@@ -58,6 +62,7 @@ def verify_user():
         return _build_response(str(e)), 404  
      
 @app.route("/authenticateuser", methods=["GET"])
+@cross_origin()
 def authenticate_user():
     """
     Provide an endpoint for frontend to authenticate a user by responding with the 
@@ -78,6 +83,7 @@ def authenticate_user():
         return _build_response(str(e)), 404    
     
 @app.route("/getuser", methods=["GET"])
+@cross_origin()
 def get_user():
     """
     Provide an endpoint for frontend to request a user's data by responding 
@@ -94,6 +100,7 @@ def get_user():
         return _build_response(str(e)), 404    
     
 @app.route("/updatedaytimes", methods=["PUT"])
+@cross_origin()
 def update_day_times():
     """
     Provide an endpoint for frontend to update 'day_times', 'categories', and 'timezone' attribute for a user.
