@@ -23,7 +23,7 @@ function Submission() {
         fetch(`${import.meta.env.VITE_BACKEND_URL}/getuser${window.location.search}`, {
             headers: {
               "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": import.meta.env.VITE_FRONTEND_URL
+              "Origin": import.meta.env.VITE_FRONTEND_URL
           }
         })
         .then(response => {
@@ -70,7 +70,7 @@ function Submission() {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": import.meta.env.VITE_FRONTEND_URL
+          "Origin": import.meta.env.VITE_FRONTEND_URL
         },
         body: JSON.stringify({
           timezone: timezone,

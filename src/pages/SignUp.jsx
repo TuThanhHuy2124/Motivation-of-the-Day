@@ -30,7 +30,7 @@ function SignUp () {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": import.meta.env.VITE_FRONTEND_URL
+                    "Origin": import.meta.env.VITE_FRONTEND_URL
                 },
                 body: JSON.stringify({
                     id: Math.random().toString(36).slice(2) + 
