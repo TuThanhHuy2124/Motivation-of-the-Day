@@ -18,11 +18,11 @@ def _build_response(msg: str, additional_info: dict = {}):
     return response
 
 app = _prepare_flask_app()
-CORS(app, origins=[FRONTEND_URL])
+CORS(app)
 
 
 @app.route("/signupuser", methods=["POST"])
-@cross_origin()
+@cross_origin(origins=FRONTEND_URL)
 def sign_up_user():
     """
     Provide an endpoint for frontend to sign a user up.
@@ -40,7 +40,7 @@ def sign_up_user():
             return _build_response(error), 404
     
 @app.route("/verifyuser", methods=["PUT"])
-@cross_origin()
+@cross_origin(origins=FRONTEND_URL)
 def verify_user():
     """
     Only verify a user once.
@@ -62,7 +62,7 @@ def verify_user():
         return _build_response(str(e)), 404  
      
 @app.route("/authenticateuser", methods=["GET"])
-@cross_origin()
+@cross_origin(origins=FRONTEND_URL)
 def authenticate_user():
     """
     Provide an endpoint for frontend to authenticate a user by responding with the 
@@ -83,7 +83,7 @@ def authenticate_user():
         return _build_response(str(e)), 404    
     
 @app.route("/getuser", methods=["GET"])
-@cross_origin()
+@cross_origin(origins=FRONTEND_URL)
 def get_user():
     """
     Provide an endpoint for frontend to request a user's data by responding 
@@ -100,7 +100,7 @@ def get_user():
         return _build_response(str(e)), 404    
     
 @app.route("/updatedaytimes", methods=["PUT"])
-@cross_origin()
+@cross_origin(origins=FRONTEND_URL)
 def update_day_times():
     """
     Provide an endpoint for frontend to update 'day_times', 'categories', and 'timezone' attribute for a user.
