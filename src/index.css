@@ -12,11 +12,13 @@
     --secondary-color: #427D9D;
     --accent-color: #9BBEC8;
 
-    --sign-up-form-width: 70vw;
-    --sign-up-form-height: 65vh;
+    --form-height: 88vh;
 
-    --log-in-form-width: 50vw;
-    --log-in-form-height: 30vh;
+    --sign-up-container-width: 70vw;
+    --sign-up-container-height: 65vh;
+
+    --log-in-container-width: 50vw;
+    --log-in-container-height: 30vh;
 }
 
 /* :root {

@@ -1,13 +1,13 @@
 .sign-up-form {
-    height: 80vh;
+    height: var(--form-height);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .sign-up-container {
-    height: var(--sign-up-form-height);
-    width: var(--sign-up-form-width);
+    height: var(--sign-up-container-height);
+    width: var(--sign-up-container-width);
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;

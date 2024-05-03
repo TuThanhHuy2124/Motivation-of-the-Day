@@ -1,13 +1,13 @@
 .log-in-form {
-    height: 80vh;
+    height: var(--form-height);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .log-in-container {
-    height: var(--log-in-form-height);
-    width: var(--log-in-form-width);
+    height: var(--log-in-container-height);
+    width: var(--log-in-container-width);
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
