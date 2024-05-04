@@ -128,6 +128,7 @@ def send_quote(simplified_user: dict) -> EmailPackage:
     """
     Return EmailPackage contains necessary information to send out a quote email
     """
+    print(simplified_user)
     quote_obj = get_quote_obj(simplified_user["category"])
     
     receiver = simplified_user["email"]
