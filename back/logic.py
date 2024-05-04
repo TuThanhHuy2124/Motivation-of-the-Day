@@ -35,8 +35,7 @@ def get_user_if_valid(user_obj: dict) -> dict | None:
     If no, return None.
     """
     if user_obj["confirmed"] and "day_times" in user_obj:
-        now = datetime.now(tz=get_timezone())
-        print(now)
+        now = datetime.now()
         day = now.strftime("%A")
         time = now.strftime("%H:%M")
         converted_day_times = _rearrange_day_times(user_obj["day_times"], user_obj["timezone"])
@@ -67,7 +66,7 @@ def get_user_if_valid(user_obj: dict) -> dict | None:
         if(_should_send_mail()):
             date = datetime.now(tz=user_obj["timezone"]).strftime("%m/%d/%Y")
             time = datetime.now(tz=user_obj["timezone"]).strftime("%H:%M")
-            return {"first_name": user_obj["first_name"], "category": _get_category(), "email": user_obj["email"], "date": date,"time": time}
+            return {"first_name": user_obj["first_name"], "category": _get_category(), "email": user_obj["email"], "date": date, "time": time}
 
 def _rearrange_day_times(org_day_times: dict, timezone: int) -> dict:
     """
