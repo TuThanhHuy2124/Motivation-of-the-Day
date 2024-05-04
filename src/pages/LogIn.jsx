@@ -27,7 +27,7 @@ function LogIn () {
             .then(response => {
                 if(response.ok) {
                     response.json().then(data => {
-                        setAuthenticationInfo(data);
+                        setAuthenticationInfo({"id": data.id});
                         setStatus("User's data imported");
                         setStatusColor("green");
                     })
