@@ -1,10 +1,6 @@
 import json
 from datetime import datetime, timedelta, timezone
 
-def get_timezone() -> timezone:
-    CA_TIMEZONE = -7
-    return timezone(timedelta(hours=CA_TIMEZONE))
-
 def get_all_subscribers() -> dict:
     """
     Return all the user_objs from subsribers.json
@@ -69,7 +65,9 @@ def get_user_if_valid(user_obj: dict) -> dict | None:
                     return time_obj["category"]
 
         if(_should_send_mail()):
-            return {"first_name": user_obj["first_name"], "category": _get_category(), "email": user_obj["email"]}
+            date = datetime.now(tz=user_obj["timezone"]).strftime("%m/%d/%Y")
+            time = datetime.now(tz=user_obj["timezone"]).strftime("%H:%M")
+            return {"first_name": user_obj["first_name"], "category": _get_category(), "email": user_obj["email"], "date": date,"time": time}
 
 def _rearrange_day_times(org_day_times: dict, timezone: int) -> dict:
     """
