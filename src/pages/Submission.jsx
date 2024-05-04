@@ -46,7 +46,7 @@ function Submission() {
   const filterInvalid = (day_times) => {
     for(const day of DAYS) {
       if(day_times[day] !== undefined) {
-        day_times[day] = day_times[day].filter(time_obj => time_obj.time !== "" && time_obj.category.length !== 0);
+        day_times[day] = day_times[day].filter(time_obj => time_obj.time.length === 5 && time_obj.category.length !== 0);
       }
     }
     return day_times;

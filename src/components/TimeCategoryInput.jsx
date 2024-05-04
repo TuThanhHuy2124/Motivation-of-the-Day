@@ -9,19 +9,13 @@ function TimeCategoryInput ({day, selected, day_times, setDayTimes}) {
     const addInput = (e) => {
         e.preventDefault();
         const dayTimesCopy = {...day_times};
+        const baseObj = {
+            time: ":",
+            category: []
+        }
 
-        if(Object.prototype.hasOwnProperty.call(dayTimesCopy, day)) {
-            dayTimesCopy[day].push({
-                time: "",
-                category: []
-            })
-        }
-        else {
-            dayTimesCopy[day] = [{
-                    time: "",
-                    category: []
-                }]
-        }
+        if(Object.prototype.hasOwnProperty.call(dayTimesCopy, day)) {dayTimesCopy[day].push(baseObj)}
+        else {dayTimesCopy[day] = [baseObj]}
         
         setDayTimes(dayTimesCopy);
     }
@@ -49,10 +43,10 @@ function TimeCategoryInput ({day, selected, day_times, setDayTimes}) {
                 return (
                 <div key={index} className="time-category-container">
                     <TimeInput day={day} 
-                          index={index} 
-                          day_times={day_times}
-                          setDayTimes={setDayTimes}
-                          preset_time={time_obj["time"]}/>
+                               index={index} 
+                               day_times={day_times}
+                               setDayTimes={setDayTimes}
+                               preset_time={time_obj["time"]}/>
                     <SelectedDropDown selected={selected} 
                                       day={day} 
                                       index={index} 
