@@ -34,8 +34,9 @@ def get_user_if_valid(user_obj: dict) -> dict | None:
     (contains just enough information to send an email).
     If no, return None.
     """
+    CALIFORNIA_UTC = -7
     if user_obj["confirmed"] and "day_times" in user_obj:
-        now = datetime.now()
+        now = datetime.now(tz=tzinfo(CALIFORNIA_UTC))
         day = now.strftime("%A")
         time = now.strftime("%H:%M")
         converted_day_times = _rearrange_day_times(user_obj["day_times"], user_obj["timezone"])
