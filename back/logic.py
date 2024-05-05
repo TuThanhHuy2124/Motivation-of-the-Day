@@ -1,5 +1,8 @@
 import json
-from datetime import datetime, timedelta, tzinfo
+from datetime import datetime, timedelta, timezone
+
+def _get_timezone(timezone: int = -7) -> timezone:
+    return timezone(timedelta(hours=timezone))
 
 def get_all_subscribers() -> dict:
     """
@@ -36,7 +39,7 @@ def get_user_if_valid(user_obj: dict) -> dict | None:
     """
     CALIFORNIA_UTC = -7
     if user_obj["confirmed"] and "day_times" in user_obj:
-        now = datetime.now(tz=tzinfo(CALIFORNIA_UTC))
+        now = datetime.now(tz=_get_timezone())
         day = now.strftime("%A")
         time = now.strftime("%H:%M")
         converted_day_times = _rearrange_day_times(user_obj["day_times"], user_obj["timezone"])
@@ -65,8 +68,8 @@ def get_user_if_valid(user_obj: dict) -> dict | None:
                     return time_obj["category"]
 
         if(_should_send_mail()):
-            date = datetime.now(tz=tzinfo(user_obj["timezone"])).strftime("%m/%d/%Y")
-            time = datetime.now(tz=tzinfo(user_obj["timezone"])).strftime("%H:%M")
+            date = datetime.now(tz=_get_timezone(user_obj["timezone"])).strftime("%m/%d/%Y")
+            time = datetime.now(tz=_get_timezone(user_obj["timezone"])).strftime("%H:%M")
             return {"first_name": user_obj["first_name"], "category": _get_category(), "email": user_obj["email"], "date": date, "time": time}
 
 def _rearrange_day_times(org_day_times: dict, timezone: int) -> dict:
