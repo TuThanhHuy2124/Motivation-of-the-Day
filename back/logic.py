@@ -1,8 +1,8 @@
 import json
 from datetime import datetime, timedelta, timezone
 
-def _get_timezone(timezone: int = -7) -> timezone:
-    return timezone(timedelta(hours=timezone))
+def _get_timezone(tz: int = -7) -> timezone:
+    return timezone(timedelta(hours=tz))
 
 def get_all_subscribers() -> dict:
     """
