@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import InfoInput from "../components/InfoInput";
 import Loading from "../components/Loading";
-import "./SignUp.css";
+import "./SignUpLogIn.css";
+import { Link } from "react-router-dom";
 
 
 function SignUp () {
@@ -60,15 +61,25 @@ function SignUp () {
     return (
         <>
         {isLoading && <Loading/>}
-        <form className="sign-up-form" onSubmit={handleSignUp}>
-            <div className="sign-up-container">
-                <InfoInput require_names={true} 
-                           require_email={true} 
-                           require_password={true} 
-                           require_password_confirmation={true}/>
-                <button className="sign-up-button" type="submit">Sign Up</button>
+        <div className="display" id="sign-up-display">
+            <form id="sign-up-form" onSubmit={handleSignUp}>
+                <div id="sign-up-info">
+                    <h1>Sign Up</h1>
+                    <h2>Already have an account? <Link to="/login">Log In</Link> here</h2>
+                </div>
+                <div id="sign-up-container">
+                    <InfoInput require_names={true} 
+                            require_email={true} 
+                            require_password={true} 
+                            require_password_confirmation={true}/>
+                    <button id="sign-up-button" type="submit">Sign Up</button>
+                </div>
+            </form>
+            <div id="sign-up-quote-display">
+                <p id="sign-up-quote">“Live as if you were to die tomorrow. Learn as if you were to live forever.”</p>
+                <p id="sign-up-author">- Mahatma Gandhi -</p>
             </div>
-        </form>
+        </div>
         {(status !== null) && <p className={"status" + " " + statusColor}>{status}</p>}
         </>
     )

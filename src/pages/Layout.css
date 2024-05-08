@@ -1,58 +1,61 @@
-.title {
-    text-align: center;
-    font-size: 4em;
-    margin: 10px 0px 0px 0px;
-    color: var(--primary-color);
+* {
+    --header-real-height: 80px;
+    --footer-real-height: 72px;
+    --universal-real-width: 96vw; 
+    /* 100vw - 2*var(--universal-lr-padding) */
+    --universal-lr-padding: 2vw;
+    --footer-tb-padding: 0.5rem;
+    
+    --header-footer-background-color: #DBFFDC;
+    --title-color: #1D3E0E;
 }
 
-nav {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 12.5vw;
+/* Apply flex properties */
+header,
+footer,
+nav,
+#icon-container {
     display: flex;
     align-items: center;
-    justify-content: center;
-    transform: translate(-12.5vw, 0px);
-    transition: transform 0.6s;
-    background-color: var(--primary-color);
-}
-nav:hover {
-    transform: translate(0px, 0px);
-    transition: transform 0.6s;
+    justify-content: space-between;
 }
 
-ul {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 0px;
+/* Apply individual rules */
+header,
+footer {
+    width: var(--universal-real-width);
+    padding: 0px var(--universal-lr-padding) 0px var(--universal-lr-padding);
+    position: fixed;
+    background-color: var(--header-footer-background-color);
+}
+header button,
+footer button {
+    padding: 20px;
+    border-radius: 10px;
+    color: var(--ascent-color);
+}
+.title {
+    color: var(--title-color)
 }
 
-li {
-    list-style-type: none;
-    text-align: center;
-    padding: 10px;
-    margin: 10px 0px 10px 0px;
-    width: 12.5vw;
-    font-size: 2.25vw;
-}
-li a {
-    text-decoration: none;
-    color: var(--text-color);
-}
-li:hover {
-    background-color: #b6ced6;
-    box-shadow: 3px 0px var(--text-color) inset;
+nav{
+    width: 30%;
+    min-width: 250px;
+    max-width: 300px;
 }
 
-.hover-trigger {
-    position: absolute;
-    right: -20px;
-    width: 20px;
-    height: 40px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    background-color: var(--primary-color);
+footer {
+    bottom: 0;
+    padding: var(--footer-tb-padding) var(--universal-lr-padding) 
+             var(--footer-tb-padding) var(--universal-lr-padding);
+}
+footer .title {
+    position: fixed;
+    left: 50vw;
+    transform: translate(-50%);
+}
+#icon-container {
+    width: 10%;
+    min-width: 150px;
+    max-width: 200px;
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import InfoInput from "../components/InfoInput";
-import "./LogIn.css";
+import "./SignUpLogIn.css";
 import Loading from "../components/Loading";
 
 function LogIn () {
@@ -53,14 +53,25 @@ function LogIn () {
     return (
         <>
         {isLoading && <Loading/>}
-        <form className="log-in-form" onSubmit={handleImport}>
-            <div className="log-in-container">
-                <InfoInput require_email={true}
-                           require_password={true}/>
-                <button className="log-in-button" type="submit">Log In</button>
+        <div className="display" id="log-in-display">
+            <div id="log-in-quote-display">
+                <p id="log-in-quote">“Live as if you were to die tomorrow. Learn as if you were to live forever.”</p>
+                <p id="log-in-author">- Mahatma Gandhi -</p>
             </div>
-            {(status !== null) && <p className={"status" + " " + statusColor}>{status}</p>}
-        </form>
+            <form id="log-in-form" onSubmit={handleImport}>
+                <div id="log-in-info">
+                    <h1>Log In</h1>
+                    <h2>Start receiving inspirational emails here!</h2>
+                </div>
+                <div id="log-in-container">
+                    <InfoInput require_email={true}
+                               require_password={true}/>
+                    <button id="log-in-button" type="submit">Log In</button>
+                </div>
+                {(status !== null) && <p className={"status" + " " + statusColor}>{status}</p>}
+            </form>
+            
+        </div>
         </>
     )
 

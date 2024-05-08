@@ -38,9 +38,10 @@ function Confirmation() {
     }, [])
 
     return (
-        <div className="confirmation">
-            {
-                isLoading ? <Loading/> :
+        <div className="display" id="confirmation-display">
+            <div className="confirmation">
+                {
+                    isLoading ? <Loading/> :
                     submissionDisplay ? 
                         <div className="confirmation-container">
                             <h1 className="line-1">Thank you for verifying your email address</h1>
@@ -51,7 +52,8 @@ function Confirmation() {
                             <h1 className="line-1">You have already verified your email</h1>
                             <h2 className="line-2">Please use <Link to="/login">Log In</Link> to load your data</h2>
                         </div>
-            }
+                }
+            </div>
         </div>
     )
 }

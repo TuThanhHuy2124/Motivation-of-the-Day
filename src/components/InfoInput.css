@@ -1,20 +1,49 @@
-.first-name-container, 
-.last-name-container, 
+* {
+    --sign-up-log-in-content-padding: 10px;
+    --my-gray: #828282
+}
+
+.info-input {
+    display: flex;
+    flex-direction: column;
+}
+.info-input label {
+    font-weight: 500;
+    text-shadow: 4px 4px 10px var(--my-gray);
+    color: var(--ascent-color);
+    padding-bottom: calc(var(--sign-up-log-in-content-padding) / 2);
+}
+.info-input input {
+    padding: var(--sign-up-log-in-content-padding);
+    border: none;
+    border-radius: calc(var(--sign-up-log-in-content-padding) / 2);
+    font-size: var(--primary-font-size);
+    box-shadow: 4px 4px 4px var(--my-gray);
+}
+
+.names-container,
+.password-pack-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.first-name-container,
+.last-name-container,
 .email-container,
 .password-container,
 .password-confirmation-container {
     display: flex;
-    flex-direction: column; 
-    width: inherit;
-    padding: 0px 20px 0px 20px;
-    color: white;
+    flex-direction: column;
+    padding: var(--sign-up-log-in-content-padding);
 }
-.first-name-container input, 
-.last-name-container input, 
-.email-container input,
-.password-container input,
-.password-confirmation-container input{
-    border-radius: 10px;
-    height: 30px;
-    background-color: #ECF2FF;
+
+.first-name-container,
+.last-name-container,
+.password-container,
+.password-confirmation-container {
+    width: 50%;
 }
+
+
+

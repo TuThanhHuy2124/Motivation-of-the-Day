@@ -1,71 +1,49 @@
 * {
-    font-family: "DM Sans";
     user-select: none;
-    color: var(--text-color);
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
+    --ascent-color: #357019;
+    --primary-font-size: 16px;
 
-    --text-color: #164863;
-    --background-color: #ffffff;
-    --primary-color: #DDF2FD;
-    --secondary-color: #427D9D;
-    --accent-color: #9BBEC8;
+    @font-face {
+        font-family: Inter;
+        src: url("public/font/Inter/Inter-VariableFont.ttf");
+    }
+    @font-face {
+        font-family: Andada Pro;
+        src: url("public/font/Andada_Pro/AndadaPro-VariableFont.ttf");
+    }
 
-    --form-height: 88vh;
-
-    --sign-up-container-width: 70vw;
-    --sign-up-container-height: 65vh;
-
-    --log-in-container-width: 50vw;
-    --log-in-container-height: 30vh;
+    font-family: Inter, sans-serif;
 }
 
-/* :root {
-    background: url("/background.svg") no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-} */
-
-:root {
-    background-color: var(--secondary-color);
+body {
+    margin: 0;
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
 }
 
-.status {
-    padding: 10px;
-    border-radius: 20px;
-    color: white;
+#root {
     position: absolute;
-    bottom: 0;
-    right: 1.5vw;
+    height: 100vh;
+    width: 100vw;
 }
-.green {
-    background-color: rgba(0, 128, 0, 0.7);
-}
-.red {
-    background-color: rgba(255, 0, 0, 0.7);
+
+/* Wrap all that needs to be between header and footer in a div with class "display" */
+.display {
+    width: 100vw;
+    height: calc(100vh - var(--header-real-height) - var(--footer-real-height));
+    margin: var(--header-real-height) 0px var(--footer-real-height) 0px;
 }
 
 button {
     cursor: pointer;
-    padding: 10px;
     border: none;
-    border-radius: 10px;
-    box-shadow:  3px 3px 12px #8d9ba2,
-                -3px -3px 12px #ffffff;
-    outline: 0px solid ;
-    transition: outline 0.1s;
-    background-color: var(--accent-color);
+    background-color: transparent;
 }
-button:active {
-    transition: 50ms;
-    transform: translate(3px, 3px);
-    box-shadow: 0px 0px var(--primary-color);
+button:hover {
+    color: white;
+    background-color: var(--ascent-color);
+    transition: all 100ms;
 }
-button:hover{
-    transition: 50ms;
-    outline-offset: -2px;
-    outline: 2px solid var(--primary-color);
-}
+

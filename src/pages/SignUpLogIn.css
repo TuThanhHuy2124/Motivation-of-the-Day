@@ -1,0 +1,122 @@
+* {
+    --sign-up-log-in-font-size: 4em;
+    --background-image-color: #cef8ce;
+    --impact-font-size: 40px;
+}
+
+#sign-up-display {
+    background-image: url("/background/signup_background.png");
+}
+#log-in-display {
+    background-image: url("/background/login_background.png");
+}
+#sign-up-display,
+#log-in-display {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: var(--universal-real-width);
+    padding: 0px var(--universal-lr-padding) 0px var(--universal-lr-padding);
+}
+
+#sign-up-form,
+#log-in-form {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+
+    height: 50vh;
+    width: 40vw;
+    min-width: 550px;
+    padding: 0px calc(var(--universal-lr-padding) + 30px) 
+             0px calc(var(--universal-lr-padding) + 30px);
+}
+
+#sign-up-form h1,
+#log-in-form h1 {
+    color: var(--ascent-color);
+    font-size: var(--sign-up-log-in-font-size);
+    margin: 0;
+}
+#sign-up-form h2,
+#log-in-form h2  {
+    color: var(--my-gray);
+}
+#log-in-form .password-container {
+    width: 100%;
+}
+
+#sign-up-info,
+#log-in-info {
+    padding-left: var(--sign-up-log-in-content-padding);
+}
+
+#sign-up-container,
+#log-in-container {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+}
+
+#sign-up-button,
+#log-in-button {
+    box-sizing: border-box;
+    color: white;
+    background-color: var(--ascent-color);
+    font-size: var(--primary-font-size);
+    padding: var(--sign-up-log-in-content-padding);
+    margin: 0px var(--sign-up-log-in-content-padding) 
+            0px var(--sign-up-log-in-content-padding);
+    border-radius: calc(var(--sign-up-log-in-content-padding) / 2);
+    box-shadow: 4px 4px 4px rgb(128, 128, 128);
+    outline: 0px solid var(--background-image-color);
+    transition: outline 0.1s;
+}
+#sign-up-button:active,
+#log-in-button:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px;
+    transition: 0.1s;
+}
+#sign-up-button:hover,
+#log-in-button:hover {
+    outline: 4px solid var(--background-image-color);
+    outline-offset: -2px;
+    transition: 0.1s;
+}
+
+#sign-up-quote-display,
+#log-in-quote-display {
+    background-image: url("/background/quote_background.png");
+    background-repeat: no-repeat;
+    background-position: center;
+
+    height: 530px;
+    width: 530px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#sign-up-quote,
+#log-in-quote {
+    font-size: var(--impact-font-size);
+    width: 80%;
+    margin: 0;
+    text-align: center;
+    font-family: Andada Pro;
+}
+
+#sign-up-author,
+#log-in-author {
+    font-family: Andada Pro;
+}
+

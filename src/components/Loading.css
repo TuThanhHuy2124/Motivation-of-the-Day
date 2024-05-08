@@ -16,8 +16,8 @@
     position: absolute;
     border-radius: 10vw;
     border: 1vw solid white;
-    border-bottom: 1vw solid #315E8B;
-    animation: 1s infinite spin ease-out;
+    border-bottom: 1vw solid var(--ascent-color);
+    animation: 1s infinite spin linear;
 }
 
 @keyframes spin {

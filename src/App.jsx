@@ -5,6 +5,7 @@ import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
 import Confirmation from "./pages/Confirmation";
 import Loading from "./components/Loading";
+import About from "./pages/About";
 
 function App () {
 
@@ -12,7 +13,8 @@ function App () {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Layout />}>
-                        <Route path="/" element={<SignUp />}></Route>
+                        <Route path="/" element={<About />}></Route>
+                        <Route path="/signup" element={<SignUp />}></Route>
                         <Route path="/login" element={<LogIn />}></Route>
                         <Route path="/submission" element={<Submission />}></Route>
                         <Route path="/confirmation" element={<Confirmation />}></Route>
