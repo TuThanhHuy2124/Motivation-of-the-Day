@@ -98,7 +98,7 @@ function Submission() {
   return (
     <div className="display" id="submission-display">
     {
-      
+      isLoading ? <Loading/> : 
       <>
         <button className={displayInfo ? "active" : null} id="my-info-button"
                 onClick={(e) => {
