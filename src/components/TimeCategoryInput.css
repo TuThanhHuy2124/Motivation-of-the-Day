@@ -1,0 +1,49 @@
+#add-button {
+    font-size: 1.25em;
+    position: absolute;
+    top: 12px;
+    right: 1rem;
+}
+
+#remove-button {
+    padding: 6px;
+}
+
+#add-button,
+#remove-button {
+    border-radius: 5px;
+    transition: all 50ms;
+}
+#add-button:hover,
+#remove-button:hover {
+    box-shadow: 2px 2px 4px gray,
+                -2px -2px 4px white;
+}
+#add-button:active,
+#remove-button:active {
+    transition: all 50ms;
+    box-shadow: 0px 0px 0px gray,
+                0px 0px 0px white;
+}
+
+
+.time-category-container {
+    width: calc(100% - 20px);
+    position: relative;
+    padding: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 4px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px gray;
+    background-color: var(--header-footer-background-color);
+}
+.time-category-container select {
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px inset gray;
+}

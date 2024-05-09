@@ -124,5 +124,6 @@
 #sign-up-author,
 #log-in-author {
     font-family: Andada Pro;
+    font-size: var(--responsive-font-size-1);
 }
 

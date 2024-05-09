@@ -1,8 +1,13 @@
 .unselected-display,
 .selected-display,
 .day-times-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
     width: 25%;
-    height: 46vh;
+    height: calc(75vh - var(--header-real-height) - var(--footer-real-height));
     text-align: center;
     padding: 10px;
     background-color: var(--main-submission-color);
@@ -15,6 +20,12 @@
 .day-times-input {
     display: flex;
     flex-direction: column;
-    height: 38vh;
+    width: 100%;
+    height: 100%;
     overflow: auto;
+}
+.unselected *,
+.selected * {
+    font-size: var(--primary-font-size);
+    border-radius: 5px;
 }

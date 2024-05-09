@@ -17,7 +17,6 @@ function TimeInput ({day, index, preset_time, day_times, setDayTimes}) {
 
     const handleMinuteInput = (e) => {
         setMinuteTouched(true);
-        console.log(e)
 
         const dayTimesCopy = {...day_times};
         const currentTime = dayTimesCopy[day][index].time;
@@ -36,7 +35,6 @@ function TimeInput ({day, index, preset_time, day_times, setDayTimes}) {
 
     const handleHourInput = (e) => {
         setHourTouched(true);
-        console.log(e)
 
         const dayTimesCopy = {...day_times};
         const currentTime = dayTimesCopy[day][index].time;
@@ -55,14 +53,13 @@ function TimeInput ({day, index, preset_time, day_times, setDayTimes}) {
 
     return (
         <div className="time-input">
-            Time:
             <select onChange={handleHourInput}>
-                {!hourTouched && <option selected={preset_hour === ""}></option>}
+                {!hourTouched && <option selected={preset_hour === ""}>Hour</option>}
                 {hours.map((value, index) => <option key={index} selected={preset_hour !== "" && Number(preset_hour) === index}>{fillNumber(index)}</option>)}
             </select>
             :
             <select onChange={handleMinuteInput}>
-                {!minuteTouched && <option selected={preset_minute === ""}></option>}
+                {!minuteTouched && <option selected={preset_minute === ""}>Minute</option>}
                 {minutes.map((value, index) => <option key={index} selected={preset_minute !== "" && Number(preset_minute) === index * time_period}>{fillNumber(index * time_period)}</option>)}
             </select>
         </div>

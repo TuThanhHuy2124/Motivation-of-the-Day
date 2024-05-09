@@ -38,6 +38,7 @@ function TimeCategoryInput ({day, selected, day_times, setDayTimes}) {
 
     return (
         <>
+            <button onClick={addInput} id="add-button">+</button>
             {(times !== undefined) && 
             times.map((time_obj, index) => {
                 return (
@@ -53,9 +54,8 @@ function TimeCategoryInput ({day, selected, day_times, setDayTimes}) {
                                       day_times={day_times}
                                       setDayTimes={setDayTimes}
                                       preset_category={getPresetCategory(time_obj)}/>
-                    <button className={day + " " + index}onClick={removeInput}>X</button>
+                    <button className={day + " " + index} id="remove-button" onClick={removeInput}>X</button>
                 </div>)})}
-            <button onClick={addInput}>Add</button>
         </>
     )
 }

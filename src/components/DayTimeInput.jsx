@@ -12,9 +12,9 @@ function DayTimeInput ({DAYS, selected, day_times, setDayTimes}) {
                         <div className="weekday-container" key={index}>
                             <p className={day + " weekday"}>{day}</p>
                             <TimeCategoryInput day={day} 
-                                            selected={selected} 
-                                            day_times={day_times} 
-                                            setDayTimes={setDayTimes}/>
+                                               selected={selected} 
+                                               day_times={day_times} 
+                                               setDayTimes={setDayTimes}/>
                         </div>
                     )
                 })}
