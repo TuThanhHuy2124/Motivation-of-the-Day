@@ -96,14 +96,14 @@ function SelectionDisplay({ selected, setSelected }) {
             <div className="unselected-display">
                 <h3>Unselected</h3>
                 <div className="unselected">
-                    {unselected.map((option, index) => <div key={index} className="category" name={option} id={option} onClick={handleDiv}>{option}</div>)} 
+                    {unselected.map((option, index) => <button key={index} className="category" name={option} id={option} onClick={handleDiv}>{option}</button>)} 
                 </div>
             </div>
 
             <div className="selected-display">
                 <h3>Selected</h3>
                 <div className="selected">
-                    {selected.map((option, index) => <div key={index} className="category" name={option} id={option} onClick={handleDiv}>{option}</div>)} 
+                    {selected.map((option, index) => <button key={index} className="category" name={option} id={option} onClick={handleDiv}>{option}</button>)} 
                 </div>
             </div>
         </>

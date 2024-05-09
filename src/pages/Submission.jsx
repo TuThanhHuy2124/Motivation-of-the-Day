@@ -11,6 +11,7 @@ function Submission() {
     const id = searchQuery.get("id");
     
     const [isLoading, setLoading] = useState(true);
+    const [displayInfo, setDisplayInfo] = useState(false);
     const [timezone, setTimezone] = useState(null)
     const [day_times, setDayTimes] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -95,26 +96,33 @@ function Submission() {
   }}
 
   return (
-    <>
+    <div className="display" id="submission-display">
     {
       isLoading ? <Loading/> :
       <>
-        <div className='personal-info'>
+        <button className={displayInfo ? "active" : null} id="my-info-button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setDisplayInfo(!displayInfo);
+                }}>My Info</button>
+        {displayInfo && <div className='personal-info'>
           <p className="first-name-fetched">First Name: <b>{first_name}</b></p>
           <p className="last-name-fetched">Last Name: <b>{last_name}</b></p>
           <p className="email-fetched">Email: <b>{email}</b></p>
+        </div>}
+        <div className="main-display">
           <TimeZoneDropDown preset_timezone={timezone} setTimezone={setTimezone}/>
+          <form className="submission">
+            <div className='inner-main-display'>
+              <SelectionDisplay selected={categories} setSelected={setCategories}/>
+              <DayTimeInput DAYS={DAYS} selected={categories} day_times={day_times} setDayTimes={setDayTimes}/>
+            </div>
+            <button type='submit' onClick={updateUser} id="submission-button">Submit</button>
+          </form>
         </div>
-        <form className="submission">
-          <div className='main-display'>
-            <SelectionDisplay selected={categories} setSelected={setCategories}/>
-            <DayTimeInput DAYS={DAYS} selected={categories} day_times={day_times} setDayTimes={setDayTimes}/>
-          </div>
-          <button type='submit' onClick={updateUser}>Submit</button>
-        </form>
       </>
     }
-    </>
+    </div>
   )
 }
 

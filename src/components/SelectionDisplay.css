@@ -1,0 +1,20 @@
+.unselected-display,
+.selected-display,
+.day-times-column {
+    width: 25%;
+    height: 46vh;
+    text-align: center;
+    padding: 10px;
+    background-color: var(--main-submission-color);
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px inset gray;
+}
+
+.unselected,
+.selected,
+.day-times-input {
+    display: flex;
+    flex-direction: column;
+    height: 38vh;
+    overflow: auto;
+}

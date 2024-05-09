@@ -6,7 +6,7 @@
     
     font-size: var(--impact-font-size);
 
-    background-image: url("public/background/about_background.png");
+    background-image: url("/background/about_background.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -15,15 +15,18 @@
 #welcome {
     color: var(--title-color);
     margin-top: 0;
+    font-size: var(--responsive-font-size-3);
 }
 #sub-welcome {
     color: var(--ascent-color);
     margin-top: 0;
+    font-size: var(--responsive-font-size-2);
 }
 #intro {
     width: 70%;
-    max-width: 1111px;
+    max-width: 1000px;
     text-align: center;
     color: gray;
     margin-top: 0;
+    font-size: calc(var(--responsive-font-size-1) + var(--responsive-font-size-point5));
 }

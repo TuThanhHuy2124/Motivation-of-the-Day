@@ -34,6 +34,18 @@ footer button {
     border-radius: 10px;
     color: var(--ascent-color);
 }
+header button:hover,
+footer button:hover {
+    box-shadow: 4px 4px 10px gray,
+                -4px -4px 10px white;
+    transition: all 200ms;
+}
+header button:active,
+footer button:active {
+    box-shadow: 0px 0px 0px gray,
+                0px 0px 0px white;
+    transition: all 100ms;
+}
 .title {
     color: var(--title-color)
 }

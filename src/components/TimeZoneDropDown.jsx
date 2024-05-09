@@ -1,3 +1,4 @@
+import { useState } from "react"
 import "./TimeZoneDropDown.css"
 const UTCs = [
     ["UTC-12:00", -12],
@@ -42,19 +43,22 @@ const UTCs = [
 
 // eslint-disable-next-line react/prop-types
 const TimeZoneDropDown = ({ preset_timezone, setTimezone }) => {
+    const [timezoneTouched, setTimezoneTouched] = useState(preset_timezone !== null);
 
-    const handleTimeZoneChange = (e) => {setTimezone(Number(e.target[e.target.selectedIndex].value));}
+    const handleTimeZoneChange = (e) => {
+        setTimezone(Number(e.target[e.target.selectedIndex].value));
+        setTimezoneTouched(true);
+    }
 
     return (
         <div className="timezone-dropdown-container">
-            <p>Your Time Zone:</p>
             <select className="timezone-dropdown" onChange={handleTimeZoneChange}>
-                <option id="blank"></option>
+                {!timezoneTouched && <option id="blank">Choose Your Time Zone</option>}
                 {UTCs.map(([display_UTC, UTC_value], index) => {
                     return <option key={index} value={UTC_value} selected={UTC_value === preset_timezone}>{display_UTC}</option>
                 })}
             </select>
-            <a href="https://www.bing.com/search?q=what+is+my+utc+time+zone" target="_blank"><button>Your Time Zone</button></a><br/>
+            <a href="https://www.bing.com/search?q=what+is+my+utc+time+zone" target="_blank"><button id="search-timezone-button">Search Your Time Zone</button></a>
         </div>
     )
 }

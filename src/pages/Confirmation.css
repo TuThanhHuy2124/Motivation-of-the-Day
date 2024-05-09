@@ -5,5 +5,17 @@
     justify-content: center;
     text-align: center;
     
-    font-size: calc(1.5 * var(--primary-font-size));
+    font-size: calc(var(--responsive-font-size-1) + var(--responsive-font-size-point5));
+    
+    background-image: url("/background/confirmation_background.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.line-1 {
+    color: var(--title-color);
+}
+.line-2 {
+    color: var(--ascent-color);
 }
