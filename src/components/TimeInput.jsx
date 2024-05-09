@@ -6,10 +6,9 @@ function TimeInput ({day, index, preset_time, day_times, setDayTimes}) {
     const time_period = 10;
     const hours = new Array(24).fill(null);
     const minutes = new Array(60 / time_period).fill(null);
-    const [hourTouched, setHourTouched] = useState(false);
-    const [minuteTouched, setMinuteTouched] = useState(false);
     const [preset_hour, preset_minute] = preset_time.split(":");
-    console.log(preset_time)
+    const [hourTouched, setHourTouched] = useState(preset_hour !== "");
+    const [minuteTouched, setMinuteTouched] = useState(preset_minute !== "");
     const fillNumber = (num) => {
         const str_num = String(num)
         return str_num.length === 1 ? "0" + str_num : str_num;

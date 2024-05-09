@@ -123,6 +123,7 @@
 
 #sign-up-author,
 #log-in-author {
+    margin-bottom: 0;
     font-family: Andada Pro;
     font-size: var(--responsive-font-size-1);
 }

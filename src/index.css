@@ -26,6 +26,9 @@
     background: var(--ascent-color);
     border-radius: 10px;
 }
+input {
+    -webkit-appearance: none;
+}
 
 a {
     text-decoration: none;
