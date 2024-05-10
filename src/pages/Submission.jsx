@@ -113,7 +113,6 @@ function Submission() {
         if(response.ok) {
           response.json().then(data => {
             window.alert(data["response"]);
-            window.location.href = `https://motivation-of-the-day.netlify.app/`;
           })
         }
         else {
@@ -122,6 +121,9 @@ function Submission() {
           })
         }
       });
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = `https://motivation-of-the-day.netlify.app/`;
   }}
 
   return (
