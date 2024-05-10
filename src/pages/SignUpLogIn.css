@@ -23,6 +23,7 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+
     width: var(--universal-real-width);
     padding: 0px var(--universal-lr-padding) 0px var(--universal-lr-padding);
 }
@@ -128,3 +129,17 @@
     font-size: var(--responsive-font-size-1);
 }
 
+.status {
+    color: white;
+    position: fixed;
+    padding: 10px;
+    border-radius: 20px;
+    font-size: var(--responsive-font-size-point75);
+    bottom: var(--footer-real-height);
+}
+.green {
+    background-color: green;
+}
+.red {
+    background-color: red;
+}

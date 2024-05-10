@@ -9,7 +9,7 @@ function LogIn () {
     const [isLoading, setLoading] = useState(false);
     const [statusColor, setStatusColor] = useState(null);
     
-    useEffect(() => {if(localStorage.getItem("id") !== null) {window.location.href = `https://motivation-of-the-day/submission`;}}, [])
+    useEffect(() => {if(localStorage.getItem("id") !== null) {window.location.href = `https://motivation-of-the-day.netlify.app/submission`;}}, [])
     const handleLogIn = (e) => {
         e.preventDefault();
         const [email, password] = [e.target[0].value, e.target[1].value];
@@ -32,7 +32,7 @@ function LogIn () {
                         else sessionStorage.setItem("id", data.id); console.log("Save in sessionStorage");
                         setStatus("User's data imported");
                         setStatusColor("green");
-                        window.location.href = `https://motivation-of-the-day/submission`;
+                        window.location.href = `https://motivation-of-the-day.netlify.app/submission`;
                     })
                 }
                 else {
@@ -67,9 +67,8 @@ function LogIn () {
                                setRemember={setRemember}/>
                     <button id="log-in-button" type="submit">Log In</button>
                 </div>
-                {(status !== null) && <p className={"status" + " " + statusColor}>{status}</p>}
             </form>
-            
+            {(status !== null) && <p className={"status" + " " + statusColor}>{status}</p>}
         </div>
         </>
     )
