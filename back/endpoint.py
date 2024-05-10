@@ -22,7 +22,7 @@ CORS(app)
 
 @app.route("/deleteuser", methods=["GET"])
 @cross_origin(origins=FRONTEND_URL)
-def sign_up_user():
+def delete_user():
     """
     Provide an endpoint for frontend to delete a user.
     """

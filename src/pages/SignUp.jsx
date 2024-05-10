@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InfoInput from "../components/InfoInput";
 import Loading from "../components/Loading";
 import "./SignUpLogIn.css";
@@ -7,14 +7,12 @@ import { Link } from "react-router-dom";
 
 
 function SignUp () {
-    const quoteObj = getRandomQuote();
     const [status, setStatus] = useState(null);
     const [isLoading, setLoading] = useState(false);
     const [statusColor, setStatusColor] = useState(null);
-    
-    // useEffect(() => {
-    //     setTimeout(() => setStatus(null), 3000);
-    // }, [status])
+    const [quoteObj, setQuoteObj] = useState({"q": null, "a": null})
+
+    useEffect(() => {setQuoteObj(getRandomQuote())}, [])
 
     const handleSignUp = (e) => {
         e.preventDefault();

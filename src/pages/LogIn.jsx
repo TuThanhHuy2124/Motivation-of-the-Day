@@ -5,13 +5,17 @@ import Loading from "../components/Loading";
 import getRandomQuote from "../common/quote";
 
 function LogIn () {
-    const quoteObj = getRandomQuote();
     const [status, setStatus] = useState(null);
     const [remember, setRemember] = useState(false);
     const [isLoading, setLoading] = useState(false);
     const [statusColor, setStatusColor] = useState(null);
+    const [quoteObj, setQuoteObj] = useState({"q": null, "a": null})
     
-    useEffect(() => {if(localStorage.getItem("id") !== null) {window.location.href = `https://motivation-of-the-day.netlify.app/submission`;}}, [])
+    useEffect(() => {
+        if(localStorage.getItem("id") !== null) {window.location.href = `https://motivation-of-the-day.netlify.app/submission`;}
+        setQuoteObj(getRandomQuote())
+    }, [])
+    
     const handleLogIn = (e) => {
         e.preventDefault();
         const [email, password] = [e.target[0].value, e.target[1].value];
