@@ -1,7 +1,7 @@
 import "./InfoInput.css"
 
 // eslint-disable-next-line react/prop-types
-function InfoInput ({require_names, require_email, require_password, require_password_confirmation}) {
+function InfoInput ({require_names, require_email, require_password, require_password_confirmation, require_remember, remember, setRemember}) {
     return (
         <div className="info-input">
             {
@@ -40,6 +40,13 @@ function InfoInput ({require_names, require_email, require_password, require_pas
                 </div>
             }
             </div>
+            {
+            require_remember &&
+                <div className="remember-me-container">
+                    <label htmlFor="remember-me">Remember Me</label>
+                    <input name="remember-me" id="remember-me" type="checkbox" value={null} onChange={() => setRemember(!remember)}></input><br/>
+                </div>
+            }
         </div>
     )
 }

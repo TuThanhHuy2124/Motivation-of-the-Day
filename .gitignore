@@ -29,4 +29,7 @@ dist-ssr
 data
 .venv
 __pycache__
+api_test.py
+logic_test.py
 subscribers.json
+subscribers_test.json

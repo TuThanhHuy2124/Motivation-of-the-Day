@@ -7,8 +7,6 @@ import TimeZoneDropDown from "../components/TimeZoneDropDown";
 
 function Submission() {
     const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-    const searchQuery = new URLSearchParams(window.location.search);
-    const id = searchQuery.get("id");
     
     const [isLoading, setLoading] = useState(true);
     const [displayInfo, setDisplayInfo] = useState(false);
@@ -19,9 +17,16 @@ function Submission() {
     const [last_name, setLastName] = useState(null);
     const [email, setEmail] = useState(null);
 
+    let id = localStorage.getItem("id");
+    if(id === null) {
+      id = sessionStorage.getItem("id");
+      if(id === null) {console.log("No ID Found")}
+    }
+    console.log(id)
+
     useEffect(() => {
       const getUser = async () => {
-        fetch(`${import.meta.env.VITE_BACKEND_URL}/getuser${window.location.search}`, {
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/getuser?id=${id}`, {
             headers: {
               "Content-Type": "application/json",
               "Origin": import.meta.env.VITE_FRONTEND_URL
@@ -98,7 +103,7 @@ function Submission() {
   return (
     <div className="display" id="submission-display">
     {
-      
+      isLoading ? <Loading/> :
       <>
         <button className={displayInfo ? "active" : null} id="my-info-button"
                 onClick={(e) => {

@@ -5,11 +5,12 @@ import Loading from "../components/Loading";
 
 function LogIn () {
     const [status, setStatus] = useState(null);
+    const [remember, setRemember] = useState(false);
     const [isLoading, setLoading] = useState(false);
     const [statusColor, setStatusColor] = useState(null);
-    const [authenticationInfo, setAuthenticationInfo] = useState(null);
-
-    const handleImport = (e) => {
+    
+    useEffect(() => {if(localStorage.getItem("id") !== null) {window.location.href = `https://motivation-of-the-day/submission`;}}, [])
+    const handleLogIn = (e) => {
         e.preventDefault();
         const [email, password] = [e.target[0].value, e.target[1].value];
         const params = new URLSearchParams({
@@ -27,9 +28,11 @@ function LogIn () {
             .then(response => {
                 if(response.ok) {
                     response.json().then(data => {
-                        setAuthenticationInfo({"id": data.id});
+                        if (remember) {localStorage.setItem("id", data.id); console.log("Save in localStorage")}
+                        else sessionStorage.setItem("id", data.id); console.log("Save in sessionStorage");
                         setStatus("User's data imported");
                         setStatusColor("green");
+                        window.location.href = `https://motivation-of-the-day/submission`;
                     })
                 }
                 else {
@@ -43,13 +46,6 @@ function LogIn () {
             
     }
 
-    useEffect(() => {
-        if(authenticationInfo !== null) {
-            const nextParams = new URLSearchParams(authenticationInfo);
-            window.location.href = `https://motivation-of-the-day.netlify.app/submission?${nextParams.toString()}`;
-        }
-    }, [authenticationInfo])
-
     return (
         <>
         {isLoading && <Loading/>}
@@ -58,14 +54,17 @@ function LogIn () {
                 <p id="log-in-quote">“Live as if you were to die tomorrow. Learn as if you were to live forever.”</p>
                 <p id="log-in-author">- Mahatma Gandhi -</p>
             </div>
-            <form id="log-in-form" onSubmit={handleImport}>
+            <form id="log-in-form" onSubmit={handleLogIn}>
                 <div id="log-in-info">
                     <h1>Log In</h1>
                     <h2>Start receiving inspirational emails here!</h2>
                 </div>
                 <div id="log-in-container">
                     <InfoInput require_email={true}
-                               require_password={true}/>
+                               require_password={true}
+                               require_remember={true}
+                               remember={remember}
+                               setRemember={setRemember}/>
                     <button id="log-in-button" type="submit">Log In</button>
                 </div>
                 {(status !== null) && <p className={"status" + " " + statusColor}>{status}</p>}

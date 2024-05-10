@@ -1,17 +1,13 @@
 import { Outlet, Link} from "react-router-dom";
 import "./Layout.css";
 
-function Layout () {
+function Layout ({ loggedin }) {
 
     return (
         <>
         <header>
             <h1 className="title">Pocket Motivator</h1>
-            <nav>
-                <Link to="/"><button>About</button></Link>
-                <Link to="/signup"><button>Sign Up</button></Link>
-                <Link to="/login"><button>Log In</button></Link>
-            </nav>
+            {!loggedin ? <PreLogInNavBar/> : <PostLogInNavBar/>}
         </header>
         <Outlet />
         <footer>
@@ -27,6 +23,24 @@ function Layout () {
         </>
     )
 
+}
+
+function PreLogInNavBar () {
+    return (
+        <nav>
+            <Link to="/"><button>About</button></Link>
+            <Link to="/signup"><button>Sign Up</button></Link>
+            <Link to="/login"><button>Log In</button></Link>
+        </nav>
+    )
+}
+function PostLogInNavBar () {
+    return (
+        <nav>
+            <Link to="/"><button onClick={() => {sessionStorage.clear();}}>About</button></Link>
+            <Link to="/"><button onClick={() => {localStorage.clear(); sessionStorage.clear();}}>Log Out</button></Link>
+        </nav>
+    )
 }
 
 export default Layout;

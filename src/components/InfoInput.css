@@ -46,5 +46,17 @@
     width: 50%;
 }
 
+.remember-me-container {
+    display: flex;
+    align-items: baseline;
+    justify-content: start;
+    padding: 0 0 10px 10px;
+}
+#remember-me {
+    font-size: 10px;
+    transform: scale(1.25);
+    box-shadow: none;
+    margin: 0 0 0 10px;
+}
 
 

@@ -4,11 +4,10 @@ from datetime import datetime, timedelta, timezone
 def _get_timezone(tz: int = -7) -> timezone:
     return timezone(timedelta(hours=tz))
 
-def get_all_subscribers() -> dict:
+def get_all_subscribers(file_name = "subscribers.json") -> dict:
     """
     Return all the user_objs from subsribers.json
     """
-    file_name = "subscribers.json"
     try:
         with open(file_name, "r") as file:
             user_objs = json.load(file)
@@ -30,16 +29,14 @@ def rearrange_name(name: str) -> str:
     else:
         return name
 
-def get_user_if_valid(user_obj: dict) -> dict | None:
+def get_user_if_valid(user_obj: dict, now = datetime.now(tz=_get_timezone())) -> dict | None:
     """
     Check if user has confirmed their email and if they have any day_times to display.
     If yes, send a simplified version of user object if it is the right time
     (contains just enough information to send an email).
     If no, return None.
     """
-    CALIFORNIA_UTC = -7
     if user_obj["confirmed"] and "day_times" in user_obj:
-        now = datetime.now(tz=_get_timezone())
         day = now.strftime("%A")
         time = now.strftime("%H:%M")
         converted_day_times = _rearrange_day_times(user_obj["day_times"], user_obj["timezone"])
@@ -63,14 +60,16 @@ def get_user_if_valid(user_obj: dict) -> dict | None:
             time_objs = converted_day_times[day]
             print("get category: ")
             print(time_objs)
+            print(now, day, time)
             for time_obj in time_objs:
+                print(time_obj["time"], time)
                 if(time_obj["time"] == time):
                     return time_obj["category"]
 
         if(_should_send_mail()):
-            date = datetime.now(tz=_get_timezone(user_obj["timezone"])).strftime("%m/%d/%Y")
-            time = datetime.now(tz=_get_timezone(user_obj["timezone"])).strftime("%H:%M")
-            return {"first_name": user_obj["first_name"], "category": _get_category(), "email": user_obj["email"], "date": date, "time": time}
+            returned_date = datetime.now(tz=_get_timezone(user_obj["timezone"])).strftime("%m/%d/%Y")
+            returned_time = datetime.now(tz=_get_timezone(user_obj["timezone"])).strftime("%H:%M")
+            return {"first_name": user_obj["first_name"], "category": _get_category(), "email": user_obj["email"], "date": returned_date, "time": returned_time}
 
 def _rearrange_day_times(org_day_times: dict, timezone: int) -> dict:
     """
