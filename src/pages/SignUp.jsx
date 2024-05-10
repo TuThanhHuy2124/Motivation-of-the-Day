@@ -10,9 +10,9 @@ function SignUp () {
     const [isLoading, setLoading] = useState(false);
     const [statusColor, setStatusColor] = useState(null);
     
-    useEffect(() => {
-        setTimeout(() => setStatus(null), 3000);
-    }, [status])
+    // useEffect(() => {
+    //     setTimeout(() => setStatus(null), 3000);
+    // }, [status])
 
     const handleSignUp = (e) => {
         e.preventDefault();

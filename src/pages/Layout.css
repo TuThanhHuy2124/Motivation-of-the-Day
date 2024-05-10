@@ -71,3 +71,11 @@ footer .title {
     min-width: 150px;
     max-width: 200px;
 }
+
+#icon-container img{
+    transition: all 0.2s;
+}
+#icon-container img:hover{
+    transform: translate(0, -50%);
+    transition: all 0.2s;
+}
