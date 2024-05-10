@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import InfoInput from "../components/InfoInput";
 import "./SignUpLogIn.css";
 import Loading from "../components/Loading";
+import getRandomQuote from "../common/quote";
 
 function LogIn () {
+    const quoteObj = getRandomQuote();
     const [status, setStatus] = useState(null);
     const [remember, setRemember] = useState(false);
     const [isLoading, setLoading] = useState(false);
@@ -13,37 +15,42 @@ function LogIn () {
     const handleLogIn = (e) => {
         e.preventDefault();
         const [email, password] = [e.target[0].value, e.target[1].value];
-        const params = new URLSearchParams({
-            email: email,
-            password: password
-        });
-        setLoading(true);
-        fetch(`${import.meta.env.VITE_BACKEND_URL}/authenticateuser?${params.toString()}`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Origin": import.meta.env.VITE_FRONTEND_URL
+        if(email !== "" && password !== ""){
+            const params = new URLSearchParams({
+                email: email,
+                password: password
+            });
+            setLoading(true);
+            fetch(`${import.meta.env.VITE_BACKEND_URL}/authenticateuser?${params.toString()}`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Origin": import.meta.env.VITE_FRONTEND_URL
+                        }
+                    })
+                .then(response => {
+                    if(response.ok) {
+                        response.json().then(data => {
+                            if (remember) {localStorage.setItem("id", data.id); console.log("Save in localStorage")}
+                            else sessionStorage.setItem("id", data.id); console.log("Save in sessionStorage");
+                            setStatus("User's data imported");
+                            setStatusColor("green");
+                            window.location.href = `https://motivation-of-the-day.netlify.app/submission`;
+                        })
                     }
+                    else {
+                        response.json().then(data => {
+                            setStatus(data["response"]);
+                            setStatusColor("red");
+                        })
+                    }
+                    setLoading(false);
                 })
-            .then(response => {
-                if(response.ok) {
-                    response.json().then(data => {
-                        if (remember) {localStorage.setItem("id", data.id); console.log("Save in localStorage")}
-                        else sessionStorage.setItem("id", data.id); console.log("Save in sessionStorage");
-                        setStatus("User's data imported");
-                        setStatusColor("green");
-                        window.location.href = `https://motivation-of-the-day.netlify.app/submission`;
-                    })
-                }
-                else {
-                    response.json().then(data => {
-                        setStatus(data["response"]);
-                        setStatusColor("red");
-                    })
-                }
-                setLoading(false);
-            })
-            
+        }
+        else {
+            setStatus("Missing email or password");
+            setStatusColor("red");
+        }  
     }
 
     return (
@@ -51,8 +58,8 @@ function LogIn () {
         {isLoading && <Loading/>}
         <div className="display" id="log-in-display">
             <div id="log-in-quote-display">
-                <p id="log-in-quote">“Live as if you were to die tomorrow. Learn as if you were to live forever.”</p>
-                <p id="log-in-author">- Mahatma Gandhi -</p>
+                <p id="log-in-quote">“{quoteObj["q"]}”</p>
+                <p id="log-in-author">- {quoteObj["a"]} -</p>
             </div>
             <form id="log-in-form" onSubmit={handleLogIn}>
                 <div id="log-in-info">

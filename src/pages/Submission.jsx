@@ -20,9 +20,8 @@ function Submission() {
     let id = localStorage.getItem("id");
     if(id === null) {
       id = sessionStorage.getItem("id");
-      if(id === null) {console.log("No ID Found")}
+      if(id === null) {console.log("No ID Found"); window.location.href = `https://motivation-of-the-day.netlify.app/`;}
     }
-    console.log(id)
 
     useEffect(() => {
       const getUser = async () => {
@@ -100,10 +99,35 @@ function Submission() {
       });
   }}
 
+  const deleteUser = (e) => {
+    e.preventDefault();
+    if(window.confirm("Are you sure you want to delete this account?")) {
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/deleteuser?id=${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Origin": import.meta.env.VITE_FRONTEND_URL
+        }
+      })
+      .then(response => {
+        if(response.ok) {
+          response.json().then(data => {
+            window.alert(data["response"]);
+            window.location.href = `https://motivation-of-the-day.netlify.app/`;
+          })
+        }
+        else {
+          response.json().then(data => {
+            throw Error(data["response"]);
+          })
+        }
+      });
+  }}
+
   return (
     <div className="display" id="submission-display">
     {
-      isLoading ? <Loading/> :
+      // isLoading ? <Loading/> :
       <>
         <button className={displayInfo ? "active" : null} id="my-info-button"
                 onClick={(e) => {
@@ -114,6 +138,7 @@ function Submission() {
           <p className="first-name-fetched">First Name: <b>{first_name}</b></p>
           <p className="last-name-fetched">Last Name: <b>{last_name}</b></p>
           <p className="email-fetched">Email: <b>{email}</b></p>
+          <button onClick={deleteUser} id="delete-button">Delete Account</button>
         </div>}
         <div className="main-display">
           <TimeZoneDropDown preset_timezone={timezone} setTimezone={setTimezone}/>

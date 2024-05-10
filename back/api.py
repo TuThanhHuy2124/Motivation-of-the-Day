@@ -14,7 +14,6 @@ def get_quote_obj(categories: list) -> dict:
     except:
         pass
 
-
     category = random.choice(categories)
     api_key = os.environ.get("API_KEY")
     url = f"https://api.api-ninjas.com/v1/quotes?category={category}"

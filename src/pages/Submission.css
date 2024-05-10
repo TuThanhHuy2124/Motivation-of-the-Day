@@ -47,6 +47,21 @@
                 0px -2px 4px gray;
     border-radius: 10px;
 }
+#delete-button {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+#delete-button:hover {
+    background-color: red;
+    box-shadow: 4px 4px 10px gray,
+                -4px -4px 10px white;
+}
+#delete-button:active {
+    box-shadow: 0 0 0 gray,
+                0 0 0 white;
+}
+
 
 .main-display {
     display: flex;

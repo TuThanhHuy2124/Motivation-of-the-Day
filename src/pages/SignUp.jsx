@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import InfoInput from "../components/InfoInput";
 import Loading from "../components/Loading";
 import "./SignUpLogIn.css";
+import getRandomQuote from "../common/quote";
 import { Link } from "react-router-dom";
 
 
 function SignUp () {
+    const quoteObj = getRandomQuote();
     const [status, setStatus] = useState(null);
     const [isLoading, setLoading] = useState(false);
     const [statusColor, setStatusColor] = useState(null);
@@ -76,8 +78,8 @@ function SignUp () {
                 </div>
             </form>
             <div id="sign-up-quote-display">
-                <p id="sign-up-quote">“Live as if you were to die tomorrow. Learn as if you were to live forever.”</p>
-                <p id="sign-up-author">- Mahatma Gandhi -</p>
+                <p id="sign-up-quote">“{quoteObj["q"]}”</p>
+                <p id="sign-up-author">- {quoteObj["a"]} -</p>
             </div>
         </div>
         {(status !== null) && <p className={"status" + " " + statusColor}>{status}</p>}

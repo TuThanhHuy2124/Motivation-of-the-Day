@@ -114,9 +114,16 @@ def verify_log_in(func):
 @push_and_get
 def push_user(user: dict, *, id: str, sub_ref) -> None:
     """
-    Add 'user' to 'sub_ref' (user's address in the database) (which is passed from the decorator)
+    Set 'sub_ref' (user's address in the database) (which is passed from the decorator) to 'user' 
     """
     sub_ref.set(user)
+
+@push_and_get
+def delete_user(*, id: str, sub_ref) -> None:
+    """
+    Delete 'sub_ref' (user's address in the database) (which is passed from the decorator)
+    """
+    sub_ref.delete()
 
 @push_and_get
 def confirm_user(*, id: str, sub_ref) -> None:
@@ -160,4 +167,3 @@ def update_user_day_times(categories: list, day_times: dict, timezone: int, * , 
     failed_message = "User's ID does not match"
 
     return ConditionResultPackage(condition, result, failed_message)
-        
