@@ -6,7 +6,7 @@ function Layout ({ loggedin }) {
     return (
         <>
         <header>
-            <h1 className="title">Pocket Motivator</h1>
+            <Link className="title-link" to="/"><h1 className="title">Pocket Motivator</h1></Link>
             {!loggedin ? <PreLogInNavBar/> : <PostLogInNavBar/>}
         </header>
         <Outlet />

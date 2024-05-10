@@ -49,6 +49,9 @@ footer button:active {
 .title {
     color: var(--title-color)
 }
+.title-link {
+    font-style: normal;
+}
 
 nav{
     width: 30%;

@@ -46,7 +46,9 @@ function Confirmation() {
                         <div className="confirmation-container">
                             <h1 className="line-1">Thank you for verifying your email address</h1>
                             <h2 className="line-2">You may now proceed to submit the form</h2>
-                            <Link to={"/submission" + window.location.search}><button>Submission</button></Link>
+                            <Link to={"/submission"}><button className="submission-button" onClick={() => {
+                                sessionStorage.setItem("id", id)
+                            }}>Submission</button></Link>
                         </div> :
                         <div className="confirmation-container">
                             <h1 className="line-1">You have already verified your email</h1>

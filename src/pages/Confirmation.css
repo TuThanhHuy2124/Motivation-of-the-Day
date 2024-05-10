@@ -19,3 +19,15 @@
 .line-2 {
     color: var(--ascent-color);
 }
+.submission-button {
+    font-size: var(--responsive-font-size-1);
+    padding: 20px;
+    border-radius: 10px;
+}
+.submission-button:hover {
+    box-shadow: 2px 2px 4px gray;
+}
+.submission-button:active {
+    box-shadow: 0 0 0 gray;
+    transform: translate(2px, 2px);
+}
