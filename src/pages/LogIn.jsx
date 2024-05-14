@@ -12,7 +12,7 @@ function LogIn () {
     const [quoteObj, setQuoteObj] = useState({"q": null, "a": null});
     
     useEffect(() => {
-        if(localStorage.getItem("id") !== null) {window.location.href = `https://motivation-of-the-day.netlify.app/submission`;}
+        if(localStorage.getItem("id") !== null) {window.location.href = `https://pocket-motivator.netlify.app/submission`;}
         setQuoteObj(getRandomQuote())
     }, [])
     
@@ -39,7 +39,7 @@ function LogIn () {
                             else sessionStorage.setItem("id", data.id); console.log("Save in sessionStorage");
                             setStatus("User's data imported");
                             setStatusColor("green");
-                            window.location.href = `https://motivation-of-the-day.netlify.app/submission`;
+                            window.location.href = `https://pocket-motivator.netlify.app/submission`;
                         })
                     }
                     else {

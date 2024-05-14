@@ -20,7 +20,7 @@ function Submission() {
     let id = localStorage.getItem("id");
     if(id === null) {
       id = sessionStorage.getItem("id");
-      if(id === null) {console.log("No ID Found"); window.location.href = `https://motivation-of-the-day.netlify.app/`;}
+      if(id === null) {console.log("No ID Found"); window.location.href = `https://pocket-motivator.netlify.app/`;}
     }
 
     useEffect(() => {
@@ -123,7 +123,7 @@ function Submission() {
       });
       localStorage.clear();
       sessionStorage.clear();
-      window.location.href = `https://motivation-of-the-day.netlify.app/`;
+      window.location.href = `https://pocket-motivator.netlify.app/`;
   }}
 
   return (
