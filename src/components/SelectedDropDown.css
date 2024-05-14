@@ -2,3 +2,10 @@
     width: 60%;
     margin-right: 1%;
 }
+
+@media only screen and (max-width: 540px) {
+    .chosen-category {
+        width: 50%;
+        margin-right: 1%;
+    }
+}

@@ -84,7 +84,7 @@ footer .title {
 }
 @media only screen and (max-width: 540px) {
     * {
-        --header-real-height: 148px;
+        --header-real-height: 128px;
         --footer-real-height: 42px;
     }
     header,
@@ -97,6 +97,9 @@ footer .title {
     }
     header .title {
         padding-bottom: 0;
+    }
+    header button {
+        padding: 10px;
     }
     footer .title{
         visibility: hidden;

@@ -31,3 +31,17 @@
     box-shadow: 0 0 0 gray;
     transform: translate(2px, 2px);
 }
+
+@media only screen and (max-width: 540px) {
+    #confirmation-display {
+        background-position: right;
+    }
+    .confirmation-container {
+        padding: 0 10px 0 10px;
+    }
+    .submission-button {
+        color: white;
+        font-size: calc(var(--responsive-font-size-1) + var(--responsive-font-size-point5));
+        background-color: var(--ascent-color);
+    }
+}

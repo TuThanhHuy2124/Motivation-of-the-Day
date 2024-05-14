@@ -9,7 +9,7 @@ function LogIn () {
     const [remember, setRemember] = useState(false);
     const [isLoading, setLoading] = useState(false);
     const [statusColor, setStatusColor] = useState(null);
-    const [quoteObj, setQuoteObj] = useState({"q": null, "a": null})
+    const [quoteObj, setQuoteObj] = useState({"q": null, "a": null});
     
     useEffect(() => {
         if(localStorage.getItem("id") !== null) {window.location.href = `https://motivation-of-the-day.netlify.app/submission`;}

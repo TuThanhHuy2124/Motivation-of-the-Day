@@ -211,4 +211,7 @@
     #log-in-form h2  {
         font-size: calc(var(--responsive-font-size-point5) + var(--responsive-font-size-point75));
     }
+    .status {
+        font-size: var(--responsive-font-size-1);
+    }
 }

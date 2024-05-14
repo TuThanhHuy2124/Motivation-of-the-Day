@@ -51,15 +51,13 @@
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 10px;
-}
-#delete-button:hover {
+    color: white;
     background-color: red;
-    box-shadow: 4px 4px 10px gray,
-                -4px -4px 10px white;
+    box-shadow: 0px 2px 4px gray;
 }
 #delete-button:active {
-    box-shadow: 0 0 0 gray,
-                0 0 0 white;
+    box-shadow: 0 0 0 gray;
+    transform: translate(0px, 2px);
 }
 
 
@@ -97,4 +95,27 @@
 #submission-button:active {
     box-shadow: 0px 0px 0px gray;
     transform: translate(0px, 2px);
+}
+
+@media only screen and (max-width: 540px) {
+    #submission-display {
+        height: 200vh;
+    }
+    .inner-main-display {
+        align-items: center;
+        flex-direction: column;
+    }
+    .inner-main-display > div {
+        width: 90vw;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+    #submission-button {
+        font-size: var(--responsive-font-size-point1);
+    }
+    #my-info-button {
+        position: absolute;
+        top: calc(82px + 10px);
+        padding: 10px;
+    }
 }
