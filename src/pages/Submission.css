@@ -115,7 +115,7 @@
     }
     #my-info-button {
         position: absolute;
-        top: calc(82px + 10px);
+        top: 82px;
         padding: 10px;
     }
 }
