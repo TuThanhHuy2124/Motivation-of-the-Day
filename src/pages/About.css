@@ -16,11 +16,13 @@
     color: var(--title-color);
     margin-top: 0;
     font-size: var(--responsive-font-size-3);
+    text-align: center;
 }
 #sub-welcome {
     color: var(--ascent-color);
     margin-top: 0;
     font-size: var(--responsive-font-size-2);
+    text-align: center;
 }
 #intro {
     width: 70%;
@@ -28,4 +30,8 @@
     color: gray;
     margin-top: 0;
     font-size: calc(var(--responsive-font-size-1) + var(--responsive-font-size-point5));
+}
+
+@media only screen and (min-width: 540px) {
+    
 }

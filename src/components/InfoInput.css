@@ -59,4 +59,28 @@
     margin: 0 0 0 10px;
 }
 
+@media only screen and (max-width: 540px) {
+    .names-container,
+    .password-pack-container {
+        flex-direction: column;
+    }
+    .first-name-container,
+    .last-name-container,
+    .password-container,
+    .password-confirmation-container {
+        box-sizing: border-box;
+        width: 100%;
+    }
+    .email-container {
+        box-sizing: border-box;
+        width: 100%;
+    }
+    .info-input {
+        width: 100vw;
+    }
+    .info-input label,
+    .info-input input {
+        font-size: calc(var(--responsive-font-size-1) + var(--responsive-font-size-point5));
+    }
+}
 

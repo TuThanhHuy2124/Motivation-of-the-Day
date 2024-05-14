@@ -167,3 +167,48 @@
         transform: translate(-50%, 0px) scale(1);
     }
 }
+
+@media only screen and (max-width: 540px) {
+    #sign-up-display,
+    #log-in-display {
+        flex-direction: column;
+        height: max-content;
+    }
+    #sign-up-button,
+    #log-in-button {
+        width: 50%;
+        margin-bottom: 20px;
+    }
+    #sign-up-form,
+    #log-in-form {
+        height: 100%;
+        padding: 0;
+        min-width: 0;
+        width: fit-content;
+        align-items: center;
+        justify-content: start;
+    }
+    #sign-up-container,
+    #log-in-container {
+        align-items: center;
+    }
+    #sign-up-info,
+    #log-in-info {
+        padding: 20px 0 0 0;
+        text-align: center;
+    }
+    #sign-up-quote-display,
+    #sign-up-quote,
+    #log-in-quote-display,
+    #log-in-quote {
+        display: none;
+    }
+    #sign-up-form h1,
+    #log-in-form h1 {
+        font-size: calc(var(--responsive-font-size-2) + var(--responsive-font-size-3));
+    }
+    #sign-up-form h2,
+    #log-in-form h2  {
+        font-size: calc(var(--responsive-font-size-point5) + var(--responsive-font-size-point75));
+    }
+}
