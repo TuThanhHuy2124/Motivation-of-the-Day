@@ -44,18 +44,18 @@
              20px calc(var(--universal-lr-padding) + 30px);
 }
 
-#sign-up-form h1,
-#log-in-form h1,
-#forgot-password-form h1,
-#reset-password-form h1 {
+#sign-up-info > h1,
+#log-in-info > h1,
+#forgot-password-info > h1,
+#reset-password-info > h1 {
     color: var(--ascent-color);
     font-size: var(--responsive-font-size-3);
     margin: 0;
 }
-#sign-up-form h2,
-#log-in-form h2,
-#forgot-password-form h2,
-#reset-password-form h2 {
+#sign-up-info > h2,
+#log-in-info > h2,
+#forgot-password-info > h2,
+#reset-password-info > h2 {
     font-size: var(--responsive-font-size-1);
     color: var(--my-gray);
 }
