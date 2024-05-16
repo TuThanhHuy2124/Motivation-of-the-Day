@@ -29,7 +29,7 @@ export default function ResetPassword() {
         }
         else {
             setLoading(true);
-            fetch(`/resetpassword`, {
+            fetch(`${import.meta.env.VITE_BACKEND_URL}/resetpassword`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

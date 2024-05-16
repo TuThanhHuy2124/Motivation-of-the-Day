@@ -20,7 +20,7 @@ export default function ForgotPassword() {
         else {
             setLoading(true);
             const params = new URLSearchParams({email: email});
-            fetch(`/forgotpassword?${params.toString()}`, {
+            fetch(`${import.meta.env.VITE_BACKEND_URL}/forgotpassword?${params.toString()}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
