@@ -32,7 +32,7 @@
     font-size: calc(var(--responsive-font-size-1) + var(--responsive-font-size-point5));
 }
 
-@media only screen and (max-width: 540px) {
+@media only screen and (max-width: 560px) {
     #about-display {
         background-position: left;
     }

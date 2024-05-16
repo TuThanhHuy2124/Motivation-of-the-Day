@@ -30,7 +30,7 @@
                 0 0 0 white;
 }
 
-@media only screen and (max-width: 540px) {
+@media only screen and (max-width: 560px) {
     .error-page {
         font-size: 1em;
         width: 70vw;

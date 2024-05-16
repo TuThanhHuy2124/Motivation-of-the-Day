@@ -59,7 +59,7 @@
     margin: 0 0 0 10px;
 }
 
-@media only screen and (max-width: 540px) {
+@media only screen and (max-width: 560px) {
     .names-container,
     .password-pack-container {
         flex-direction: column;

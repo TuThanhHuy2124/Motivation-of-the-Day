@@ -45,7 +45,7 @@ body {
     position: relative;
     height: 100vh;
     width: 100vw;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 #root {
@@ -56,10 +56,11 @@ body {
 
 /* Wrap all that needs to be between header and footer in a div with class "display" */
 .display {
+    margin: 0;
     width: 100vw;
+    box-sizing: border-box;
     min-height: var(--standard-display-height);
-    height: var(--standard-display-height);
-    margin: var(--header-real-height) 0px var(--footer-real-height) 0px;
+    height: max-content;
 }
 
 button {
@@ -73,11 +74,49 @@ button:hover {
     transition: all 100ms;
 }
 
-@media only screen and (max-width: 540px) {
-    body {
-        overflow: auto;
+.status {
+    color: white;
+    position: fixed;
+    text-align: center;
+    padding: 10px;
+    border-radius: 20px;
+    font-size: var(--responsive-font-size-point75);
+    left: 50vw;
+    transform: translate(-50%, 0);
+    bottom: var(--footer-real-height);
+    
+    animation-name: status-appear;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+}
+.green {
+    background-color: green;
+}
+.red {
+    background-color: red;
+}
+@keyframes status-appear {
+    0% {
+        transform: translate(-50%, 100px) scale(0);
     }
-    .display {
-        margin: 0;
+    60% {
+        transform: translate(-50%, 0px) scale(1.2);
+        box-shadow: 4px 4px 10px gray,
+                    -4px -4px 10px white;
+    }
+    80% {
+        transform: translate(-50%, 0px) scale(0.8);
+    }
+    100% {
+        transform: translate(-50%, 0px) scale(1);
+    }
+}
+
+@media only screen and (max-width: 560px) {
+    .status {
+        width: max-content;
+        max-width: 70vw;
+        font-size: calc(var(--responsive-font-size-1) + var(--responsive-font-size-point5));
     }
 }

@@ -1,6 +1,6 @@
 * {
-    --header-real-height: 80px;
-    --footer-real-height: 72px;
+    --header-real-height: 83px;
+    --footer-real-height: 76px;
     --universal-real-width: 96vw; 
     /* 100vw - 2*var(--universal-lr-padding) */
     --universal-lr-padding: 2vw;
@@ -19,13 +19,15 @@ nav,
     align-items: center;
     justify-content: space-between;
 }
+footer {
+    justify-content: space-around;
+}
 
 /* Apply individual rules */
 header,
 footer {
-    width: var(--universal-real-width);
+    position: relative;
     padding: 0px var(--universal-lr-padding) 0px var(--universal-lr-padding);
-    position: fixed;
     background-color: var(--header-footer-background-color);
 }
 header button,
@@ -64,11 +66,6 @@ footer {
     padding: var(--footer-tb-padding) var(--universal-lr-padding) 
              var(--footer-tb-padding) var(--universal-lr-padding);
 }
-footer .title {
-    position: fixed;
-    left: 50vw;
-    transform: translate(-50%);
-}
 #icon-container {
     width: 10%;
     min-width: 150px;
@@ -82,10 +79,10 @@ footer .title {
     transform: translate(0, -50%);
     transition: all 0.2s;
 }
-@media only screen and (max-width: 540px) {
+@media only screen and (max-width: 560px) {
     * {
         --header-real-height: 128px;
-        --footer-real-height: 42px;
+        --footer-real-height: 76px;
     }
     header,
     footer {
