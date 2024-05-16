@@ -49,6 +49,16 @@ def get_user_id(email: str, password: str) -> str:
             return id
     raise InformationMismatched("Wrong email or password")
 
+# Get user's id from email only
+def get_user_id_from_email(email: str) -> str:
+    """
+    Return user's id if the inputted email matches
+    """
+    for id, user in get_all_subscribers().items():
+        if user["email"] == email:
+            return id
+    raise InformationMismatched("Wrong email")
+
 
 # Check user's information
 def user_exists(email: str) -> bool:
@@ -155,7 +165,7 @@ def update_user_day_times(categories: list, day_times: dict, timezone: int, * , 
     Update user's 'categories', 'day_times', and 'timezone' if the inputted id matches
     """
     @push_and_get
-    def _update(*, id: str, sub_ref) -> None:
+    def _update_day_times(*, id: str, sub_ref) -> None:
         sub_ref.update({
                     "timezone": timezone,
                     "categories": categories,
@@ -163,7 +173,22 @@ def update_user_day_times(categories: list, day_times: dict, timezone: int, * , 
                 })
         
     condition = user["id"] == id
-    result = _update(id=id)
+    result = _update_day_times(id=id)
+    failed_message = "User's ID does not match"
+
+    return ConditionResultPackage(condition, result, failed_message)
+
+@verify_log_in
+def update_user_password(password: str, * , id: str, user: dict):
+    """
+    Update user's 'password' if the inputted id matches
+    """
+    @push_and_get
+    def _update_password(*, id: str, sub_ref) -> None:
+        sub_ref.update({"password": password})
+        
+    condition = user["id"] == id
+    result = _update_password(id=id)
     failed_message = "User's ID does not match"
 
     return ConditionResultPackage(condition, result, failed_message)

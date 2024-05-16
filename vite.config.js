@@ -37,6 +37,24 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,      
         ws: true,
+      },
+      '/deleteuser': {
+        target: 'https://motivation-of-the-day.onrender.com',
+        changeOrigin: true,
+        secure: false,      
+        ws: true,
+      },
+      '/forgotpassword': {
+        target: 'https://motivation-of-the-day.onrender.com',
+        changeOrigin: true,
+        secure: false,      
+        ws: true,
+      },
+      '/resetpassword': {
+        target: 'https://motivation-of-the-day.onrender.com',
+        changeOrigin: true,
+        secure: false,      
+        ws: true,
       }
     }
   }

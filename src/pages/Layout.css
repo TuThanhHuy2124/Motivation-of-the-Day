@@ -82,7 +82,7 @@ footer {
 @media only screen and (max-width: 560px) {
     * {
         --header-real-height: 128px;
-        --footer-real-height: 76px;
+        --footer-real-height: 43px;
     }
     header,
     footer {
@@ -98,8 +98,11 @@ footer {
     header button {
         padding: 10px;
     }
+    footer {
+        justify-content: space-between;
+    }
     footer .title{
-        visibility: hidden;
+        display: none;
     }
     footer button {
         padding: 5px;

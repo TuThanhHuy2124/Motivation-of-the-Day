@@ -1,8 +1,8 @@
 import json
 from flask_cors import CORS, cross_origin
-from mail import send_confirmation
+from mail import send_confirmation, send_reset_password
 from flask import Flask, request, abort, Response, jsonify
-from database import push_user, delete_user, fetch_user, user_exists, confirm_user, user_confirmed, get_user_id, update_user_day_times, sync_from_firebase, InformationMismatched, UserDoesNotExist
+from database import *
 
 FRONTEND_URL = "https://motivation-of-the-day.netlify.app"
 
@@ -35,7 +35,7 @@ def delete_user_endpoint():
     except InformationMismatched as e:
         print(e)
         return _build_response(str(e)), 404  
-        
+    
 @app.route("/signupuser", methods=["POST"])
 @cross_origin(origins=FRONTEND_URL)
 def sign_up_user():
@@ -53,6 +53,41 @@ def sign_up_user():
             error = "User already exists"
             print(error)
             return _build_response(error), 404
+    
+@app.route("/forgotpassword", methods=["GET"])
+@cross_origin(origins=FRONTEND_URL)
+def forgot_password():
+    """
+    Provide an endpoint for frontend to request a reset password email.
+    """
+    try:
+        if(request.method == "GET"):
+            email = request.args.get("email")
+            id = get_user_id_from_email(email)
+            send_reset_password(email, id)
+            return _build_response("Reset password email sent"), 200
+        
+    except InformationMismatched as e:
+        print(e)
+        return _build_response(str(e)), 404  
+    
+@app.route("/resetpassword", methods=["PUT"])
+@cross_origin(origins=FRONTEND_URL)
+def reset_password():
+    """
+    Provide an endpoint for frontend to update a user's password.
+    """
+    try:
+        if(request.method == "PUT"):
+            print(request.json["id"])
+            success_msg = "Password has been reset"
+            update_user_password(**request.json)
+            print(success_msg)
+            return _build_response(success_msg), 200
+            
+    except UserDoesNotExist as e:
+        print(e)
+        return _build_response(str(e)), 404  
     
 @app.route("/verifyuser", methods=["PUT"])
 @cross_origin(origins=FRONTEND_URL)

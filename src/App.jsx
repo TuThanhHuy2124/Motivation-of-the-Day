@@ -6,6 +6,8 @@ import LogIn from "./pages/LogIn";
 import Confirmation from "./pages/Confirmation";
 import About from "./pages/About";
 import Error from "./pages/Error";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function App () {
 
@@ -17,6 +19,8 @@ function App () {
                         <Route path="/signup" element={<SignUp />}></Route>
                         <Route path="/login" element={<LogIn />}></Route>
                         <Route path="/confirmation" element={<Confirmation />}></Route>
+                        <Route path="/forgot-password" element={<ForgotPassword />}></Route>
+                        <Route path="/reset-password" element={<ResetPassword />}></Route>
                 </Route>
                 <Route path="/submission" element={<Layout loggedin={true}/>}>
                     <Route path="/submission" element={<Submission />}></Route>

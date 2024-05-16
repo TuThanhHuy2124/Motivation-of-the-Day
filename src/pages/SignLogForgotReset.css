@@ -8,14 +8,18 @@
     --impact-font-size: 40px;
 }
 
-#sign-up-display {
+#sign-up-display,
+#forgot-password-display {
     background-image: url("/background/signup_background.png");
 }
-#log-in-display {
+#log-in-display,
+#reset-password-display {
     background-image: url("/background/login_background.png");
 }
 #sign-up-display,
-#log-in-display {
+#log-in-display,
+#forgot-password-display, 
+#reset-password-display {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -41,13 +45,17 @@
 }
 
 #sign-up-form h1,
-#log-in-form h1 {
+#log-in-form h1,
+#forgot-password-form h1,
+#reset-password-form h1 {
     color: var(--ascent-color);
     font-size: var(--responsive-font-size-3);
     margin: 0;
 }
 #sign-up-form h2,
-#log-in-form h2  {
+#log-in-form h2,
+#forgot-password-form h2,
+#reset-password-form h2 {
     font-size: var(--responsive-font-size-1);
     color: var(--my-gray);
 }
@@ -56,19 +64,25 @@
 }
 
 #sign-up-info,
-#log-in-info {
+#log-in-info,
+#forgot-password-info,
+#reset-password-info {
     padding-left: var(--sign-up-log-in-content-padding);
 }
 
 #sign-up-container,
-#log-in-container {
+#log-in-container,
+#forgot-password-container,
+#reset-password-container {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 
 #sign-up-button,
-#log-in-button {
+#log-in-button,
+#send-email-button,
+#reset-password-button {
     box-sizing: border-box;
     color: white;
     background-color: var(--ascent-color);
@@ -82,13 +96,17 @@
     transition: outline 0.1s;
 }
 #sign-up-button:active,
-#log-in-button:active {
+#log-in-button:active,
+#send-email-button:active,
+#reset-password-button:active {
     transform: translate(4px, 4px);
     box-shadow: 0px 0px;
     transition: 0.1s;
 }
 #sign-up-button:hover,
-#log-in-button:hover {
+#log-in-button:hover,
+#send-email-button:hover,
+#reset-password-button:hover {
     outline: 4px solid var(--background-image-color);
     outline-offset: -2px;
     transition: 0.1s;
@@ -162,18 +180,24 @@
 
 @media only screen and (max-width: 560px) {
     #sign-up-display,
-    #log-in-display {
+    #log-in-display,
+    #forgot-password-display,
+    #reset-password-display {
         padding: 0 10px 0 10px;
         box-sizing: border-box;
         flex-direction: column;
     }
     #sign-up-button,
-    #log-in-button {
+    #log-in-button,
+    #send-email-button,
+    #reset-password-button {
         width: 50%;
         margin-bottom: 20px;
     }
     #sign-up-form,
-    #log-in-form {
+    #log-in-form,
+    #forgot-password-form,
+    #reset-password-form {
         height: 100%;
         padding: 0;
         min-width: 0;
@@ -182,20 +206,28 @@
         justify-content: start;
     }
     #sign-up-container,
-    #log-in-container {
+    #log-in-container,
+    #forgot-password-container,
+    #reset-password-container {
         align-items: center;
     }
     #sign-up-info,
-    #log-in-info {
+    #log-in-info,
+    #forgot-password-info,
+    #reset-password-info {
         padding: 20px 0 0 0;
         text-align: center;
     }
     #sign-up-form h1,
-    #log-in-form h1 {
-        font-size: calc(var(--responsive-font-size-2) + var(--responsive-font-size-3));
+    #log-in-form h1,
+    #forgot-password-form h1,
+    #reset-password-form h1 {
+        font-size: calc(var(--responsive-font-size-2) + var(--responsive-font-size-2));
     }
     #sign-up-form h2,
-    #log-in-form h2  {
+    #log-in-form h2,
+    #forgot-password-form h2,
+    #reset-password-form h2  {
         font-size: calc(var(--responsive-font-size-point5) + var(--responsive-font-size-point75));
     }
     .status {

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import InfoInput from "../components/InfoInput";
 import Loading from "../components/Loading";
-import "./SignUpLogIn.css";
 import getRandomQuote from "../common/quote";
-import { Link } from "react-router-dom";
+import "./SignLogForgotReset.css";
 
 
 function SignUp () {

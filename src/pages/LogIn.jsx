@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import InfoInput from "../components/InfoInput";
-import "./SignUpLogIn.css";
 import Loading from "../components/Loading";
 import getRandomQuote from "../common/quote";
+import "./SignLogForgotReset.css";
 
 function LogIn () {
     const [status, setStatus] = useState(null);
@@ -69,6 +70,7 @@ function LogIn () {
                 <div id="log-in-info">
                     <h1>Log In</h1>
                     <h2>Start receiving inspirational emails here!</h2>
+                    <Link to="/forgot-password"><h2>Forgot Password?</h2></Link>
                 </div>
                 <div id="log-in-container">
                     <InfoInput require_email={true}
