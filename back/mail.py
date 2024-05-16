@@ -174,7 +174,7 @@ def send_reset_password(email: str, id: str) -> EmailPackage:
                                     <h2>This email has been sent because you have <i>requested to change<i> your password</h2>
                                     <h2>Please <i>do not</i> share this link with anyone</h2>
                                     <div class="verify">
-                                        <a href="http://localhost:5173/reset-password?{urllib.parse.urlencode(params)}" target="_blank">
+                                        <a href="https://pocket-motivator.netlify.app/reset-password?{urllib.parse.urlencode(params)}" target="_blank">
                                             <button><h3>Reset My Password</h3></button>
                                         </a>
                                     </div>
