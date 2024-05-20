@@ -1,10 +1,10 @@
-# Motivation of the Day
+# Pocket Motivator
 
-**Motivation of the Day** allows users to sign up and register the time slots and topics that they want so that the system can send them motivational quotes through email at those specific time slots
+**Pocket Motivator** allows users to sign up and register the time slots and topics that they want so that the system can send them motivational quotes through email at those specific time slots
 
 ## Usage
 
-Access the web app through this [link](https://motivation-of-the-day.netlify.app)
+Access the web app through this [link](https://pocket-motivator.netlify.app)
 
 ## License
 
