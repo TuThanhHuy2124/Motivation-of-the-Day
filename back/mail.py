@@ -217,6 +217,13 @@ def send_quote(simplified_user: dict) -> EmailPackage:
                             i {{
                                 color: green;
                             }}
+                            img {{
+                                border-radius: 50%;
+                                display: block;
+                                margin-top: 16.185px;
+                                margin-left: auto;
+                                margin-right: auto;
+                            }}
                             .quote-container {{
                                 border: 2px solid black;
                                 border-radius: 10px;
@@ -236,8 +243,9 @@ def send_quote(simplified_user: dict) -> EmailPackage:
                             <h1>Hello, <i>{simplified_user["first_name"]}</i>!</h1>
                             <h2>Here is your quote about <i>{quote_obj["category"]}</i> for <i>{simplified_user["date"]}</i> at <i>{simplified_user["time"]}</i>:</h2>
                             <div class="quote-container">
-                                <h2>{quote_obj["quote"]}</h2>
-                                <h2 class="author">- {rearrange_name(quote_obj["author"])}</h2>
+                                <img src="{quote_obj["i"]}" alt="author's image"></img>
+                                <h2>{quote_obj["q"]}</h2>
+                                <h2 class="author">- {rearrange_name(quote_obj["a"])}</h2>
                             </div>
                         </div>
                     </body>

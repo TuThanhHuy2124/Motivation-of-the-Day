@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 def get_quote_obj(categories: list) -> dict:
     """
-    Get a quote object from Ninja APIs and return
+    Get a quote object from Zen Quote APIs and return
     """
     
     try:
@@ -16,13 +16,13 @@ def get_quote_obj(categories: list) -> dict:
 
     category = random.choice(categories)
     api_key = os.environ.get("API_KEY")
-    url = f"https://api.api-ninjas.com/v1/quotes?category={category}"
+    url = f"https://zenquotes.io/api/quotes/{api_key}&keyword={category}"
     response = requests.get(url, headers={"X-Api-Key": api_key})
     if response.status_code == requests.codes.ok:
         quote_response = response.json()
-        if len(quote_response) == 1:
-            return quote_response[0]
+        if len(quote_response) > 0:
+            return quote_response[0] | {"category": category}
         else:
-            raise ValueError("Length of quote object is not 1") 
+            raise ValueError("Nothing is returned") 
     else:
         print("Error:", response.status_code, response.text)
