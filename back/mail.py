@@ -194,7 +194,7 @@ def send_quote(simplified_user: dict) -> EmailPackage:
     """
     print(simplified_user)
     quote_obj = get_quote_obj(simplified_user["category"])
-    
+    print(quote_obj)
     receiver = simplified_user["email"]
 
     subject = f"Pocket Motivator - {simplified_user['date']} - {simplified_user['time']}"
