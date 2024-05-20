@@ -4,7 +4,7 @@ from mail import send_confirmation, send_reset_password
 from flask import Flask, request, abort, Response, jsonify
 from database import *
 
-FRONTEND_URL = "https://motivation-of-the-day.netlify.app"
+FRONTEND_URL = "https://pocket-motivator.netlify.app"
 
 def _prepare_flask_app() -> Flask:
     sync_from_firebase()
