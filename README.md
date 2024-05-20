@@ -6,6 +6,10 @@
 
 Access the web app through this [link](https://pocket-motivator.netlify.app)
 
+## Video Walkthrough
+
+![](https://github.com/TuThanhHuy2124/Pocket-Motivator/blob/main/public/pocket-motivator.gif)
+
 ## License
 
 MIT License
