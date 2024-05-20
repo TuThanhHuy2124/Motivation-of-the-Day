@@ -68,7 +68,7 @@ def send_confirmation(email: str, id: str) -> EmailPackage:
 
     receiver = email
 
-    subject = "Pocket Motivator - Email Verification"
+    subject = "Email Verification"
 
     text_content = f"Hello, there"
 
@@ -133,7 +133,7 @@ def send_reset_password(email: str, id: str) -> EmailPackage:
 
     receiver = email
 
-    subject = "Pocket Motivator - Reset Password"
+    subject = "Reset Password"
 
     text_content = f"Hello, there"
 
@@ -197,7 +197,7 @@ def send_quote(simplified_user: dict) -> EmailPackage:
     print(quote_obj)
     receiver = simplified_user["email"]
 
-    subject = f"Pocket Motivator - {simplified_user['date']} - {simplified_user['time']}"
+    subject = f"Here's Your Quote - {simplified_user['date']} - {simplified_user['time']}"
 
     text_content = ""
                 #    f"Hello, {simplified_user["first_name"]}\n"\
