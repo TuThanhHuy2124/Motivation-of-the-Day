@@ -19,9 +19,6 @@ nav,
     align-items: center;
     justify-content: space-between;
 }
-footer {
-    justify-content: space-around;
-}
 
 /* Apply individual rules */
 header,
@@ -66,12 +63,16 @@ footer {
     padding: var(--footer-tb-padding) var(--universal-lr-padding) 
              var(--footer-tb-padding) var(--universal-lr-padding);
 }
-#icon-container {
+#icon-container,
+#footer-button-container {
     width: 10%;
     min-width: 150px;
     max-width: 200px;
 }
-
+#footer-button-container {
+    display: flex;
+    justify-content: flex-end;
+}
 #icon-container img{
     transition: all 0.2s;
 }
